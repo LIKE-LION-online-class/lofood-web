@@ -53,7 +53,7 @@ export default function Search() {
 
   if (isMobile) {
     return (
-      <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" height="100%">
+      <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" height="100%" width="100%">
         <Box height={100} width={100}>
           <img
             src="https://cdn-icons-png.freepik.com/512/10255/10255440.png"
