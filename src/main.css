@@ -21,3 +21,51 @@
   margin: 12px;
   border-radius: 4px;
 }
+.fix-button-slick{
+  .slick-next {
+    right: 0;
+    z-index: 9999;
+    background: red;
+  }
+  .slick-prev {
+    left: 0;
+    z-index: 9999;
+    background: red;
+  }
+}
+.home-silder{
+  height: 600px;
+
+}
+.with-arrow{
+  &:after{
+    padding: .21428571rem;
+    display: inline-block;
+    content: "";
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+    margin-left: 6px;
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
+.heading-line{
+  &:before{
+    font-size: 28px;
+    position: absolute;
+    content: "";
+    background: rgba(0, 0, 0, .1);
+    height: 2px;
+    width: 100%;
+    top: calc(50% - 2px);
+  }
+  span{
+    background: #fff;
+    display: inline-block;
+    position: relative;
+    padding-right: 1.07142857rem;
+  }
+}
+.box-do-you-want-like-this-food{
+
+}

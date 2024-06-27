@@ -1,13 +1,12 @@
-import { AppBar, Toolbar, Typography, Button, Box, IconButton,Container,Grid  } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton,Container,Grid  } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchInput from './SearchInput';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import {AppContext} from "../context/AppContext.tsx";
 
 const NavigationBar = () => {
+
   const{isOpen,setIsOpen,toogleSideBar}= useContext(AppContext);
-  //const [isOpen, setIsOpen]= useState<boolean>(false)
 
   return (
 
