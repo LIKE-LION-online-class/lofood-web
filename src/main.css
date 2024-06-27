@@ -8,7 +8,9 @@
 .map-container {
   height: 100vh;
 }
-
+body{
+  min-height: 100vh;
+}
 .sidebar {
   background-color: rgb(35 55 75 / 90%);
   color: #fff;
@@ -66,6 +68,19 @@
     padding-right: 1.07142857rem;
   }
 }
-.box-do-you-want-like-this-food{
-
+.navigation{
+  .active{
+    color: red !important;
+  }
+}
+.navigation-thuc-don{
+  position: sticky;
+  position: -webkit-sticky;
+  overflow: hidden;
+  z-index: 3;
+  background: #fff;
+  margin-bottom: 1.42857143rem;
+  top: 102px;
+  margin-bottom: 2.14285714rem;
+  padding-top: .57142857rem;
 }

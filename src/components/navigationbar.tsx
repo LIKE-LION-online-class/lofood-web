@@ -1,16 +1,17 @@
 import { AppBar, Toolbar, Typography, Button, IconButton,Container,Grid  } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useContext } from 'react';
 import {AppContext} from "../context/AppContext.tsx";
+
 
 const NavigationBar = () => {
 
   const{isOpen,setIsOpen,toogleSideBar}= useContext(AppContext);
 
+  const {pathname}= useLocation();
   return (
-
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} elevation={0}>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} elevation={0} className="navigation">
         <Container maxWidth="lg">
         <Grid container>
           <Grid item xs={8}>
@@ -21,25 +22,24 @@ const NavigationBar = () => {
                     <img width="78" height="78" src="../public/kfc-logo.svg" alt="avatar" />
                   </Link>
                 </Typography>
-
               </Grid>
               <Grid item>
                 <Typography variant="h6" noWrap component="div">
-                  <Link to={`/thuc-don`} style={{ textDecoration: 'none', color: 'black' }}>
+                  <Link to={`/thuc-don`} style={{ textDecoration: 'none', color: 'black' }} className={ pathname.includes('/thuc-don') ? 'active' : ''}>
                     Thực đơn
                   </Link>
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography variant="h6" noWrap component="div">
-                  <Link to={`/he-thong-nha-hang`} style={{ textDecoration: 'none', color: 'black' }}>
+                  <Link to={`/he-thong-nha-hang`} style={{ textDecoration: 'none', color: 'black' }} className={ pathname.includes('/he-thong-nha-hang') ? 'active' : ''}>
                     Hệ Thống nhà hàng
                   </Link>
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography variant="h6" noWrap component="div">
-                  <Link to={`/khuyen-mai`} style={{ textDecoration: 'none', color: 'black' }}>
+                  <Link to={`/khuyen-mai`} style={{ textDecoration: 'none', color: 'black'}} className={ pathname.includes('/khuyen-mai') ? 'active' : ''}>
                     Khuyến mãi
                   </Link>
                 </Typography>
