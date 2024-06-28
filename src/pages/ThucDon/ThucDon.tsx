@@ -35,8 +35,8 @@ document.addEventListener("load",(e)=>{
 })
 const ThucDon =() => {
   return (
-        <Container maxWidth="lg" sx={{paddingTop:'100px'}}>
-          <Box className="fix-button-slick boxNarrowMenu" sx={{ overflow: 'hidden'}} my={6}>
+        <Container>
+          <Box className="fix-button-slick boxNarrowMenu" sx={{ overflow: 'hidden',borderBottom:'1px solid #ccc'}} mb={3}>
             <Slider {...settingsCarousel}>
               <Box p={1}>
                 <Typography variant="h6" noWrap component="div" textAlign="center">
@@ -96,8 +96,8 @@ const ThucDon =() => {
               </Box>
             </Slider>
           </Box>
-          <Box className="uu-dai" my={6} id="uu-dai">
-            <Typography variant="h2" noWrap component="h2" my={4} sx={{position:'relative'}}>
+          <Box className="uu-dai" mb={2} id="uu-dai">
+            <Typography variant="h2" noWrap component="h2" mb={2} sx={{position:'relative'}}>
               <span>Ưu đãi</span>
             </Typography>
             <Box

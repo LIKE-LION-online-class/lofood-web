@@ -23,7 +23,7 @@ var settingsCarousel = {
 export default function Home() {
   return (
     <>
-      <Box className="home-silder fix-button-slick" sx={{ overflow: 'hidden'}} my={6}>
+      <Box className="home-silder fix-button-slick" sx={{ overflow: 'hidden'}} mb={6}>
         <Slider {...settings}>
           <Box>
             <img src="../src/assets/BO.jpg" alt="BO"/>
