@@ -6,6 +6,7 @@ import Home from '@/pages/Home/Home';
 import MainLayout from '@/components/MainLayout';
 import {Outlet, createBrowserRouter,RouteObject} from "react-router-dom";
 import ThucDon from '@/pages/ThucDon/ThucDon.tsx';
+import GioHang from '@/pages/GioHang/GioHang.tsx';
 
 const appRoutes: RouteObject[] = [
   {
@@ -23,6 +24,10 @@ const appRoutes: RouteObject[] = [
       {
         path: '/he-thong-nha-hang',
         element: <HeThongNhaHang />
+      },
+      {
+        path: '/gio-hang',
+        element: <GioHang />
       },
       {
         path: '/auth/login',

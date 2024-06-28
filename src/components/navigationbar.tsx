@@ -50,19 +50,13 @@ const NavigationBar = () => {
             <Grid container spacing={2}>
               <Grid item>
                 <Typography variant="h6" noWrap component="div">
-                  <Link to={`/khuyen-mai`} style={{ textDecoration: 'none', color: 'black' }}>
-                    Giỏ hàng
+                  <Link to={`/gio-hang`} style={{ textDecoration: 'none', color: 'black' }} className="mat-pripple basket">
                   </Link>
                 </Typography>
               </Grid>
               <Grid item>
                 <Button component={Link} to="/auth/login" color="inherit">
-                  Log in
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button component={Link} to="/auth/register" color="inherit">
-                  Register
+                  <i className="icon-login"></i>
                 </Button>
               </Grid>
               <Grid item>

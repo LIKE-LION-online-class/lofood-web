@@ -119,3 +119,26 @@ body{
 body.overflow-hidden{
   overflow: hidden;
 }
+[class^=icon-] {
+  background: url(https://static.kfcvietnam.com.vn/images/web/sprite.png?v=5.0) no-repeat;
+  width: 25px;
+  display: inline-block;
+  height: 25px;
+  vertical-align: middle;
+}
+.icon-login{
+  background-position: -10px -60px;
+  width: 30px;
+  height: 30px;
+}
+.basket{
+  width: 30px;
+  height: 43px;
+  background: url(https://static.kfcvietnam.com.vn/images/web/cart.png?v=5.0) no-repeat -53px 1px;
+  background-size: 350%;
+  text-align: center;
+  line-height: 50px;
+  font-family: Roboto, sans-serif;
+  display: block;
+  letter-spacing: -1px;
+}
