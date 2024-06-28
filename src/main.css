@@ -84,3 +84,38 @@ body{
   margin-bottom: 2.14285714rem;
   padding-top: .57142857rem;
 }
+.boxNarrowMenu{
+  a{
+    position: relative;
+    &.active{
+      &:after{
+        color: #000;
+        bottom: 0;
+        content: "";
+        height: 5px;
+        position: absolute;
+        background: #e4002b;
+        transition: width .3s ease 0s, left .3s ease 0s;
+        width: 100%;
+        left: 0;
+      }
+    }
+  }
+}
+.sidebar-with-arrow{
+  &:after{
+    display: inline-block;
+    content: "";
+    border: solid #000;
+    margin-left: .42857143rem;
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    border-width: 0 1px 1px 0;
+    padding: .14285714rem;
+    margin-bottom: .14285714rem;
+
+  }
+}
+body.overflow-hidden{
+  overflow: hidden;
+}
