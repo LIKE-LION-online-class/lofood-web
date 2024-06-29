@@ -40,7 +40,7 @@ const NavigationBar = () => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant="h3" noWrap component="p">
+                  <Typography variant="h2" noWrap component="p">
                     <Link to={`/khuyen-mai`} style={{ textDecoration: 'none', color: 'black'}} className={ pathname.includes('/khuyen-mai') ? 'active' : ''}>
                       Khuyến mãi
                     </Link>

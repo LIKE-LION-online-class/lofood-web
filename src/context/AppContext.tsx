@@ -6,9 +6,9 @@ export const AppContext = createContext({});
 export const AppProvider = ({children})=>{
   const {pathname}= useLocation();
   const [isOpen,setIsOpen]= useState(false);
-  const toogleSideBar = (e: { target: { classList: { toggle: (arg0: string) => void; }; }; })=>{
+  const toogleSideBar = (e: { currentTarget: { classList: { toggle: (arg0: string) => void; }; }; })=>{
     setIsOpen(!isOpen);
-    e.target.classList.toggle('toogle-sidebar');
+    e.currentTarget.classList.toggle('active');
   }
   let itemsMenu;
  Routing.routes.map((item, i) => {
