@@ -13,11 +13,14 @@ import {
   Grid,
   Stack,
   TextField,
+  Modal,
+  Typography
 } from '@mui/material';
 import { TypeOf, object, string } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
+import * as React from 'react';
 
 const registerSchema = object({
   email: string().min(1, 'Email không được để trống').email('Email không hợp lệ'),
@@ -38,11 +41,23 @@ export default function Login() {
       password: 'Sang2403@',
     },
   });
-
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
   const onSubmitHandler: SubmitHandler<LoginInput> = async (values) => {
     console.log(values);
   };
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#EDF2F7">
       <Container maxWidth="xs" disableGutters>
@@ -73,10 +88,8 @@ export default function Login() {
                     {...register('password')}
                     helperText={errors['password'] ? errors['password'].message : ''}
                   />
-
-                  <Button>Quên mật khẩu</Button>
+                  <Button onClick={handleOpen}>Quên mật khẩu</Button>
                 </Grid>
-
                 <Grid item xs={12}>
                   <FormGroup>
                     <FormControlLabel control={<Checkbox defaultChecked />} label="Nhớ tài khoản" />
@@ -98,6 +111,21 @@ export default function Login() {
                 </Grid>
               </Grid>
             </CardContent>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Text in a modal
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                </Typography>
+              </Box>
+            </Modal>
           </Card>
         </form>
       </Container>

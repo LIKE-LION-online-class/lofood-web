@@ -67,7 +67,7 @@ const ProductInBasket = ({ image }: RecipeReviewCardProps)=> {
               <Stack direction="row" className="box-action">
                 <Link color="inherit" data-btn-type="btn-decrement" onClick={() => dispatch('giam')}><i
                   className="icon-decrement"></i></Link>
-                <input className="quantity" name="quantity" type="text" size="1" value={count<0 || count ===0 ? 1 : count} />
+                <input className="quantity" name="quantity" type="text" size="1" value={count<0 || count ===0 ? 1 : count}/>
                 <Link color="error" data-btn-type="btn-increment" onClick={() => dispatch('tang')}><i
                   className="icon-increment"></i></Link>
               </Stack>

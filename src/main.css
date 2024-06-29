@@ -146,6 +146,7 @@ body.overflow-hidden{
   .quantity{
     border:0px;
     outline: 0px;
+    text-align: center;
   }
   .switch{
     position: relative;

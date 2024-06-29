@@ -58,7 +58,7 @@ const GioHang =() => {
               <Paper elevation={3} sx={{ overflow: 'hidden',padding:'20px'}}>
                 <Typography component="h2" variant="h2" sx={{borderBottom:'1px solid #ccc'}} pb={2} mb={2}>1 MÓN</Typography>
                 <Box className="content" sx={{borderBottom:'1px solid #ccc'}} pb={2} mb={2}>
-                  <Stack direction="row">
+                  <Stack direction="row" justifyContent={'space-between'}>
                     <Typography component="p" variant="p">
                       Tổng đơn hàng
                     </Typography>
@@ -66,7 +66,7 @@ const GioHang =() => {
                       79.000₫
                     </Typography>
                   </Stack>
-                  <Stack direction="row">
+                  <Stack direction="row" justifyContent={'space-between'}>
                     <Typography component="p" variant="h2">
                       Tổng thanh toán
                     </Typography>
@@ -75,7 +75,7 @@ const GioHang =() => {
                     </Typography>
                   </Stack>
                 </Box>
-                <Button variant="contained" disabled>
+                <Button variant="contained" disabled sx={{width: '100%',justifyContent:'space-between'}}>
                   <Typography component="p" variant="h2">
                     thanh toán
                   </Typography>
