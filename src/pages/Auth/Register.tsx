@@ -1,11 +1,23 @@
 'use client';
 
-import { Box, Button, Card, CardContent, CardHeader, Container, Grid, Stack, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 import { TypeOf, object, string } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import * as React from 'react';
 
 const registerSchema = object({
   name: string().min(1, 'Name is required').max(32, 'Name must be less than 100 characters'),
@@ -36,42 +48,73 @@ export default function Register() {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#EDF2F7">
-      <Container maxWidth="xs" disableGutters>
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <Card variant="outlined" sx={{ border: 'none', borderRadius: 8, p: 2 }}>
-            <CardHeader
-              title="Đăng ký tài khoản"
-              subheader="Nhập thông tin tài khoản của bạn"
-              titleTypographyProps={{ variant: 'h2' }}
-            />
-            <CardContent>
+    <Container>
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <img height="100%" width="100%" src="../src/assets/signin.jpg" alt="avatar" />
+        </Grid>
+        <Grid item xs={6}>
+          <Box p={6}>
+            <form onSubmit={handleSubmit(onSubmitHandler)}>
+              <Typography variant="h1" component="h1" pb={4}>Đăng ký tài khoản</Typography>
               <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <TextField fullWidth label="Họ" />
-                </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Tên"
+                    label="Họ của bạn"
                     required
-                    {...register('name')}
-                    helperText={errors['name'] ? errors['name'].message : ''}
+                    {...register('fullname')}
+                    helperText={errors['fullname'] ? errors['fullname'].message : ''}
                   />
                 </Grid>
-
                 <Grid item xs={12}>
-                  {/* <InputLabel>Email</InputLabel> */}
                   <TextField
                     fullWidth
-                    label="Email"
+                    label="Tên của bạn"
+                    required
+                    {...register('username')}
+                    helperText={errors['username'] ? errors['username'].message : ''}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Địa chỉ email của bạn"
                     required
                     {...register('email')}
                     helperText={errors['email'] ? errors['email'].message : ''}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {/* <InputLabel>Mật khẩu</InputLabel> */}
+                  <TextField
+                    fullWidth
+                    label="Số điện thoại"
+                    required
+                    {...register('phoneNumber')}
+                    helperText={errors['phoneNumber'] ? errors['phoneNumber'].message : ''}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    type="role"
+                    fullWidth
+                    label="Vai trò"
+                    required
+                    {...register('role')}
+                    helperText={errors['role'] ? errors['role'].message : ''}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    type="address"
+                    fullWidth
+                    label="Địa chỉ thường trú"
+                    required
+                    {...register('address')}
+                    helperText={errors['address'] ? errors['address'].message : ''}
+                  />
+                </Grid>
+                <Grid item xs={12}>
                   <TextField
                     type="password"
                     fullWidth
@@ -79,17 +122,6 @@ export default function Register() {
                     required
                     {...register('password')}
                     helperText={errors['password'] ? errors['password'].message : ''}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  {/* <InputLabel>Xác nhận mật khẩu</InputLabel> */}
-                  <TextField
-                    type="password"
-                    fullWidth
-                    label="Xác nhận mật khẩu"
-                    required
-                    {...register('passwordConfirm')}
-                    helperText={errors['passwordConfirm'] ? errors['passwordConfirm'].message : ''}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -107,10 +139,12 @@ export default function Register() {
                   </Stack>
                 </Grid>
               </Grid>
-            </CardContent>
-          </Card>
-        </form>
-      </Container>
-    </Box>
+            </form>
+          </Box>
+
+        </Grid>
+      </Grid>
+    </Container>
+
   );
 }

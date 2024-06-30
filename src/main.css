@@ -26,12 +26,12 @@ body{
 .fix-button-slick{
   .slick-next {
     right: 0;
-    z-index: 9999;
+    z-index: 1;
     background: red;
   }
   .slick-prev {
     left: 0;
-    z-index: 9999;
+    z-index: 1;
     background: red;
   }
 }

@@ -15,11 +15,11 @@ const NavigationBar = () => {
   const {pathname}= useLocation();
   return (
     <>
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} elevation={0} className="navigation">
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1,height:'110px',justifyContent:'center' }} elevation={0}>
         <Container maxWidth="lg">
           {
             !pathname.includes('/gio-hang')?<Grid container sx={{alignItems:'center'}} pb={2} pt={2}>
-              <Grid item xs={8}>
+              <Grid item xs={8} className="navigation">
                 <Grid container spacing={2} sx={{alignItems:'center'}}>
                   <Grid item>
                     <Typography variant="h2" noWrap component="p">
@@ -53,11 +53,11 @@ const NavigationBar = () => {
 
               </Grid>
               <Grid item xs={4}>
-                <Grid container spacing={2} sx={{display:'flex',justifyContent: 'flex-end'}}>
+                <Grid container spacing={2} sx={{display:'flex',justifyContent: 'flex-end',alignItems:'center'}}>
                   <Grid item>
-                    <Button component={Link} to="/auth/login" color="inherit">
+                    <Link to={`/auth/login`} color="inherit">
                       <i className="icon-login"></i>
-                    </Button>
+                    </Link>
                   </Grid>
                   <Grid item>
                     <Typography variant="h6" noWrap component="div">
@@ -66,9 +66,9 @@ const NavigationBar = () => {
                     </Typography>
                   </Grid>
                   <Grid item>
-                    <IconButton className="von-test" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}
+                    <IconButton edge="start" color="inherit" aria-label="menu"
                                 onClick={toogleSideBar}>
-                      <MenuIcon />
+                      <MenuIcon sx={{width:'1.5em',height:'1.5em'}} />
                     </IconButton>
                   </Grid>
                 </Grid>
@@ -87,7 +87,7 @@ const NavigationBar = () => {
           }
           </Container>
       </AppBar>
-      <Box sx={{textAlign:'center',bgcolor:'black',paddingTop:'85px'}} >
+      <Box sx={{textAlign:'center',bgcolor:'black',paddingTop:'111px'}} >
         <Typography variant="h4" component="p" color="white" p={1}>
           Nhận tại nhà hàng theo địa chỉ:abc
         </Typography>

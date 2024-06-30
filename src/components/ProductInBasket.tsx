@@ -18,9 +18,9 @@ const ProductInBasket = ({ image }: RecipeReviewCardProps)=> {
   const{isOpen,toogleSideBar}= useContext(AppContext);
   const reducer =(state: number, action: any)=>{
     switch(action){
-      case 'tang':
+      case 'increment':
         return state + 1;
-      case 'giam':
+      case 'decrement':
         return state -1;
       default:
         return  state;
@@ -65,10 +65,10 @@ const ProductInBasket = ({ image }: RecipeReviewCardProps)=> {
           <CardActions>
             <Stack direction="row" spacing={2} justifyContent="space-between">
               <Stack direction="row" className="box-action">
-                <Link color="inherit" data-btn-type="btn-decrement" onClick={() => dispatch('giam')}><i
+                <Link color="inherit" data-btn-type="btn-decrement" onClick={() => dispatch('decrement')}><i
                   className="icon-decrement"></i></Link>
                 <input className="quantity" name="quantity" type="text" size="1" value={count<0 || count ===0 ? 1 : count}/>
-                <Link color="error" data-btn-type="btn-increment" onClick={() => dispatch('tang')}><i
+                <Link color="error" data-btn-type="btn-increment" onClick={() => dispatch('increment')}><i
                   className="icon-increment"></i></Link>
               </Stack>
               <Typography gutterBottom variant="h3" component="h3" className="price">
