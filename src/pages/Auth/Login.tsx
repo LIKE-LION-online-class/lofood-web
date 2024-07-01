@@ -1,11 +1,6 @@
-'use client';
-
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardHeader,
   Checkbox,
   Container,
   FormControlLabel,
@@ -19,13 +14,17 @@ import {
 import { TypeOf, object, string } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import * as React from 'react';
-import { Girl, Image } from '@mui/icons-material';
+import { useMutation } from '@tanstack/react-query'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+import { loginHttp } from '@/apis/auth';
 
 const registerSchema = object({
-  email: string().min(1, 'Email không được để trống').email('Email không hợp lệ'),
+  username: string().min(1, 'Email không được để trống').email('Email không hợp lệ'),
   password: string().min(1, 'Password không được để trống'),
 });
 
@@ -39,7 +38,7 @@ export default function Login() {
   } = useForm<LoginInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      email: '3lesang@gmail.com',
+      username: '3lesang@gmail.com',
       password: 'Sang2403@',
     },
   });
@@ -60,6 +59,31 @@ export default function Login() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: loginHttp,
+    onSuccess: (data) => {
+      toast.success('Login success');
+      localStorage.setItem('token', data.data.token);
+      localStorage.setItem('usersId', JSON.stringify(data.data.usersId));
+      navigate('/');
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error)
+    }
+  });
+  const formik = useFormik({
+    initialValues:  { username: '3lesang', password: '12345678' },
+    validationSchema: Yup.object({
+      username: Yup.string().required('Required'),
+      password: Yup.string().required('Required')
+    }),
+    onSubmit: (values) => {
+      mutate(values);
+    }
+  })
   return (
     <Container>
       <Grid container spacing={4}>
@@ -68,25 +92,33 @@ export default function Login() {
         </Grid>
         <Grid item xs={6}>
           <Box p={6}>
-            <form onSubmit={handleSubmit(onSubmitHandler)}>
+            <form onSubmit={formik.handleSubmit}>
               <Typography component="h1" variant="h1" pb={4}>Đăng nhập</Typography>
               <Box mb={3}>
                 <TextField
                   fullWidth
-                  label="Email"
+                  label="Username"
                   required
-                  {...register('email')}
-                  helperText={errors['email'] ? errors['email'].message : ''}
+                  id='username'
+                  name='username'
+                  value={formik.values.username}
+                  disabled={isPending}
+                  onChange={formik.handleChange}
+                  error={formik.errors.username}
                 />
               </Box>
               <Box mb={3}>
                 <TextField
-                  type="password"
                   fullWidth
                   label="Password"
                   required
-                  {...register('password')}
-                  helperText={errors['password'] ? errors['password'].message : ''}
+                  disabled={isPending}
+                  id='password'
+                  name='password'
+                  type='password'
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={formik.errors.password}
                 />
               </Box>
               <Button onClick={handleOpen}>Quên mật khẩu</Button>

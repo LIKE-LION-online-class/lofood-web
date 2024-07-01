@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom/client';
 import React from 'react';
 import App from './App';
 import './main.css';
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
     <AppThemeProvider>
       <App />
     </AppThemeProvider>
+      <ToastContainer/>
+    </QueryClientProvider>
   </React.StrictMode>,
 );
