@@ -19,7 +19,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { loginHttp } from '@/apis/auth';
+import { registerHttp } from '@/apis/auth';
 
 const registerSchema = object({
   name: string().min(1, 'Name is required').max(32, 'Name must be less than 100 characters'),
@@ -48,7 +48,16 @@ export default function Register() {
   const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
     console.log(values);
   };
-
+  const { mutate } = useMutation({
+    mutationKey: ['register'],
+    mutationFn: registerHttp,
+    onSuccess: () => {
+      toast.success('Register Success');
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error)
+    }
+  });
   const formik = useFormik({
     initialValues:{fullname:'',address:'',phoneNumber:'',username:'',email:'',password:'',role:''},
     validationSchema:Yup.object({
@@ -61,7 +70,7 @@ export default function Register() {
       role: Yup.string().required('Required'),
     }),
     onSubmit: (values) => {
-      console.log(values)
+      mutate(values);
     }
   })
 

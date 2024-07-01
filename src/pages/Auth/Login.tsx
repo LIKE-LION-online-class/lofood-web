@@ -65,7 +65,7 @@ export default function Login() {
     mutationKey: ['login'],
     mutationFn: loginHttp,
     onSuccess: (data) => {
-      toast.success('Login success');
+      toast.success('Login Success');
       localStorage.setItem('token', data.data.token);
       localStorage.setItem('usersId', JSON.stringify(data.data.usersId));
       navigate('/');
