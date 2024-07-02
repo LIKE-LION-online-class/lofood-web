@@ -16,10 +16,13 @@ import * as React from 'react';
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify';
 import { registerHttp } from '@/apis/auth';
-import { useState } from 'react';
+import { useState,useMemo } from 'react';
 import {User} from '../../types/users.type'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
+import { isAxiosError } from '@/utils/utils.ts';
+
+
 type FormStateType = Omit<User, 'id'>
 
 const inititalFormState: FormStateType ={
@@ -30,37 +33,54 @@ const inititalFormState: FormStateType ={
   email:'',
   password:''
 }
+
+type FormError =
+  | {
+  [key in keyof FormStateType]:string
+}
+  | null
 export default function Register() {
-  //
-  const addStudentMutation = useMutation({
+
+  const registerMutation = useMutation({
     mutationFn:(body:FormStateType)=>{
       return registerHttp(body)
     }
   })
+
   const [role, setRole] = useState('');
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setRole(event.target.value as string);
   };
 
   const [formState, setFormState]= useState<FormStateType>(inititalFormState);
-
   const handleChange = (name:keyof FormStateType) => (event: React.ChangeEvent<HTMLInputElement>)=> {
     setFormState((prev) => ({...prev,[name]:event.target.value}))
   }
+
   const add = { role:role }
   Object.entries(add).forEach(([key,value]) => { formState[key] = value })
-  console.log(formState,'von-test');
-
+  console.log('error',registerMutation.error);
+  console.log('error-axios',isAxiosError);
   const handleSubmit = async (event:React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
-    addStudentMutation.mutate(formState, {
+    registerMutation.mutate(formState, {
       onSuccess: () => {
         setFormState(inititalFormState) // reset form
         toast.success('Register thành công');
+      },
+      onError:(error)=>{
+        toast.error('Đăng ký không thành công');
       }
     })
-
   };
+
+  const errorForm: FormError = useMemo(()=>{
+    const error = registerMutation.error;
+    console.log('aaaaa-error');
+    if (isAxiosError <{ error: FormError }> (error) && error.response?.status === 406) {
+      return error.response?.data.error
+    }return null
+  },[registerMutation.error]);
 
     return (
     <Container>
@@ -117,6 +137,12 @@ export default function Register() {
                     value={formState.username}
                     onChange={handleChange('username')}
                   />
+                  {errorForm && (
+                    <Typography className='error' pt={1} component={'p'} variant="p">
+                      <span className='font-medium'>Lỗi! </span>
+                      {errorForm.message}
+                    </Typography>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <TextField

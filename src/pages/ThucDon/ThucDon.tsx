@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography } from '@mui/material';
 import NewProductCard from '@/components/NewProductCard.tsx';
 import Slider from 'react-slick';
 import Link from '@mui/material/Link';
-import DanhMucMonAn from '@/components/DanhMucMonAn.tsx';
+
 
 var settingsCarousel = {
   narrow: true,
@@ -21,11 +21,7 @@ const scrollNavigation = (e)=>{
     e.classList.remove('active');
   })
   e.target.classList.add('active');
-  // @ts-ignore
-  document.querySelector('body').addEventListener("scroll", (event) => {
-    console.log('event',event);
-    `scrollTop: ${getOffsetTop}`;
-  });
+  console.log('getOffsetTop',typeof getOffsetTop);
 }
 document.addEventListener("load",(e)=>{
   document.querySelectorAll(".boxNarrowMenu a").forEach((e)=>{

@@ -213,3 +213,11 @@ body.overflow-hidden{
   transform: translate(-50%, -50%);
   box-shadow: inset 0 0 0 32px;
 }
+.icon-scroll-top{
+  background-position: -75px -815px;
+  width: 56px;
+  height: 56px;
+}
+*, html {
+  scroll-behavior: smooth !important;
+}
