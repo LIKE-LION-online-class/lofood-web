@@ -9,7 +9,6 @@ import {
   TextField,
   Typography,
   FormControl,
-  Select,
   MenuItem
 } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -19,6 +18,8 @@ import { toast } from 'react-toastify';
 import { registerHttp } from '@/apis/auth';
 import { useState } from 'react';
 import {User} from '../../types/users.type'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 type FormStateType = Omit<User, 'id'>
 
 const inititalFormState: FormStateType ={
@@ -142,6 +143,7 @@ export default function Register() {
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
