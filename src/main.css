@@ -221,3 +221,11 @@ body.overflow-hidden{
 *, html {
   scroll-behavior: smooth !important;
 }
+#NavThucDon{
+  &.active{
+    position:fixed !important;
+    top:110px !important;
+    z-index: 1111;
+  }
+
+}

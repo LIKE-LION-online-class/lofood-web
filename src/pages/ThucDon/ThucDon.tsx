@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, Typography ,AppBar} from '@mui/material';
 import NewProductCard from '@/components/NewProductCard.tsx';
 import Slider from 'react-slick';
 import Link from '@mui/material/Link';
+import { array } from 'yup';
 
 
 var settingsCarousel = {
@@ -21,16 +22,38 @@ const scrollNavigation = (e)=>{
     e.classList.remove('active');
   })
   e.target.classList.add('active');
-  console.log('getOffsetTop',typeof getOffsetTop);
+  document.getElementById('NavThucDon').classList.add('active');
+  console.log('getOffsetTop', getOffsetTop);
 }
 document.addEventListener("load",(e)=>{
   document.querySelectorAll(".boxNarrowMenu a").forEach((e)=>{
     e.classList.remove('active');
   });
-
 })
+
+document.addEventListener('scroll', function(e) {
+if(window.scrollY<100){
+  document.getElementById('NavThucDon').classList.remove('active');
+}else{
+  document.getElementById('NavThucDon').classList.add('active');
+  if(window.scrollY < 224){
+    document.querySelector(' a[href="#mon-moi"] ').classList.remove('active');
+    document.querySelector(' a[href="#uu-dai"] ').classList.add('active');
+  }else {
+    if(224 >window.scrollY < 727){
+      document.querySelector(' a[href="#uu-dai"] ').classList.remove('active');
+      document.querySelector(' a[href="#mon-moi"] ').classList.add('active');
+    }
+  }
+}
+
+
+});
+
 const ThucDon =() => {
   return (
+    <Box className="box-food">
+      <AppBar id="NavThucDon" position="relative" sx={{ height:'110px',justifyContent:'center' }} elevation={0}>
         <Container>
           <Box className="fix-button-slick boxNarrowMenu" sx={{ overflow: 'hidden',borderBottom:'1px solid #ccc'}} mb={3}>
             <Slider {...settingsCarousel}>
@@ -92,106 +115,111 @@ const ThucDon =() => {
               </Box>
             </Slider>
           </Box>
-          <Box className="uu-dai" mb={2} id="uu-dai">
-            <Typography variant="h2" noWrap component="h2" mb={2} sx={{position:'relative'}}>
-              <span>Ưu đãi</span>
-            </Typography>
-            <Box
-              sx={{
-                display: 'grid',
-                gap: 2,
-                gridTemplateColumns: 'repeat(4, 1fr)',
-              }}
-            >
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-            </Box>
-          </Box>
-          <Box className="mon-moi" my={6} id="mon-moi">
-            <Typography variant="h2" noWrap component="h2" my={4} sx={{position:'relative'}}>
-              <span>Món Mới</span>
-            </Typography>
-            <Box
-              sx={{
-                display: 'grid',
-                gap: 2,
-                gridTemplateColumns: 'repeat(4, 1fr)',
-              }}
-            >
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-            </Box>
-          </Box>
-          <Box className="combo-one-people" my={6} id="combo-1-nguoi">
-            <Typography variant="h2" noWrap component="h2" my={4} sx={{position:'relative'}}>
-              <span>Combo một người</span>
-            </Typography>
-            <Box
-              sx={{
-                display: 'grid',
-                gap: 2,
-                gridTemplateColumns: 'repeat(4, 1fr)',
-              }}
-            >
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-              <Grid item xs={3}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
-                </Link>
-              </Grid>
-            </Box>
-          </Box>
         </Container>
+      </AppBar>
+      <Container>
+        <Box className="uu-dai" mb={2} id="uu-dai">
+          <Typography variant="h2" noWrap component="h2" mb={2} sx={{position:'relative'}}>
+            <span>Ưu đãi</span>
+          </Typography>
+          <Box
+            sx={{
+              display: 'grid',
+              gap: 2,
+              gridTemplateColumns: 'repeat(4, 1fr)',
+            }}
+          >
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+          </Box>
+        </Box>
+        <Box className="mon-moi" my={6} id="mon-moi">
+          <Typography variant="h2" noWrap component="h2" my={4} sx={{position:'relative'}}>
+            <span>Món Mới</span>
+          </Typography>
+          <Box
+            sx={{
+              display: 'grid',
+              gap: 2,
+              gridTemplateColumns: 'repeat(4, 1fr)',
+            }}
+          >
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+          </Box>
+        </Box>
+        <Box className="combo-one-people" my={6} id="combo-1-nguoi">
+          <Typography variant="h2" noWrap component="h2" my={4} sx={{position:'relative'}}>
+            <span>Combo một người</span>
+          </Typography>
+          <Box
+            sx={{
+              display: 'grid',
+              gap: 2,
+              gridTemplateColumns: 'repeat(4, 1fr)',
+            }}
+          >
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+            <Grid item xs={3}>
+              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi"/>
+              </Link>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+
+    </Box>
 
   );
 };
