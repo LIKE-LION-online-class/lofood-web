@@ -16,8 +16,8 @@ import * as React from 'react';
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify';
 import { registerHttp } from '@/apis/auth';
-import { useState,useMemo } from 'react';
-import {User} from '../../types/users.type'
+import { useState, useMemo } from 'react';
+import { User } from '../../types/users.type'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import { isAxiosError } from '@/utils/utils.ts';
@@ -25,24 +25,24 @@ import { isAxiosError } from '@/utils/utils.ts';
 
 type FormStateType = Omit<User, 'id'>
 
-const inititalFormState: FormStateType ={
-  fullname:'',
+const inititalFormState: FormStateType = {
+  fullname: '',
   address: '',
   phoneNumber: '',
-  username:'',
-  email:'',
-  password:''
+  username: '',
+  email: '',
+  password: ''
 }
 
 type FormError =
   | {
-  [key in keyof FormStateType]:string
-}
+    [key in keyof FormStateType]: string
+  }
   | null
 export default function Register() {
 
   const registerMutation = useMutation({
-    mutationFn:(body:FormStateType)=>{
+    mutationFn: (body: FormStateType) => {
       return registerHttp(body)
     }
   })
@@ -52,37 +52,37 @@ export default function Register() {
     setRole(event.target.value as string);
   };
 
-  const [formState, setFormState]= useState<FormStateType>(inititalFormState);
-  const handleChange = (name:keyof FormStateType) => (event: React.ChangeEvent<HTMLInputElement>)=> {
-    setFormState((prev) => ({...prev,[name]:event.target.value}))
+  const [formState, setFormState] = useState<FormStateType>(inititalFormState);
+  const handleChange = (name: keyof FormStateType) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, [name]: event.target.value }))
   }
 
-  const add = { role:role }
-  Object.entries(add).forEach(([key,value]) => { formState[key] = value })
-  console.log('error',registerMutation.error);
-  console.log('error-axios',isAxiosError);
-  const handleSubmit = async (event:React.FormEvent<HTMLFormElement>)=>{
+  const add = { role: role }
+  Object.entries(add).forEach(([key, value]) => { formState[key] = value })
+  console.log('error', registerMutation.error);
+  console.log('error-axios', isAxiosError);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     registerMutation.mutate(formState, {
       onSuccess: () => {
         setFormState(inititalFormState) // reset form
         toast.success('Register thành công');
       },
-      onError:(error)=>{
+      onError: (error) => {
         toast.error('Đăng ký không thành công');
       }
     })
   };
 
-  const errorForm: FormError = useMemo(()=>{
+  const errorForm: FormError = useMemo(() => {
     const error = registerMutation.error;
     console.log('aaaaa-error');
-    if (isAxiosError <{ error: FormError }> (error) && error.response?.status === 406) {
+    if (isAxiosError<{ error: FormError }>(error) && error.response?.status === 406) {
       return error.response?.data.error
-    }return null
-  },[registerMutation.error]);
+    } return null
+  }, [registerMutation.error]);
 
-    return (
+  return (
     <Container>
       <Grid container spacing={4}>
         <Grid item xs={6}>
@@ -96,7 +96,7 @@ export default function Register() {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Họ và của bạn"
+                    label="Họ và tên của bạn"
                     required
                     id="fullname"
                     name="fullname"
@@ -170,17 +170,17 @@ export default function Register() {
                 <Grid item xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={role}
-                        label="Role"
-                        onChange={handleChangeSelect}
-                      >
-                        <MenuItem value='ROLE_USER'>User</MenuItem>
-                        <MenuItem value='ROLE_BUSINESS'>Business</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={role}
+                      label="Role"
+                      onChange={handleChangeSelect}
+                    >
+                      <MenuItem value='ROLE_USER'>User</MenuItem>
+                      <MenuItem value='ROLE_BUSINESS'>Business</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={6}>
                   <Link to="/auth/login">
