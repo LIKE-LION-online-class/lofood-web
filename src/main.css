@@ -5,12 +5,15 @@
   padding: 0;
   margin: 0;
 }
+
 .map-container {
   height: 100vh;
 }
-body{
+
+body {
   min-height: 100vh;
 }
+
 .sidebar {
   background-color: rgb(35 55 75 / 90%);
   color: #fff;
@@ -23,24 +26,28 @@ body{
   margin: 12px;
   border-radius: 4px;
 }
-.fix-button-slick{
+
+.fix-button-slick {
   .slick-next {
     right: 0;
     z-index: 1;
     background: red;
   }
+
   .slick-prev {
     left: 0;
     z-index: 1;
     background: red;
   }
 }
-.home-silder{
+
+.home-silder {
   height: 600px;
 
 }
-.with-arrow{
-  &:after{
+
+.with-arrow {
+  &:after {
     padding: .21428571rem;
     display: inline-block;
     content: "";
@@ -51,8 +58,9 @@ body{
     transform: rotate(-45deg);
   }
 }
-.heading-line{
-  &:before{
+
+.heading-line {
+  &:before {
     font-size: 28px;
     position: absolute;
     content: "";
@@ -61,19 +69,22 @@ body{
     width: 100%;
     top: calc(50% - 2px);
   }
-  span{
+
+  span {
     background: #fff;
     display: inline-block;
     position: relative;
     padding-right: 1.07142857rem;
   }
 }
-.navigation{
-  .active{
+
+.navigation {
+  .active {
     color: red !important;
   }
 }
-.navigation-thuc-don{
+
+.navigation-thuc-don {
   position: sticky;
   position: -webkit-sticky;
   overflow: hidden;
@@ -84,11 +95,13 @@ body{
   margin-bottom: 2.14285714rem;
   padding-top: .57142857rem;
 }
-.boxNarrowMenu{
-  a{
+
+.boxNarrowMenu {
+  a {
     position: relative;
-    &.active{
-      &:after{
+
+    &.active {
+      &:after {
         color: #000;
         bottom: 0;
         content: "";
@@ -102,8 +115,9 @@ body{
     }
   }
 }
-.sidebar-with-arrow{
-  &:after{
+
+.sidebar-with-arrow {
+  &:after {
     display: inline-block;
     content: "";
     border: solid #000;
@@ -116,9 +130,11 @@ body{
 
   }
 }
-body.overflow-hidden{
+
+body.overflow-hidden {
   overflow: hidden;
 }
+
 [class^=icon-] {
   background: url(https://static.kfcvietnam.com.vn/images/web/sprite.png?v=5.0) no-repeat;
   width: 25px;
@@ -126,12 +142,14 @@ body.overflow-hidden{
   height: 25px;
   vertical-align: middle;
 }
-.icon-login{
+
+.icon-login {
   background-position: -10px -60px;
   width: 30px;
   height: 30px;
 }
-.basket{
+
+.basket {
   width: 30px;
   height: 43px;
   background: url(https://static.kfcvietnam.com.vn/images/web/cart.png?v=5.0) no-repeat -53px 1px;
@@ -142,16 +160,19 @@ body.overflow-hidden{
   display: block;
   letter-spacing: -1px;
 }
-.card-productInBasket{
-  .quantity{
-    border:0px;
+
+.card-productInBasket {
+  .quantity {
+    border: 0px;
     outline: 0px;
     text-align: center;
   }
-  .switch{
+
+  .switch {
     position: relative;
     padding-right: 1.07142857rem;
-    &:after{
+
+    &:after {
       padding: .21428571rem;
       display: inline-block;
       content: "";
@@ -164,15 +185,18 @@ body.overflow-hidden{
       right: 0;
       top: 4px;
     }
-    &.active{
-      &:after{
+
+    &.active {
+      &:after {
         transform: rotate(224deg);
         top: 7px;
       }
     }
   }
 }
-.icon-decrement, .icon-increment {
+
+.icon-decrement,
+.icon-increment {
   background: none;
   position: relative;
   border-radius: 50%;
@@ -180,7 +204,8 @@ body.overflow-hidden{
   width: 34px;
   height: 34px;
 }
-.icon-decrement:before{
+
+.icon-decrement:before {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -191,7 +216,8 @@ body.overflow-hidden{
   transform: translate(-50%, -50%);
   box-shadow: inset 0 0 0 32px;
 }
-.icon-increment:before{
+
+.icon-increment:before {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -202,7 +228,8 @@ body.overflow-hidden{
   transform: translate(-50%, -50%);
   box-shadow: inset 0 0 0 32px;
 }
-.icon-increment:after{
+
+.icon-increment:after {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -212,4 +239,72 @@ body.overflow-hidden{
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   box-shadow: inset 0 0 0 32px;
+}
+
+.icon-scroll-top {
+  background-position: -75px -815px;
+  width: 56px;
+  height: 56px;
+}
+
+*,
+html {
+  scroll-behavior: smooth !important;
+}
+
+#NavThucDon {
+  &.active {
+    position: fixed !important;
+    top: 110px !important;
+    z-index: 1111;
+  }
+
+}
+
+.has-product-basket {
+  .box-img {
+    padding-bottom: 10px;
+  }
+
+  .box-img::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #7f7f7f;
+    border-radius: 10px;
+
+  }
+
+  .box-img::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .box-img::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #bbbbbb;
+  }
+}
+
+.navigation {
+  a {
+    position: relative;
+
+    &::after {
+      content: "";
+      transition: all .5s ease;
+      position: absolute;
+      bottom: -5px;
+      height: 1px;
+      width: 0;
+      background-color: #202124;
+      left: 50%;
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
 }
