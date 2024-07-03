@@ -1,5 +1,5 @@
 import instance from '../utils/axios'
 
-export const getfoodHttp = () => {
-  return instance.get('/food')
+export const loginHttp = (data) => {
+  return instance.post('/food', data)
 }
