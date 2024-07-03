@@ -1,96 +1,186 @@
 'use client';
 
-import { Box, Button, Card, CardContent, CardHeader, Container, Grid, Stack, TextField } from '@mui/material';
-
-import { TypeOf, object, string } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+  FormControl,
+  MenuItem
+} from '@mui/material';
 import { Link } from 'react-router-dom';
+import * as React from 'react';
+import { useMutation } from '@tanstack/react-query'
+import { toast } from 'react-toastify';
+import { registerHttp } from '@/apis/auth';
+import { useState, useMemo } from 'react';
+import { User } from '../../types/users.type'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import { isAxiosError } from '@/utils/utils.ts';
 
-const registerSchema = object({
-  name: string().min(1, 'Name is required').max(32, 'Name must be less than 100 characters'),
-  email: string().min(1, 'Email is required').email('Email is invalid'),
-  password: string()
-    .min(1, 'Password is required')
-    .min(8, 'Password must be more than 8 characters')
-    .max(32, 'Password must be less than 32 characters'),
-  passwordConfirm: string().min(1, 'Please confirm your password'),
-}).refine((data) => data.password === data.passwordConfirm, {
-  path: ['passwordConfirm'],
-  message: 'Passwords do not match',
-});
 
-type RegisterInput = TypeOf<typeof registerSchema>;
+type FormStateType = Omit<User, 'id'>
 
+const inititalFormState: FormStateType = {
+  fullname: '',
+  address: '',
+  phoneNumber: '',
+  username: '',
+  email: '',
+  password: ''
+}
+
+type FormError =
+  | {
+    [key in keyof FormStateType]: string
+  }
+  | null
 export default function Register() {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<RegisterInput>({
-    resolver: zodResolver(registerSchema),
-  });
 
-  const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
-    console.log(values);
+  const registerMutation = useMutation({
+    mutationFn: (body: FormStateType) => {
+      return registerHttp(body)
+    }
+  })
+
+  const [role, setRole] = useState('');
+  const handleChangeSelect = (event: SelectChangeEvent) => {
+    setRole(event.target.value as string);
   };
 
-  return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#EDF2F7">
-      <Container maxWidth="xs" disableGutters>
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <Card variant="outlined" sx={{ border: 'none', borderRadius: 8, p: 2 }}>
-            <CardHeader
-              title="Đăng ký tài khoản"
-              subheader="Nhập thông tin tài khoản của bạn"
-              titleTypographyProps={{ variant: 'h2' }}
-            />
-            <CardContent>
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <TextField fullWidth label="Họ" />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    label="Tên"
-                    required
-                    {...register('name')}
-                    helperText={errors['name'] ? errors['name'].message : ''}
-                  />
-                </Grid>
+  const [formState, setFormState] = useState<FormStateType>(inititalFormState);
+  const handleChange = (name: keyof FormStateType) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, [name]: event.target.value }))
+  }
 
+  const add = { role: role }
+  Object.entries(add).forEach(([key, value]) => { formState[key] = value })
+  console.log('error', registerMutation.error);
+  console.log('error-axios', isAxiosError);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    registerMutation.mutate(formState, {
+      onSuccess: () => {
+        setFormState(inititalFormState) // reset form
+        toast.success('Register thành công');
+      },
+      onError: (error) => {
+        toast.error('Đăng ký không thành công');
+      }
+    })
+  };
+
+  const errorForm: FormError = useMemo(() => {
+    const error = registerMutation.error;
+    console.log('aaaaa-error');
+    if (isAxiosError<{ error: FormError }>(error) && error.response?.status === 406) {
+      return error.response?.data.error
+    } return null
+  }, [registerMutation.error]);
+
+  return (
+    <Container>
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <img height="100%" width="100%" src="../src/assets/signin.jpg" alt="avatar" />
+        </Grid>
+        <Grid item xs={6}>
+          <Box p={6}>
+            <form onSubmit={handleSubmit}>
+              <Typography variant="h1" component="h1" pb={4}>Đăng ký tài khoản</Typography>
+              <Grid container spacing={3}>
                 <Grid item xs={12}>
-                  {/* <InputLabel>Email</InputLabel> */}
                   <TextField
                     fullWidth
-                    label="Email"
+                    label="Họ và tên của bạn"
                     required
-                    {...register('email')}
-                    helperText={errors['email'] ? errors['email'].message : ''}
+                    id="fullname"
+                    name="fullname"
+                    value={formState.fullname}
+                    onChange={handleChange('fullname')}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {/* <InputLabel>Mật khẩu</InputLabel> */}
                   <TextField
-                    type="password"
+                    type="address"
+                    fullWidth
+                    label="Địa chỉ thường trú"
+                    required
+                    id="address"
+                    name="address"
+                    value={formState.address}
+                    onChange={handleChange('address')}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Số điện thoại"
+                    required
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={formState.phoneNumber}
+                    onChange={handleChange('phoneNumber')}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="UserName của bạn"
+                    required
+                    id="username"
+                    name="username"
+                    value={formState.username}
+                    onChange={handleChange('username')}
+                  />
+                  {errorForm && (
+                    <Typography className='error' pt={1} component={'p'} variant="p">
+                      <span className='font-medium'>Lỗi! </span>
+                      {errorForm.message}
+                    </Typography>
+                  )}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Địa chỉ email của bạn"
+                    required
+                    id="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleChange('email')}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    type="Password"
                     fullWidth
                     label="Mật khẩu"
                     required
-                    {...register('password')}
-                    helperText={errors['password'] ? errors['password'].message : ''}
+                    id="password"
+                    name="password"
+                    value={formState.password}
+                    onChange={handleChange('password')}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {/* <InputLabel>Xác nhận mật khẩu</InputLabel> */}
-                  <TextField
-                    type="password"
-                    fullWidth
-                    label="Xác nhận mật khẩu"
-                    required
-                    {...register('passwordConfirm')}
-                    helperText={errors['passwordConfirm'] ? errors['passwordConfirm'].message : ''}
-                  />
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={role}
+                      label="Role"
+                      onChange={handleChangeSelect}
+                    >
+                      <MenuItem value='ROLE_USER'>User</MenuItem>
+                      <MenuItem value='ROLE_BUSINESS'>Business</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={6}>
                   <Link to="/auth/login">
@@ -107,10 +197,12 @@ export default function Register() {
                   </Stack>
                 </Grid>
               </Grid>
-            </CardContent>
-          </Card>
-        </form>
-      </Container>
-    </Box>
+            </form>
+          </Box>
+
+        </Grid>
+      </Grid>
+    </Container>
+
   );
 }

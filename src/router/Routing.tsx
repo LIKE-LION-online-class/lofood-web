@@ -1,33 +1,53 @@
 import { Routes, Route } from 'react-router-dom';
 import Register from '@/pages/Auth/Register';
 import Login from '@/pages/Auth/Login';
-// import Home from '@/pages/Home/Home';
-import Search from '@/pages/SearchWithMap/Search';
-import Layout from '@/components/layout';
+import HeThongNhaHang from '@/pages/HeThongNhaHang/HeThongNhaHang';
+import Home from '@/pages/Home/Home';
+import MainLayout from '@/components/MainLayout';
+import {Outlet, createBrowserRouter,RouteObject} from "react-router-dom";
+import ThucDon from '@/pages/ThucDon/ThucDon.tsx';
+import GioHang from '@/pages/GioHang/GioHang.tsx';
 
-const Routing = () => {
-  return (
-    <Routes>
-      <Route
-        path="*"
-        element={
-          <Layout>
-            <Search />
-          </Layout>
-        }
-      />
-      <Route
-        path="/search"
-        element={
-          <Layout>
-            <Search />
-          </Layout>
-        }
-      />
-      <Route path="/auth/login" element={<Login />} />
-      <Route path="/auth/register" element={<Register />} />
-    </Routes>
-  );
-};
+const appRoutes: RouteObject[] = [
+  {
+    path: '/',
+    element: <MainLayout/>,
+    children:[
+      {
+        index: true,
+        element: <Home />
+      },
+      {
+        path: '/thuc-don',
+        element:<ThucDon />
+      },
+      {
+        path: '/he-thong-nha-hang',
+        element: <HeThongNhaHang />
+      },
+      {
+        path: '/gio-hang',
+        element: <GioHang />
+      },
+      {
+        path: '/auth/login',
+        element: <Login />
+      },
+      {
+        path: '/auth/register',
+        element: <Register />
+      }
+    ]
+  }
+];
+const Routing = createBrowserRouter([
+  {
+    element:(
+      <Outlet/>
+    ),
+    children:appRoutes
+  }
+])
+
 
 export default Routing;
