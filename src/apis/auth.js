@@ -8,10 +8,6 @@ export const registerHttp = (data) => {
   return instance.post('/security/register', data)
 }
 
-export const forgotPasswordHttp = (data) => {
-  return instance.post('/security/forgetPassword', data)
-}
-
 export const forgetPasswordHttp = (data) => {
   return instance.post('/security/forgetPassword', data)
 }
