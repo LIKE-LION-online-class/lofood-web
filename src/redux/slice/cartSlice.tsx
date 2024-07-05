@@ -38,13 +38,6 @@ export const cartSlice = createSlice({
       const foodRemoveId = action.payload.id;
       state.CartArr = state.CartArr.filter((item) => item.id !== foodRemoveId);
     },
-    convertToRequest: (state) => {
-      state.FoodOrder = state.CartArr.map((food) => ({
-        foodId: food.id,
-        priceOrder: food.price,
-        quantity: food.quantity,
-      }));
-    },
   },
 });
 
@@ -54,6 +47,6 @@ export const selectTotalPrice = (state: RootState) => {
   }, 0);
 };
 
-export const { addFood, minusFood, deleteFood, convertToRequest } = cartSlice.actions;
+export const { addFood, minusFood, deleteFood } = cartSlice.actions;
 
 export default cartSlice.reducer;

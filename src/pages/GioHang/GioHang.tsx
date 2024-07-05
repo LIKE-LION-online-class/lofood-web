@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import { useSelector } from 'react-redux';
 import { Food } from '@/model/Food';
-import { selectTotalPrice, convertToRequest } from '@/redux/slice/cartSlice';
+import { selectTotalPrice } from '@/redux/slice/cartSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import instance from '@/utils/axios';
@@ -14,7 +14,6 @@ const GioHang = () => {
   const cart: Food[] = useSelector((state) => state?.cart?.CartArr);
   const totalPrice = useSelector(selectTotalPrice);
 
-  // const orderRequest = useSelector((state) => state?.cart?.FoodOrder);
   const navigate = useNavigate();
 
   const createOrder = async () => {
@@ -36,21 +35,6 @@ const GioHang = () => {
         throw new Error('Failed to create order');
       });
   };
-
-  // const createOrder = (data) => {
-  //   return instance
-  //     .post('/security/login', data)
-  //     .then((response) => {
-  //       // Xử lý khi có kết quả thành công
-  //       console.log('Response:', response);
-  //       return response.data; // Trả về dữ liệu phản hồi nếu cần thiết
-  //     })
-  //     .catch((error) => {
-  //       // Xử lý khi có lỗi xảy ra
-  //       console.error('Error:', error);
-  //       throw error; // Ném lỗi để bên ngoài xử lý tiếp
-  //     });
-  // };
 
   return (
     <AppProvider>

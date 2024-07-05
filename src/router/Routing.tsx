@@ -7,6 +7,7 @@ import MainLayout from '@/components/MainLayout';
 import { Outlet, createBrowserRouter, RouteObject } from 'react-router-dom';
 import ThucDon from '@/pages/ThucDon/ThucDon.tsx';
 import GioHang from '@/pages/GioHang/GioHang.tsx';
+import Order from '@/pages/Order/Order';
 import { ApiClientProvider } from '@/utils/axios';
 
 const appRoutes: RouteObject[] = [
@@ -37,6 +38,10 @@ const appRoutes: RouteObject[] = [
       {
         path: '/auth/register',
         element: <Register />,
+      },
+      {
+        path: '/order',
+        element: <Order />,
       },
     ],
   },
