@@ -14,14 +14,15 @@ import {
 import { TypeOf, object, string } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link ,useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as React from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useMutation } from '@tanstack/react-query'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { loginHttp } from '@/apis/auth';
+import { loginHttp, forgotPasswordHttp } from '@/apis/auth';
+import { useMatch, useParams, useLocation } from 'react-router-dom'
 
 const registerSchema = object({
   username: string().min(1, 'Email không được để trống').email('Email không hợp lệ'),
@@ -57,11 +58,14 @@ export default function Login() {
     console.log(values);
   };
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
-  const { mutate, isPending } = useMutation({
+  const login = useMutation({
     mutationKey: ['login'],
     mutationFn: loginHttp,
     onSuccess: (data) => {
@@ -74,14 +78,38 @@ export default function Login() {
       toast.error(error.response.data.error)
     }
   });
-  const formik = useFormik({
-    initialValues:  { username: '3lesang', password: '12345678' },
+
+  const formikLogin = useFormik({
+    initialValues: { username: '3lesang', password: '12345678' },
     validationSchema: Yup.object({
       username: Yup.string().required('Required'),
       password: Yup.string().required('Required')
     }),
     onSubmit: (values) => {
-      mutate(values);
+      console.log(values, 'aaaaa');
+      login.mutate(values);
+    }
+  })
+  //
+  const forgotPassword = useMutation({
+    mutationKey: ['forgotPassword'],
+    mutationFn: forgotPasswordHttp,
+    onSuccess: () => {
+      notify('Email sent successfully. Please check your email.', 'success')
+    },
+    onError: (error) => {
+      notify(error.response.data.error, 'error')
+    }
+  });
+  const formikForgotPassword = useFormik({
+    initialValues: { email: '' },
+    validationSchema: Yup.object({
+      email: Yup.string().required('Required').email('Invalid email address')
+
+    }),
+    onSubmit: (value) => {
+      console.log(value, 'aaaaa');
+      forgotPassword.mutate(value);
     }
   })
   return (
@@ -92,7 +120,7 @@ export default function Login() {
         </Grid>
         <Grid item xs={6}>
           <Box p={6}>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formikLogin.handleSubmit}>
               <Typography component="h1" variant="h1" pb={4}>Đăng nhập</Typography>
               <Box mb={3}>
                 <TextField
@@ -101,10 +129,10 @@ export default function Login() {
                   required
                   id='username'
                   name='username'
-                  value={formik.values.username}
-                  disabled={isPending}
-                  onChange={formik.handleChange}
-                  error={formik.errors.username}
+                  value={formikLogin.values.username}
+                  disabled={login.isPending}
+                  onChange={formikLogin.handleChange}
+                  error={formikLogin.errors.username}
                 />
               </Box>
               <Box mb={3}>
@@ -112,13 +140,13 @@ export default function Login() {
                   fullWidth
                   label="Password"
                   required
-                  disabled={isPending}
+                  disabled={login.isPending}
                   id='password'
                   name='password'
                   type='password'
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  error={formik.errors.password}
+                  value={formikLogin.values.password}
+                  onChange={formikLogin.handleChange}
+                  error={formikLogin.errors.password}
                 />
               </Box>
               <Button onClick={handleOpen}>Quên mật khẩu</Button>
@@ -145,20 +173,25 @@ export default function Login() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <Box sx={{position:'relative'}}>
-                <IconButton onClick={handleClose} className="btn-close-sidebar" edge="start" color="inherit" aria-label="menu" sx={{ position:'absolute',top:'-20px',right:'0'}}>
+              <Box sx={{ position: 'relative' }}>
+                <IconButton onClick={handleClose} className="btn-close-sidebar" edge="start" color="inherit" aria-label="menu" sx={{ position: 'absolute', top: '-20px', right: '0' }}>
                   <CloseOutlinedIcon />
                 </IconButton>
                 <Typography id="modal-modal-title" variant="h6" component="h2" mb={2}>
                   Bạn quên mật khẩu?
                 </Typography>
-                <form onSubmit={handleSubmit(onSubmitHandler)}>
+                <form onSubmit={formikForgotPassword.handleSubmit}>
                   <TextField
                     fullWidth
                     label="Email"
                     required
-                    {...register('email')}
-                    helperText={errors['email'] ? errors['email'].message : ''}
+                    id='email'
+                    name='email'
+                    type='text'
+                    disabled={forgotPassword.isPending}
+                    value={formikForgotPassword.values.email}
+                    onChange={formikForgotPassword.handleChange}
+                    error={formikForgotPassword.errors.email}
                   />
                   <Stack alignItems="center" mt={2}>
                     <Button variant="contained" sx={{ boxShadow: 0 }} type="submit">
