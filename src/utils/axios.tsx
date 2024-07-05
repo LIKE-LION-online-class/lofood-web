@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import React from 'react';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8083/',
+  baseURL: 'https://ktcbackend-production.up.railway.app/',
   headers: {
     'Content-Type': 'application/json',
   },

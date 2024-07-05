@@ -21,7 +21,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { loginHttp, forgotPasswordHttp } from '@/apis/auth';
+import { loginHttp, forgetPasswordHttp } from '@/apis/auth';
 import { useMatch, useParams, useLocation } from 'react-router-dom'
 
 const registerSchema = object({
@@ -92,8 +92,8 @@ export default function Login() {
   })
   //
   const forgotPassword = useMutation({
-    mutationKey: ['forgotPassword'],
-    mutationFn: forgotPasswordHttp,
+    mutationKey: ['forgetPassword'],
+    mutationFn: forgetPasswordHttp,
     onSuccess: () => {
       notify('Email sent successfully. Please check your email.', 'success')
     },
