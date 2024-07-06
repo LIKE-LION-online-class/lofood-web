@@ -84,30 +84,32 @@ export default function Login() {
       password: Yup.string().required('Required')
     }),
     onSubmit: (values) => {
-      console.log(values, 'aaaaa');
-      login.mutate(values);
+      const data = {
+        password: values.password,
+        username: values.username,
+      }
+      login.mutate(data);
     }
   })
-  //
-  const forgotPassword = useMutation({
+  // forgetPassword
+  const forgetPassword = useMutation({
     mutationKey: ['forgetPassword'],
     mutationFn: forgetPasswordHttp,
     onSuccess: () => {
-      notify('Email sent successfully. Please check your email.', 'success')
+      toast.success('Reset Passwrod Success');
+      setOpen(false);
     },
     onError: (error) => {
-      notify(error.response.data.error, 'error')
+      toast.error(error.response.data.error, 'error')
     }
   });
-  const formikForgotPassword = useFormik({
+  const formikForgetPassword = useFormik({
     initialValues: { email: '' },
     validationSchema: Yup.object({
       email: Yup.string().required('Required').email('Invalid email address')
-
     }),
     onSubmit: (value) => {
-      console.log(value, 'aaaaa');
-      forgotPassword.mutate(value);
+      forgetPassword.mutate(value.email);
     }
   })
   return (
@@ -178,7 +180,7 @@ export default function Login() {
                 <Typography id="modal-modal-title" variant="h6" component="h2" mb={2}>
                   Bạn quên mật khẩu?
                 </Typography>
-                <form onSubmit={formikForgotPassword.handleSubmit}>
+                <form onSubmit={formikForgetPassword.handleSubmit}>
                   <TextField
                     fullWidth
                     label="Email"
@@ -186,10 +188,10 @@ export default function Login() {
                     id='email'
                     name='email'
                     type='text'
-                    disabled={forgotPassword.isPending}
-                    value={formikForgotPassword.values.email}
-                    onChange={formikForgotPassword.handleChange}
-                    error={formikForgotPassword.errors.email}
+                    disabled={forgetPassword.isPending}
+                    value={formikForgetPassword.values.email}
+                    onChange={formikForgetPassword.handleChange}
+                    error={formikForgetPassword.errors.email}
                   />
                   <Stack alignItems="center" mt={2}>
                     <Button variant="contained" sx={{ boxShadow: 0 }} type="submit">
