@@ -38,8 +38,8 @@ export default function Login() {
   } = useForm<LoginInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      username: '3lesang@gmail.com',
-      password: 'Sang2403@',
+      username: 'user',
+      password: '12345678',
     },
   });
   const style = {

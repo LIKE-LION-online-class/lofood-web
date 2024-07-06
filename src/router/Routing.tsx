@@ -8,7 +8,9 @@ import { Outlet, createBrowserRouter, RouteObject } from 'react-router-dom';
 import ThucDon from '@/pages/ThucDon/ThucDon.tsx';
 import GioHang from '@/pages/GioHang/GioHang.tsx';
 import Order from '@/pages/Order/Order';
+import OrderHistory from '@/pages/CartHistory/OrderHistory';
 import { ApiClientProvider } from '@/utils/axios';
+
 
 const appRoutes: RouteObject[] = [
   {
@@ -42,6 +44,10 @@ const appRoutes: RouteObject[] = [
       {
         path: '/order',
         element: <Order />,
+      },
+      {
+        path: '/order-history',
+        element: <OrderHistory />,
       },
     ],
   },

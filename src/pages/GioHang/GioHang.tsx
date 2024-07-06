@@ -23,11 +23,13 @@ const GioHang = () => {
         priceOrder: food.price,
         quantity: food.quantity,
       })),
+      status: "PROCESSING",
+      totalPrice: totalPrice
     };
     await instance
-      .post('/order/2183c30a-88e1-4e3b-ba56-bdea1da036d1', orderRequest)
+      .post('/order', orderRequest)
       .then(() => {
-        toast.success('Login success');
+        toast.success('Order success');
         navigate('/');
       })
       .catch(() => {
