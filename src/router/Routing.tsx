@@ -10,6 +10,7 @@ import GioHang from '@/pages/GioHang/GioHang.tsx';
 import Order from '@/pages/Order/Order';
 import OrderHistory from '@/pages/CartHistory/OrderHistory';
 import { ApiClientProvider } from '@/utils/axios';
+import MyProfile from '@/pages/Profile/MyProfile';
 
 
 const appRoutes: RouteObject[] = [
@@ -40,6 +41,10 @@ const appRoutes: RouteObject[] = [
       {
         path: '/auth/register',
         element: <Register />,
+      },
+      {
+        path: '/auth/my-profile',
+        element: <MyProfile />,
       },
       {
         path: '/order',

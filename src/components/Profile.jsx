@@ -60,7 +60,7 @@ const Profile = () => {
           <ListItemIcon>
             <IconUser width={20} />
           </ListItemIcon>
-          <ListItemText>My Profile</ListItemText>
+          <ListItemText><Button to="/auth/my-profile" component={Link} color='inherit'>My Profile</Button></ListItemText>
         </MenuItem>
         <MenuItem>
           <ListItemIcon>

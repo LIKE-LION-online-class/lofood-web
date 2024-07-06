@@ -1,0 +1,205 @@
+import { Container, Typography, Stack, Box, Grid, Card, CardHeader, CardContent, IconButton, FormControl } from "@mui/material"
+import { LoadingButton } from '@mui/lab'
+import CustomTextField from '@/components/forms/CustomTextField'
+import { IconEdit } from '@tabler/icons-react'
+import { getUserByIdHttp, updatePasswordUserHttp, updateUserHttp } from '@/apis/user'
+import { useMemo, useState } from 'react'
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { toast } from 'react-toastify';
+
+const MyProfile = () => {
+
+    const id = JSON.parse(localStorage.getItem('usersId'));
+    const { data, isLoading } = useQuery({
+        queryKey: ['getUserById', id],
+        queryFn: getUserByIdHttp
+    });
+    console.log(id, 'data');
+    const [changePassword, setChangePassword] = useState(false);
+
+    const initialValues = useMemo(
+        () => ({
+            id: data?.data?.id || null,
+            name: data?.data?.fullName || '',
+            username: data?.data?.username || '',
+            address: data?.data?.address || '',
+            email: data?.data?.email || null,
+            phoneNumber: data?.data?.phoneNumber || null,
+            currentPassword: '',
+            password: '',
+            confirmPassword: ''
+        }),
+        [data]
+    )
+    const { mutate: mutateUpdateUser, isPending: updatePending } = useMutation({
+        mutationFn: updateUserHttp,
+        onSuccess: () => {
+            toast.success('Edit User Success');
+        },
+        onError: (error) => {
+            console.log(error)
+            toast.error(error.response.data.error.message, 'error')
+        }
+    })
+    const { mutate: mutateUpdatePasswordUser, isPending: updatePasswordLoading } = useMutation({
+        mutationFn: updatePasswordUserHttp,
+        onSuccess: () => {
+            toast.success('Edit Password Success');
+            formik.resetForm()
+        },
+        onError: (error) => {
+            toast.error(error.response.data.error.message, 'error');
+        }
+    })
+
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues,
+        validationSchema: Yup.object({
+            name: Yup.string().required('Required'),
+            username: Yup.string().required('Required'),
+            address: Yup.string().required('Required'),
+            email: Yup.string().required('Required'),
+            phoneNumber: Yup.string().required('Required'),
+            ...(changePassword && {
+                currentPassword: Yup.string().required('Required'),
+                password: Yup.string().required('Required'),
+                confirmPassword: Yup.string()
+                    .required('Required')
+                    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+            })
+        }),
+        onSubmit: (values) => {
+
+            const data = {
+                id: values.id,
+                name: values.name,
+                fullName: values.name,
+                address: values.address,
+                phoneNumber: values.phoneNumber,
+                email: values.email
+            }
+
+            mutateUpdateUser(data);
+            if (values.confirmPassword) {
+                const dataUpdatePassword = {
+                    id: values.id,
+                    currentPassword: values.currentPassword,
+                    password: values.password,
+                    newPassword: values.confirmPassword
+                }
+                mutateUpdatePasswordUser(dataUpdatePassword)
+            }
+            console.log(values, 'values');
+        }
+    })
+
+    const renderFormControl = ({ id, label, type = 'text', disabled = false }) => (
+        <FormControl fullWidth required>
+            <Typography variant='subtitle1' fontWeight={600} component='label' htmlFor={id} mb='5px'>
+                {label}
+            </Typography>
+            <CustomTextField
+                id={id}
+                type={type}
+                size='small'
+                fullWidth
+                disabled={disabled}
+                value={formik.values[id]}
+                onChange={formik.handleChange}
+                error={formik.touched[id] && Boolean(formik.errors[id])}
+                helperText={formik.touched[id] && formik.errors[id]}
+            />
+        </FormControl>
+    )
+    return (
+        <Container maxWidth='md'>
+            <Box mt={4}>
+                <form onSubmit={formik.handleSubmit}>
+                    <Stack direction='row' justifyContent='space-between' mb={2}>
+                        <Stack>
+                            <Typography variant='h4'>Account</Typography>
+                        </Stack>
+                        <Box>
+                            <LoadingButton
+                                variant='contained'
+                                size='small'
+                                type='submit'
+                            >
+                                Save
+                            </LoadingButton>
+
+                        </Box>
+                    </Stack>
+                    <Grid item xs={12}>
+                        <Card>
+                            <CardHeader title='Profile' />
+                            <CardContent>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={8}>
+                                        {renderFormControl({ id: 'name', label: 'Name' })}
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        {renderFormControl({ id: 'username', label: 'Username', disabled: true })}
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {renderFormControl({ id: 'address', label: 'Address' })}
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        {renderFormControl({ id: 'phoneNumber', label: 'Phone Number' })}
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        {renderFormControl({ id: 'email', label: 'Email', disabled: true })}
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Card>
+                            <CardHeader title='Change Password' />
+
+                            <CardContent>
+                                <IconButton onClick={() => setChangePassword(!changePassword)} size='small'>
+                                    <IconEdit size={16} />
+                                </IconButton>
+
+                                <Grid container spacing={2}>
+                                    <Grid item xs={6}>
+                                        {renderFormControl({
+                                            id: 'currentPassword',
+                                            label: 'Current Password',
+                                            type: 'password',
+                                            disabled: !changePassword
+                                        })}
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        {renderFormControl({
+                                            id: 'password',
+                                            label: 'New Password',
+                                            type: 'password',
+                                            disabled: !changePassword
+                                        })}
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        {renderFormControl({
+                                            id: 'confirmPassword',
+                                            label: 'Confirm Password',
+                                            type: 'password',
+                                            disabled: !changePassword
+                                        })}
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </form>
+            </Box>
+        </Container >
+
+    )
+}
+
+export default MyProfile;
