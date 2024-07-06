@@ -4,10 +4,8 @@ import Slider from 'react-slick';
 import Link from '@mui/material/Link';
 // import DanhMucMonAn from '@/components/DanhMucMonAn.tsx';
 // import { foodArr } from '@/redux/foodList';
-import { getfoodHttp } from '@/apis/food';
-import { Food } from '@/model/Food';
-import { useQuery } from '@tanstack/react-query';
-import { formatFoodData } from '@/libs';
+import { useEffect, useState } from 'react';
+import instance from '@/utils/axios';
 
 var settingsCarousel = {
   narrow: true,
@@ -37,12 +35,57 @@ document.addEventListener('load', (e) => {
   });
 });
 const ThucDon = () => {
-  const { data } = useQuery({
-    queryKey: ['getAllFood'],
-    queryFn: getfoodHttp,
-  });
+  // const { data } = useQuery({
+  //   queryKey: ['getAllFood'],
+  //   queryFn: getfoodHttp,
+  // });
 
-  const { foods } = formatFoodData(data);
+  // var { foods } = formatFoodData(data);
+
+  const [foods, setFoods] = useState<[]>([]);
+
+  useEffect(() => {
+    const fetchDataFood = async () => {
+      await instance
+        .get('/food')
+        .then((res) => {
+          setFoods(res.data);
+        })
+        .catch(() => {
+          throw new Error('Failed to get category');
+        });
+    }
+    fetchDataFood();
+  }, []);
+
+  const [categories, setCategories] = useState<[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await instance
+        .get('/category')
+        .then((res) => {
+          setCategories(res.data);
+        })
+        .catch(() => {
+          throw new Error('Failed to get category');
+        });
+    }
+    fetchData();
+  }, []);
+
+  const selecteCategory = async (id: any) => {
+    await instance
+      .get(`/food/category/${id}`)
+      .then((res) => {
+        setFoods(res.data);
+      })
+      .catch(() => {
+        throw new Error('Failed to get food by category');
+      });
+  }
+
+
 
   return (
     <Container>
@@ -55,95 +98,31 @@ const ThucDon = () => {
           <Box p={1}>
             <Typography variant="h6" noWrap component="div" textAlign="center">
               <Link
-                id="boxNarrowMenuFirst"
-                href="#uu-dai"
-                underline="none"
-                style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
-                onClick={scrollNavigation}
-              >
-                Ưu đãi
-              </Link>
-            </Typography>
-          </Box>
-          <Box p={1}>
-            <Typography variant="h6" noWrap component="div" textAlign="center">
-              <Link
                 href="#mon-moi"
                 underline="none"
                 style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
                 onClick={scrollNavigation}
               >
-                Món mới
+                {/* Món mới */}
               </Link>
             </Typography>
           </Box>
-          <Box p={1}>
-            <Typography variant="h6" noWrap component="div" textAlign="center">
-              <Link
-                href="#combo-1-nguoi"
-                underline="none"
-                style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
-                onClick={scrollNavigation}
-              >
-                Combo 1 người
-              </Link>
-            </Typography>
-          </Box>
-          <Box p={1}>
-            <Typography variant="h6" noWrap component="div" textAlign="center">
-              <Link
-                href="#combo-nhom"
-                underline="none"
-                style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
-              >
-                Combo nhóm
-              </Link>
-            </Typography>
-          </Box>
-          <Box p={1}>
-            <Typography variant="h6" noWrap component="div" textAlign="center">
-              <Link
-                href="#ga-ran-ga-quay"
-                underline="none"
-                style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
-              >
-                Gà Rán - Gà Quay
-              </Link>
-            </Typography>
-          </Box>
-          <Box p={1}>
-            <Typography variant="h6" noWrap component="div" textAlign="center">
-              <Link
-                href="#thuc-an-nhe"
-                underline="none"
-                style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
-              >
-                Thức Ăn Nhẹ
-              </Link>
-            </Typography>
-          </Box>
-          <Box p={1}>
-            <Typography variant="h6" noWrap component="div" textAlign="center">
-              <Link
-                href="#burger-com-mi-y"
-                underline="none"
-                style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
-              >
-                Burger - Cơm - Mì Ý
-              </Link>
-            </Typography>
-          </Box>
-          <Box p={1}>
-            <Typography variant="h6" noWrap component="div" textAlign="center">
-              <Link
-                href="#thuc-uong-trang-mieng"
-                underline="none"
-                style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
-              >
-                Thức Uống & Trang Miệng
-              </Link>
-            </Typography>
-          </Box>
+          {categories.map((category: any) => (
+            <Box p={1}>
+              <Typography variant="h6" noWrap component="div" textAlign="center">
+                <Link
+                  href="#mon-moi"
+                  underline="none"
+                  style={{ textDecoration: 'none', color: 'black', paddingBottom: '5px' }}
+                  onClick={() => {
+                    selecteCategory(category?.id);
+                  }}
+                >
+                  {category?.name}
+                </Link>
+              </Typography>
+            </Box>
+          ))}
         </Slider>
       </Box>
       <Box className="uu-dai" mb={2} id="uu-dai">

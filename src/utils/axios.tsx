@@ -18,7 +18,7 @@ export const ApiClientProvider = ({ children }: { children: React.ReactElement }
     (config) => {
       const token = localStorage.getItem('token');
       if (token) {
-        config.headers.Authorization = `${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     },
