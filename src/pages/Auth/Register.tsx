@@ -180,6 +180,7 @@ export default function Register() {
                     id="password"
                     name="password"
                     value={formState.password}
+                    toggleLabel={true}
                     onChange={handleChange('password')}
                   />
                 </Grid>

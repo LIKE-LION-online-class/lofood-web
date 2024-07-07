@@ -12,10 +12,13 @@ interface valuePassword {
     id: string,
     name: string,
     value: string,
-    onChange: void
+    onChange: void,
+    toggleLabel: Boolean
 }
 
-export default function CustomPassword({ id, name, value, onChange }: valuePassword) {
+
+
+export default function CustomPassword({ id, name, value, onChange, toggleLabel }: valuePassword) {
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -26,11 +29,14 @@ export default function CustomPassword({ id, name, value, onChange }: valuePassw
     };
 
     return (
-        <FormControl sx={{ width: '100%', background: 'none' }}>
-            <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
+        <FormControl sx={{ width: '100%', background: 'none' }} className={toggleLabel ? 'FeilhasLabel' : 'FielnoLabel'}>
+            {
+                toggleLabel ? <InputLabel htmlFor="filled-adornment-password" className='labelPassword'>Password</InputLabel> : ''
+            }
             <FilledInput
-                label="Mật khẩu"
+                label="password"
                 fullWidth
+                required
                 type={showPassword ? 'text' : 'password'}
                 id={id}
                 name={name}

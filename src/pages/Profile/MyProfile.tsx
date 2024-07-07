@@ -1,6 +1,7 @@
 import { Container, Typography, Stack, Box, Grid, Card, CardHeader, CardContent, IconButton, FormControl } from "@mui/material"
 import { LoadingButton } from '@mui/lab'
 import CustomTextField from '@/components/forms/CustomTextField'
+import CustomPassword from '@/components/forms/CustomPassword'
 import { IconEdit } from '@tabler/icons-react'
 import { getUserByIdHttp, updatePasswordUserHttp, updateUserHttp } from '@/apis/user'
 import { useMemo, useState } from 'react'
@@ -18,7 +19,7 @@ const MyProfile = () => {
     });
     console.log(id, 'data');
     const [changePassword, setChangePassword] = useState(false);
-
+    console.log(changePassword, 'changePassword');
     const initialValues = useMemo(
         () => ({
             id: data?.data?.id || null,
@@ -87,9 +88,9 @@ const MyProfile = () => {
                 const dataUpdatePassword = {
                     id: values.id,
                     currentPassword: values.currentPassword,
-                    password: values.password,
-                    newPassword: values.confirmPassword
+                    password: values.password
                 }
+
                 mutateUpdatePasswordUser(dataUpdatePassword)
             }
             console.log(values, 'values');
@@ -110,6 +111,20 @@ const MyProfile = () => {
                 onChange={formik.handleChange}
                 error={formik.touched[id] && Boolean(formik.errors[id])}
                 helperText={formik.touched[id] && formik.errors[id]}
+            />
+
+        </FormControl>
+    )
+    const renderFormControlPassword = ({ id, label, disabled = false }) => (
+        <FormControl fullWidth required>
+            <Typography variant='subtitle1' fontWeight={600} component='label' htmlFor={id} mb='5px'>
+                {label}
+            </Typography>
+            <CustomPassword
+                id={id}
+                name={id}
+                toggleLabel={false}
+                onChange={formik.handleChange}
             />
 
         </FormControl>
@@ -156,7 +171,7 @@ const MyProfile = () => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} mt={3} mb={6}>
                         <Card>
                             <CardHeader title='Change Password' />
                             <CardContent>
@@ -166,26 +181,23 @@ const MyProfile = () => {
 
                                 <Grid container spacing={2}>
                                     <Grid item xs={6}>
-                                        {renderFormControl({
+                                        {renderFormControlPassword({
                                             id: 'currentPassword',
                                             label: 'Current Password',
-                                            type: 'text',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {renderFormControl({
+                                        {renderFormControlPassword({
                                             id: 'password',
                                             label: 'New Password',
-                                            type: 'password',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {renderFormControl({
+                                        {renderFormControlPassword({
                                             id: 'confirmPassword',
                                             label: 'Confirm Password',
-                                            type: 'password',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
