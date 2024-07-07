@@ -21,12 +21,12 @@ import { User } from '../../types/users.type'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import { isAxiosError } from '@/utils/utils.ts';
-
+import CustomPassword from '@/components/forms/CustomPassword';
 
 type FormStateType = Omit<User, 'id'>
 
 const inititalFormState: FormStateType = {
-  fullname: '',
+  fullName: '',
   address: '',
   phoneNumber: '',
   username: '',
@@ -59,12 +59,16 @@ export default function Register() {
 
   const add = { role: role }
   Object.entries(add).forEach(([key, value]) => { formState[key] = value })
+
   console.log('error', registerMutation.error);
-  console.log('error-axios', isAxiosError);
+  console.log('formState', formState);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     registerMutation.mutate(formState, {
+
       onSuccess: () => {
+        console.log(formState, 'ddfsfs');
         setFormState(inititalFormState) // reset form
         toast.success('Register thành công');
       },
@@ -100,8 +104,8 @@ export default function Register() {
                     required
                     id="fullname"
                     name="fullname"
-                    value={formState.fullname}
-                    onChange={handleChange('fullname')}
+                    value={formState.fullName}
+                    onChange={handleChange('fullName')}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -156,11 +160,17 @@ export default function Register() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
+                  {/* <TextField
                     type="Password"
                     fullWidth
                     label="Mật khẩu"
                     required
+                    id="password"
+                    name="password"
+                    value={formState.password}
+                    onChange={handleChange('password')}
+                  /> */}
+                  <CustomPassword
                     id="password"
                     name="password"
                     value={formState.password}
