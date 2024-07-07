@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Box, Menu, Button, IconButton, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 
-import { IconListCheck, IconMail, IconUser } from '@tabler/icons-react';
+import { IconListCheck, IconMail, IconUser, IconHistory } from '@tabler/icons-react';
 
 import ProfileImg from '@/assets/user-1.jpg';
 
@@ -61,6 +61,17 @@ const Profile = () => {
             <IconUser width={20} />
           </ListItemIcon>
           <ListItemText><Button to="/auth/my-profile" component={Link} color='inherit'>My Profile</Button></ListItemText>
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <IconHistory width={20} />
+          </ListItemIcon>
+          <ListItemText>
+            <Link to='/order-history' style={{ textDecoration: 'none' }}>
+              {' '}
+              Order History
+            </Link>
+          </ListItemText>
         </MenuItem>
         <Box mt={1} py={1} px={2}>
           <Button to="/auth/login" variant="outlined" color="primary" component={Link} fullWidth>
