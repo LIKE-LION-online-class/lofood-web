@@ -33,6 +33,8 @@ const MyProfile = () => {
         }),
         [data]
     )
+
+    console.log(data, 'aaaa');
     const { mutate: mutateUpdateUser, isPending: updatePending } = useMutation({
         mutationFn: updateUserHttp,
         onSuccess: () => {
@@ -72,7 +74,6 @@ const MyProfile = () => {
             })
         }),
         onSubmit: (values) => {
-
             const data = {
                 id: values.id,
                 name: values.name,
@@ -81,7 +82,6 @@ const MyProfile = () => {
                 phoneNumber: values.phoneNumber,
                 email: values.email
             }
-
             mutateUpdateUser(data);
             if (values.confirmPassword) {
                 const dataUpdatePassword = {
@@ -95,7 +95,6 @@ const MyProfile = () => {
             console.log(values, 'values');
         }
     })
-
     const renderFormControl = ({ id, label, type = 'text', disabled = false }) => (
         <FormControl fullWidth required>
             <Typography variant='subtitle1' fontWeight={600} component='label' htmlFor={id} mb='5px'>
@@ -112,6 +111,7 @@ const MyProfile = () => {
                 error={formik.touched[id] && Boolean(formik.errors[id])}
                 helperText={formik.touched[id] && formik.errors[id]}
             />
+
         </FormControl>
     )
     return (
@@ -130,7 +130,6 @@ const MyProfile = () => {
                             >
                                 Save
                             </LoadingButton>
-
                         </Box>
                     </Stack>
                     <Grid item xs={12}>
@@ -160,7 +159,6 @@ const MyProfile = () => {
                     <Grid item xs={12}>
                         <Card>
                             <CardHeader title='Change Password' />
-
                             <CardContent>
                                 <IconButton onClick={() => setChangePassword(!changePassword)} size='small'>
                                     <IconEdit size={16} />
@@ -171,7 +169,7 @@ const MyProfile = () => {
                                         {renderFormControl({
                                             id: 'currentPassword',
                                             label: 'Current Password',
-                                            type: 'password',
+                                            type: 'text',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
