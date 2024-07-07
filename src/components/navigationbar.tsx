@@ -37,7 +37,7 @@ const NavigationBar = () => {
                         to={`/`}
                         style={{ textDecoration: 'none', color: 'black', fontSize: '0px', display: 'block' }}
                       >
-                        <img width="78" height="78" src="../public/kfc-logo.svg" alt="avatar" />
+                        <img width="100" height="100" src="../public/logo-happy-restaurant.png" alt="avatar" />
                       </Link>
                     </Typography>
                   </Grid>
@@ -48,7 +48,7 @@ const NavigationBar = () => {
                         style={{ textDecoration: 'none', color: 'black' }}
                         className={pathname.includes('/thuc-don') ? 'active' : ''}
                       >
-                        Thực đơn
+                        Menu
                       </Link>
                     </Typography>
                   </Grid>
@@ -59,7 +59,7 @@ const NavigationBar = () => {
                         style={{ textDecoration: 'none', color: 'black' }}
                         className={pathname.includes('/he-thong-nha-hang') ? 'active' : ''}
                       >
-                        Hệ Thống nhà hàng
+                        List restaurant
                       </Link>
                     </Typography>
                   </Grid>
@@ -81,11 +81,11 @@ const NavigationBar = () => {
                       ></Link>
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  {/* <Grid item>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={toogleSideBar}>
                       <MenuIcon sx={{ width: '1.5em', height: '1.5em' }} />
                     </IconButton>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>
@@ -95,7 +95,7 @@ const NavigationBar = () => {
           {pathname.includes('/gio-hang') ? (
             <Stack spacing={2} direction="row" justifyContent={'space-between'} pb={2} pt={2}>
               <Button variant="outlined" color="inherit" onClick={() => navigate(-1)}>
-                Quay lại menu
+                Back to menu
               </Button>
               <Typography variant="h2" noWrap component="p">
                 <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
@@ -110,7 +110,7 @@ const NavigationBar = () => {
       </AppBar>
       <Box sx={{ textAlign: 'center', bgcolor: 'black', paddingTop: '111px' }}>
         <Typography variant="h4" component="p" color="white" p={1}>
-          Nhận tại nhà hàng theo địa chỉ:abc
+          Address: ABCDXYZ
         </Typography>
       </Box>
     </>

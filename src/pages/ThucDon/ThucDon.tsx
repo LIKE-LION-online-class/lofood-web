@@ -43,6 +43,7 @@ const ThucDon = () => {
   // var { foods } = formatFoodData(data);
 
   const [foods, setFoods] = useState<[]>([]);
+  const [categories, setCategories] = useState<[]>([]);
 
   useEffect(() => {
     const fetchDataFood = async () => {
@@ -55,12 +56,6 @@ const ThucDon = () => {
           throw new Error('Failed to get category');
         });
     }
-    fetchDataFood();
-  }, []);
-
-  const [categories, setCategories] = useState<[]>([]);
-
-  useEffect(() => {
     const fetchData = async () => {
       await instance
         .get('/category')
@@ -71,8 +66,11 @@ const ThucDon = () => {
           throw new Error('Failed to get category');
         });
     }
+    fetchDataFood();
     fetchData();
   }, []);
+
+
 
   const selecteCategory = async (id: any) => {
     await instance
@@ -127,7 +125,7 @@ const ThucDon = () => {
       </Box>
       <Box className="uu-dai" mb={2} id="uu-dai">
         <Typography variant="h2" noWrap component="h2" mb={2} sx={{ position: 'relative' }}>
-          <span>Ưu đãi</span>
+          <span></span>
         </Typography>
         <Box
           sx={{

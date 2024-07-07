@@ -2,6 +2,7 @@ import { Food } from '@/model/Food';
 import { FoodOrderRequest } from '@/model/FoodOrderRequest';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
+import { toast } from 'react-toastify';
 
 // Define a type for the slice state
 interface CartState {
@@ -25,6 +26,7 @@ export const cartSlice = createSlice({
       } else {
         state.CartArr[foodIndex].quantity += 1;
       }
+      toast.success("added")
     },
     minusFood: (state, action: PayloadAction<Food>) => {
       const foodIndex = state.CartArr.findIndex((p) => p?.id === action.payload?.id);

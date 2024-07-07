@@ -6,6 +6,7 @@ import Slider, { Settings } from 'react-slick';
 import DanhMucMonAn from '@/components/DanhMucMonAn.tsx';
 import { Link } from 'react-router-dom';
 import NewProductCard from '@/components/NewProductCard.tsx';
+import { Height, WidthFull } from '@mui/icons-material';
 var settings = {
   narrow: true,
   infinite: true,
@@ -24,10 +25,10 @@ export default function Home() {
 
   return (
     <>
-      <Box id="top" className="home-silder fix-button-slick" sx={{ overflow: 'hidden' }} mb={6}>
+      {/* <Box id="top" className="home-silder fix-button-slick" sx={{ overflow: 'hidden' }} mb={6}>
         <Slider {...settings}>
           <Box>
-            <img src="../src/assets/BO.jpg" alt="BO" />
+            <img src="../src/assets/carousel.jpg" alt="BO" style />
           </Box>
           <Box>
             <img src="../src/assets/combo88k.jpg" alt="combo88k" />
@@ -35,11 +36,12 @@ export default function Home() {
           <Box>
             <img src="../src/assets/Dinner.jpg" alt='Dinner' />
           </Box>
-        </Slider>
-      </Box>
+        </Slider> 
+      </Box>*/}
+      <img src="../src/assets/carousel.jpg" alt="BO" width={'100%'} height={'700vh'} />
       <Container>
         <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
-          <span>DANH MỤC MÓN ĂN</span>
+          <span>LIST FOOD</span>
         </Typography>
         <Box className="box-khuyen-mai">
           <Box
@@ -81,7 +83,7 @@ export default function Home() {
       <Container className="box-do-you-want-like-this-food fix-button-slick">
         <Box my={6}>
           <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
-            <span>CÓ THỂ BẠN SẼ THÍCH MÓN NÀY</span>
+            <span>MAYBE YOU WILL LIKE </span>
           </Typography>
           <Slider {...settingsCarousel}>
             <Box p={1}>
@@ -112,9 +114,7 @@ export default function Home() {
           </Slider>
         </Box>
       </Container>
-      <Box sx={{ overflow: 'hidden' }}>
-        <img src="../src/assets/banner.jpg" alt='banner' />
-      </Box>
+      <img src="../src/assets/banner.png" alt='banner' width={'100%'} height={'500vh'} />
 
     </>
 

@@ -7,9 +7,11 @@ import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 import { AppContext } from '../context/AppContext.tsx';
 import { useContext, useEffect, useState } from 'react';
+import { formatDate } from "../common/format";
 
 const CartHistoryItem = ({ item }) => {
   const { isOpen, toogleSideBar } = useContext(AppContext);
+  console.log(item?.foodOrderResponses);
 
 
   return (
@@ -21,7 +23,7 @@ const CartHistoryItem = ({ item }) => {
               <CardContent>
                 <Stack direction="column" pb={2}>
                   <Typography gutterBottom variant="h3" component="h3" className="product-name">
-                    Date order: {item.createDate}
+                    Date order: {formatDate(item?.createDate)}
                   </Typography>
                   <Box className="detail-product">
                     <Link

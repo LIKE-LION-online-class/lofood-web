@@ -41,7 +41,6 @@ const GioHang = () => {
   return (
     <AppProvider>
       <Container>
-        <img src="../src/assets/logo-sidebar.png" alt="logo-sidebar" height="22" />
         <Typography component="h1" variant="h1" pt={4} pb={4}>
           GIỎ HÀNG CỦA TÔI
         </Typography>

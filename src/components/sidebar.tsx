@@ -1,16 +1,16 @@
 import { Box, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
-import {AppContext} from "../context/AppContext.tsx";
-import React, {useContext} from 'react';
+import { AppContext } from "../context/AppContext.tsx";
+import React, { useContext } from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import Link from '@mui/material/Link';
 const drawerWidth = 300;
 
 const SideBar = () => {
-  const{isOpen,toogleSideBar}= useContext(AppContext);
-  if(!isOpen) {
+  const { isOpen, toogleSideBar } = useContext(AppContext);
+  if (!isOpen) {
     document.body.classList.remove('overflow-hidden');
     return null;
-  }else {
+  } else {
     document.body.classList.add('overflow-hidden');
   }
 
@@ -21,7 +21,7 @@ const SideBar = () => {
       anchor="right"
       sx={{
         position: 'fixed',
-        zIndex:9999999,
+        zIndex: 9999999,
         width: drawerWidth,
         flexShrink: 0,
         [`& .MuiDrawer-paper`]: {
@@ -31,15 +31,15 @@ const SideBar = () => {
       }}
     >
       <Box sx={{ overflow: 'auto' }} className="sideBarRight">
-        <Box className="headerSideBar" sx={{textAlign:'center',position:'relative',borderBottom:'1px solid #ccc'}} pb={1} pt={1}>
-          <img src="../src/assets/logo-sidebar.png" alt="logo-sidebar"/>
-          <IconButton className="btn-close-sidebar" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 , position:'absolute',top:'10px',right:0}}
-                      onClick={toogleSideBar}>
+        <Box className="headerSideBar" sx={{ textAlign: 'center', position: 'relative', borderBottom: '1px solid #ccc' }} pb={1} pt={1}>
+          <img src="../src/assets/logo-sidebar.png" alt="logo-sidebar" />
+          <IconButton className="btn-close-sidebar" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2, position: 'absolute', top: '10px', right: 0 }}
+            onClick={toogleSideBar}>
             <CloseOutlinedIcon />
           </IconButton>
         </Box>
-        <Box className="contentSideBar" sx={{padding:'16px'}}>
-          <Box component="div" className="box-item" pb={2} sx={{borderBottom:'1px solid #ccc'}} mb={2}>
+        <Box className="contentSideBar" sx={{ padding: '16px' }}>
+          <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography component="h2" variant="h4" pb={2}>
               DANH MỤC MÓN ĂN
             </Typography>
@@ -68,7 +68,7 @@ const SideBar = () => {
               <Link href="#thuc-uong-trang-mieng" className="sidebar-with-arrow" color="#202124">Thức Uống & Tráng Miệng</Link>
             </Typography>
           </Box>
-          <Box component="div" className="box-item" pb={2} sx={{borderBottom:'1px solid #ccc'}} mb={2}>
+          <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography component="h2" variant="h4" pb={2}>
               VỀ KFC
             </Typography>
@@ -97,7 +97,7 @@ const SideBar = () => {
               <Link href="#thuc-uong-trang-mieng" className="sidebar-with-arrow" color="#202124">Thức Uống & Tráng Miệng</Link>
             </Typography>
           </Box>
-          <Box component="div" className="box-item" pb={2} sx={{borderBottom:'1px solid #ccc'}} mb={2}>
+          <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography component="h2" variant="h4" pb={2}>
               LIÊN HỆ KFC
             </Typography>
@@ -108,7 +108,7 @@ const SideBar = () => {
               <Link href="#mon-moi" className="sidebar-with-arrow" color="#202124">Liên hệ KFC</Link>
             </Typography>
           </Box>
-          <Box component="div" className="box-item" pb={2} sx={{borderBottom:'1px solid #ccc'}} mb={2}>
+          <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography component="h2" variant="h4" pb={2}>
               CHÍNH SÁCH
             </Typography>
@@ -124,9 +124,9 @@ const SideBar = () => {
           </Box>
 
         </Box>
-        <Box className="sideBarFooter" sx={{ height: '100px', backgroundColor: 'black',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <Box className="sideBarFooter" sx={{ height: '100px', backgroundColor: 'black', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
-          <img  src="../src/assets/logo-sidebar-footer.png" alt="logo-sidebar-footer" />
+          <img src="../src/assets/logo-sidebar-footer.png" alt="logo-sidebar-footer" />
         </Box>
       </Box>
     </Drawer>

@@ -28,8 +28,7 @@ const OrderHistory = () => {
 
   return (
     <AppProvider>
-      <Container>
-        <img src="../src/assets/logo-sidebar.png" alt="logo-sidebar" height="22" />
+      <Container style={{ minHeight: '80vh' }}>
         <Typography component="h1" variant="h1" pt={4} pb={4}>
           ORDER HISTORY
         </Typography>
