@@ -51,7 +51,7 @@ const GioHang = () => {
                 <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Box className="box-set-item-basket">
                     <Typography component="h1" variant="h1" pb={4}>
-                      GIỎ HÀNG CỦA BẠN ĐANG TRỐNG. HÃY ĐẶT MÓN NGAY!
+                      YOUR CART IS EMPTY!!
                     </Typography>
                     <Button
                       variant="contained"
@@ -60,7 +60,7 @@ const GioHang = () => {
                       size="large"
                       sx={{ borderRadius: '25px' }}
                     >
-                      Bắt đầu đặt hàng
+                      START ORDERING
                     </Button>
                   </Box>
                 </Grid>

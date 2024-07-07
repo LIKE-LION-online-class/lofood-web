@@ -22,6 +22,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import { isAxiosError } from '@/utils/utils.ts';
 import CustomPassword from '@/components/forms/CustomPassword';
+import { useNavigate } from 'react-router-dom';
+
 
 type FormStateType = Omit<User, 'id'>
 
@@ -57,6 +59,8 @@ export default function Register() {
     setFormState((prev) => ({ ...prev, [name]: event.target.value }))
   }
 
+  const navigate = useNavigate();
+
   const add = { role: role }
   Object.entries(add).forEach(([key, value]) => { formState[key] = value })
 
@@ -68,15 +72,17 @@ export default function Register() {
     registerMutation.mutate(formState, {
 
       onSuccess: () => {
-        console.log(formState, 'ddfsfs');
         setFormState(inititalFormState) // reset form
-        toast.success('Register thành công');
+        toast.success('Register  success');
+        navigate('/auth/login');
       },
       onError: (error) => {
-        toast.error('Đăng ký không thành công');
+        toast.error('Register fail');
       }
     })
   };
+
+
 
   const errorForm: FormError = useMemo(() => {
     const error = registerMutation.error;

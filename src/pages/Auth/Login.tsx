@@ -121,7 +121,7 @@ export default function Login() {
         <Grid item xs={6}>
           <Box p={6}>
             <form onSubmit={formikLogin.handleSubmit}>
-              <Typography component="h1" variant="h1" pb={4}>Đăng nhập</Typography>
+              <Typography component="h1" variant="h1" pb={4}>login</Typography>
               <Box mb={3}>
                 <TextField
                   fullWidth
@@ -149,17 +149,17 @@ export default function Login() {
                   error={formikLogin.errors.password}
                 />
               </Box>
-              <Button onClick={handleOpen}>Quên mật khẩu</Button>
-              <FormGroup>
+              <Button onClick={handleOpen}>Forgot password</Button>
+              {/* <FormGroup>
                 <FormControlLabel control={<Checkbox defaultChecked />} label="Nhớ tài khoản" />
-              </FormGroup>
+              </FormGroup> */}
               <Link to="/auth/register">
-                <Button>Tạo tài khoản</Button>
+                <Button>REGISTER</Button>
               </Link>
               <Stack alignItems="right">
                 <Box ml="auto">
                   <Button variant="contained" sx={{ boxShadow: 0 }} type="submit">
-                    Đăng nhập
+                    LOGIN
                   </Button>
                 </Box>
               </Stack>
@@ -195,7 +195,7 @@ export default function Login() {
                   />
                   <Stack alignItems="center" mt={2}>
                     <Button variant="contained" sx={{ boxShadow: 0 }} type="submit">
-                      Gửi email đăt lai mật khẩu
+                      Send email reset password
                     </Button>
                   </Stack>
                 </form>
