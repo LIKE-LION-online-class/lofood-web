@@ -85,18 +85,35 @@ const MyProfile = () => {
                 phoneNumber: values.phoneNumber,
                 email: values.email
             }
+            const dataUpdatePassword = {
+                id: values.id,
+                currentPassword: values.currentPassword,
+                newPassword: values.newPassword,
+                confirmPassword: values.confirmPassword
+            }
 
-            mutateUpdateUser(data);
+            var checkEditFrom = false;
+            var checkEditPassword = false;
+            var checkAllEditPassword = false;
 
-            if (values.confirmPassword) {
-                const dataUpdatePassword = {
-                    id: values.id,
-                    currentPassword: values.currentPassword,
-                    newPassword: values.newPassword,
-                    confirmPassword: values.confirmPassword
+            if (checkEditFrom === true && checkEditPassword === true) {
+                checkAllEditPassword = true;
+                mutateUpdateUser(data);
+                if (values.confirmPassword) {
+                    mutateUpdatePasswordUser(dataUpdatePassword)
                 }
-                console.log(dataUpdatePassword, 'values');
-                mutateUpdatePasswordUser(dataUpdatePassword)
+            } else {
+                if (initialValues.fullName != formik.values.fullName || initialValues.address != formik.values.address || initialValues.phoneNumber != formik.values.phoneNumber) {
+                    checkEditFrom = true;
+                    mutateUpdateUser(data);
+                }
+                if (initialValues.newPassword != formik.values.newPassword) {
+                    checkEditPassword = true;
+                    if (values.confirmPassword) {
+                        mutateUpdatePasswordUser(dataUpdatePassword)
+                    }
+                }
+
             }
         }
     })
