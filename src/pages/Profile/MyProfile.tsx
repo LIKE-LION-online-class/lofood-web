@@ -29,7 +29,7 @@ const MyProfile = () => {
             email: data?.data?.email || null,
             phoneNumber: data?.data?.phoneNumber || null,
             currentPassword: '',
-            password: '',
+            newPassword: '',
             confirmPassword: ''
         }),
         [data]
@@ -68,13 +68,14 @@ const MyProfile = () => {
             phoneNumber: Yup.string().required('Required'),
             ...(changePassword && {
                 currentPassword: Yup.string().required('Required'),
-                password: Yup.string().required('Required'),
+                newPassword: Yup.string().required('Required'),
                 confirmPassword: Yup.string()
                     .required('Required')
                     .oneOf([Yup.ref('password'), null], 'Passwords must match')
             })
         }),
         onSubmit: (values) => {
+            console.log(values, 'values');
             const data = {
                 id: values.id,
                 name: values.name,
@@ -88,12 +89,11 @@ const MyProfile = () => {
                 const dataUpdatePassword = {
                     id: values.id,
                     currentPassword: values.currentPassword,
-                    password: values.password
+                    newPassword: values.newPassword
                 }
-
                 mutateUpdatePasswordUser(dataUpdatePassword)
             }
-            console.log(values, 'values');
+
         }
     })
     const renderFormControl = ({ id, label, type = 'text', disabled = false }) => (
@@ -123,8 +123,11 @@ const MyProfile = () => {
             <CustomPassword
                 id={id}
                 name={id}
+                value={formik.values[id]}
                 toggleLabel={false}
                 onChange={formik.handleChange}
+                error={formik.touched[id] && Boolean(formik.errors[id])}
+                helperText={formik.touched[id] && formik.errors[id]}
             />
 
         </FormControl>
