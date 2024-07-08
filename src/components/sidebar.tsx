@@ -1,9 +1,10 @@
-import { Box, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
+import { Box, Drawer, Button, IconButton, Toolbar, Typography } from '@mui/material';
 import { AppContext } from "../context/AppContext.tsx";
 import React, { useContext } from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import Link from '@mui/material/Link';
-const drawerWidth = 300;
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+const drawerWidth = '100%';
 
 const SideBar = () => {
   const { isOpen, toogleSideBar } = useContext(AppContext);
@@ -13,16 +14,18 @@ const SideBar = () => {
   } else {
     document.body.classList.add('overflow-hidden');
   }
-
+  const { pathname } = useLocation();
 
   return (
     <Drawer
       variant="permanent"
-      anchor="right"
+      anchor="left"
       sx={{
+        display: { md: 'none' },
         position: 'fixed',
         zIndex: 9999999,
         width: drawerWidth,
+        overflowX: 'hidden',
         flexShrink: 0,
         [`& .MuiDrawer-paper`]: {
           width: drawerWidth,
@@ -33,69 +36,39 @@ const SideBar = () => {
       <Box sx={{ overflow: 'auto' }} className="sideBarRight">
         <Box className="headerSideBar" sx={{ textAlign: 'center', position: 'relative', borderBottom: '1px solid #ccc' }} pb={1} pt={1}>
           <img src="../src/assets/logo-sidebar.png" alt="logo-sidebar" />
-          <IconButton className="btn-close-sidebar" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2, position: 'absolute', top: '10px', right: 0 }}
+          <IconButton className="btn-close-sidebar" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2, position: 'absolute', top: '10px', left: '10px' }}
             onClick={toogleSideBar}>
             <CloseOutlinedIcon />
           </IconButton>
         </Box>
         <Box className="contentSideBar" sx={{ padding: '16px' }}>
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
-            <Typography component="h2" variant="h4" pb={2}>
-              DANH MỤC MÓN ĂN
+            <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
+              <Link
+                to={`/thuc-don`}
+                style={{ textDecoration: 'none', color: 'black' }}
+                className={pathname.includes('/thuc-don') ? 'active' : ''}
+              >
+                Menu
+              </Link>
             </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#uu-dai" className="sidebar-with-arrow" color="#202124">Ưu Đãi</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#mon-moi" className="sidebar-with-arrow" color="#202124">Món Mới</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#combo-one-people" className="sidebar-with-arrow" color="#202124">Combo 1 Người</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#combo-nhom" className="sidebar-with-arrow" color="#202124">Combo Nhóm</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#ga-ran-ga-quay" className="sidebar-with-arrow" color="#202124">Gà Rán - Gà Quay</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#burger-com-mi-y" className="sidebar-with-arrow" color="#202124">Burger - Cơm - Mì Ý</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#thuc-an-nhe" className="sidebar-with-arrow" color="#202124">Thức Ăn Nhẹ</Link>
-            </Typography>
-            <Typography component="p" variant="p">
-              <Link href="#thuc-uong-trang-mieng" className="sidebar-with-arrow" color="#202124">Thức Uống & Tráng Miệng</Link>
+            <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
+              <Link
+                to={`/he-thong-nha-hang`}
+                style={{ textDecoration: 'none', color: 'black' }}
+                className={pathname.includes('/he-thong-nha-hang') ? 'active' : ''}
+              >
+                List restaurant
+              </Link>
             </Typography>
           </Box>
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
-            <Typography component="h2" variant="h4" pb={2}>
-              VỀ KFC
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#uu-dai" className="sidebar-with-arrow" color="#202124">Câu Chuyện Của Chúng Tôi</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#mon-moi" className="sidebar-with-arrow" color="#202124">Tin Khuyến Mãi</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#combo-one-people" className="sidebar-with-arrow" color="#202124">Tin Khuyến Mãi</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#combo-nhom" className="sidebar-with-arrow" color="#202124">Tin tức KFC</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#ga-ran-ga-quay" className="sidebar-with-arrow" color="#202124">Tuyển dụng</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#burger-com-mi-y" className="sidebar-with-arrow" color="#202124">Đặt tiệc Sinh nhật</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#thuc-an-nhe" className="sidebar-with-arrow" color="#202124">Thức Ăn Nhẹ</Link>
-            </Typography>
-            <Typography component="p" variant="p" pb={1}>
-              <Link href="#thuc-uong-trang-mieng" className="sidebar-with-arrow" color="#202124">Thức Uống & Tráng Miệng</Link>
-            </Typography>
+            <Link to={'/auth/login'} color="inherit">
+              Login
+            </Link>
+            <Link to={'/auth/register'} color="inherit" >
+              Register
+            </Link>
           </Box>
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography component="h2" variant="h4" pb={2}>
@@ -122,10 +95,8 @@ const SideBar = () => {
               <Link href="#mon-moi" className="sidebar-with-arrow" color="#202124">Chính sách bảo mật thông tin</Link>
             </Typography>
           </Box>
-
         </Box>
         <Box className="sideBarFooter" sx={{ height: '100px', backgroundColor: 'black', textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-
           <img src="../src/assets/logo-sidebar-footer.png" alt="logo-sidebar-footer" />
         </Box>
       </Box>

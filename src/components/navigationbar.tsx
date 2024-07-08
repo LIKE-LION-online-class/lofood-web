@@ -1,4 +1,4 @@
-import { AppBar, Box, Typography, Button, IconButton, Container, Grid, Stack } from '@mui/material';
+import { AppBar, Box, Typography, Button, IconButton, Container, Grid, Stack, Hidden } from '@mui/material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useContext } from 'react';
@@ -31,6 +31,13 @@ const NavigationBar = () => {
             <Grid container sx={{ alignItems: 'center' }} pb={2} pt={2}>
               <Grid item xs={8} className="navigation">
                 <Grid container spacing={2} sx={{ alignItems: 'center' }}>
+
+                  <Grid item sx={{ display: { sm: 'block', md: 'none' } }}>
+                    <IconButton edge="start" color="inherit" aria-label="menu" onClick={toogleSideBar}>
+                      <MenuIcon sx={{ width: '1.5em', height: '1.5em' }} />
+                    </IconButton>
+                  </Grid>
+
                   <Grid item>
                     <Typography variant="h2" noWrap component="p">
                       <Link
@@ -41,7 +48,7 @@ const NavigationBar = () => {
                       </Link>
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  <Grid item sx={{ display: { sm: 'none', md: 'block' } }}>
                     <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
                       <Link
                         to={`/thuc-don`}
@@ -52,7 +59,7 @@ const NavigationBar = () => {
                       </Link>
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  <Grid item sx={{ display: { sm: 'none', md: 'block' } }}>
                     <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
                       <Link
                         to={`/he-thong-nha-hang`}
@@ -81,11 +88,6 @@ const NavigationBar = () => {
                       ></Link>
                     </Typography>
                   </Grid>
-                  {/* <Grid item>
-                    <IconButton edge="start" color="inherit" aria-label="menu" onClick={toogleSideBar}>
-                      <MenuIcon sx={{ width: '1.5em', height: '1.5em' }} />
-                    </IconButton>
-                  </Grid> */}
                 </Grid>
               </Grid>
             </Grid>
