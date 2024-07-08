@@ -3,14 +3,16 @@ import { AppProvider } from '@/context/AppContext.tsx';
 import ProductInBasket from '@/components/ProductInBasket.tsx';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Food } from '@/model/Food';
 import { selectTotalPrice } from '@/redux/slice/cartSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import instance from '@/utils/axios';
+import { clearCart } from '@/redux/slice/cartSlice';
 
 const GioHang = () => {
+  const dispatch = useDispatch();
   const cart: Food[] = useSelector((state) => state?.cart?.CartArr);
   const totalPrice = useSelector(selectTotalPrice);
 
@@ -23,13 +25,14 @@ const GioHang = () => {
         priceOrder: food.price,
         quantity: food.quantity,
       })),
-      status: "PROCESSING",
-      totalPrice: totalPrice
+      status: 'PROCESSING',
+      totalPrice: totalPrice,
     };
     await instance
       .post('/order', orderRequest)
       .then(() => {
         toast.success('Order success');
+        dispatch(clearCart());
         navigate('/');
       })
       .catch(() => {
@@ -42,7 +45,7 @@ const GioHang = () => {
     <AppProvider>
       <Container>
         <Typography component="h1" variant="h1" pt={4} pb={4}>
-          GIỎ HÀNG CỦA TÔI
+          YOUR CART
         </Typography>
         {cart.length === 0 ? (
           <>
@@ -83,7 +86,7 @@ const GioHang = () => {
                   <Grid container>
                     <Paper elevation={3} sx={{ overflow: 'hidden', padding: '30px', backgroundColor: '#2d2d2d' }}>
                       <Typography component="h3" variant="h3" color="white" pb={2}>
-                        SẼ NGON HƠN KHI THƯỞNG THỨC CÙNG…
+                        YOU MAY LIKE…
                       </Typography>
                       <Stack
                         className="box-img"
@@ -104,12 +107,12 @@ const GioHang = () => {
                 <Grid item xs={4}>
                   <Paper elevation={3} sx={{ overflow: 'hidden', padding: '20px' }}>
                     <Typography component="h2" variant="h2" sx={{ borderBottom: '1px solid #ccc' }} pb={2} mb={2}>
-                      1 MÓN
+                      number of food items : {cart.length}
                     </Typography>
                     <Box className="content" sx={{ borderBottom: '1px solid #ccc' }} pb={2} mb={2}>
                       <Stack direction="row" justifyContent={'space-between'}>
                         <Typography component="p" variant="p">
-                          Tổng đơn hàng
+                          TOTAL PRICE
                         </Typography>
                         <Typography component="p" variant="p">
                           {totalPrice}
@@ -117,7 +120,7 @@ const GioHang = () => {
                       </Stack>
                       <Stack direction="row" justifyContent={'space-between'}>
                         <Typography component="p" variant="h2">
-                          Tổng thanh toán
+                          TOTAL
                         </Typography>
                         <Typography component="p" variant="h2">
                           {totalPrice}
@@ -132,7 +135,7 @@ const GioHang = () => {
                       }}
                     >
                       <Typography component="p" variant="h2">
-                        Đặt hàng
+                        ORDER
                       </Typography>
                       <Typography component="p" variant="h2">
                         {totalPrice}

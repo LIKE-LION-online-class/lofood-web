@@ -41,6 +41,9 @@ const ProductInBasket = ({ image, food }: RecipeReviewCardProps) => {
                   <Typography gutterBottom variant="h3" component="h3" className="product-name">
                     {food.name}
                   </Typography>
+                  <Typography gutterBottom variant="h3" component="h3" className="product-name">
+                    Price :{food.price}
+                  </Typography>
                   <Box className="detail-product">
                     <Link
                       href="javascript:void(0)"
@@ -49,7 +52,7 @@ const ProductInBasket = ({ image, food }: RecipeReviewCardProps) => {
                       className="switch"
                       onClick={toogleSideBar}
                     >
-                      Xem chi tiết
+                      Detail
                     </Link>
                     {isOpen ? (
                       <Typography variant="p" component="div" className="content">
@@ -62,7 +65,7 @@ const ProductInBasket = ({ image, food }: RecipeReviewCardProps) => {
                 </Stack>
                 <Stack direction="row">
                   <Button title="Xóa" onClick={() => dispatch(deleteFood(food))}>
-                    Xóa
+                    REMOVE
                   </Button>
                 </Stack>
               </CardContent>
