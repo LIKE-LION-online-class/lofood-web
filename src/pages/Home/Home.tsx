@@ -1,47 +1,35 @@
-import SearchInput from '@/components/SearchInput';
-import { Box, IconButton, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider, { Settings } from 'react-slick';
-import DanhMucMonAn from '@/components/DanhMucMonAn.tsx';
 import { Link } from 'react-router-dom';
-import NewProductCard from '@/components/NewProductCard.tsx';
-import { Height, WidthFull } from '@mui/icons-material';
-var settings = {
-  narrow: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1
-};
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getRestaurantsHttp } from '@/apis/restaurant';
+import { formatData } from '@/libs';
+import RestaurantItem from '@/components/RestaurantItem';
+import RestaurantCard from '@/components/RestaurantCard';
+
 var settingsCarousel = {
   narrow: true,
   infinite: true,
   speed: 500,
   slidesToShow: 4,
-  slidesToScroll: 1
+  slidesToScroll: 1,
 };
 export default function Home() {
+  const { data } = useQuery({
+    queryKey: ['getRestaurants'],
+    queryFn: getRestaurantsHttp,
+  });
+
+  const { results } = formatData(data);
 
   return (
     <>
-      {/* <Box id="top" className="home-silder fix-button-slick" sx={{ overflow: 'hidden' }} mb={6}>
-        <Slider {...settings}>
-          <Box>
-            <img src="../src/assets/carousel.jpg" alt="BO" style />
-          </Box>
-          <Box>
-            <img src="../src/assets/combo88k.jpg" alt="combo88k" />
-          </Box>
-          <Box>
-            <img src="../src/assets/Dinner.jpg" alt='Dinner' />
-          </Box>
-        </Slider> 
-      </Box>*/}
       <img src="../src/assets/carousel.jpg" alt="BO" width={'100%'} height={'700vh'} />
       <Container>
         <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
-          <span>LIST FOOD</span>
+          <span>LIST RESTAURANT</span>
         </Typography>
         <Box className="box-khuyen-mai">
           <Box
@@ -51,72 +39,31 @@ export default function Home() {
               gridTemplateColumns: 'repeat(4, 1fr)',
             }}
           >
-            <Grid item xs={3}>
-              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                <DanhMucMonAn image="../src/assets/KHUYEN MAI.jpg" text="Ưu Đãi" />
-              </Link>
-            </Grid>
-            <Grid item xs={3}>
-              <DanhMucMonAn image="../src/assets/MON MOI.jpg" text="Món Mới" />
-            </Grid>
-            <Grid item xs={3}>
-              <DanhMucMonAn image="../src/assets/COMBO 1 NGUOI.jpg" text="Combo 1 Người" />
-            </Grid>
-            <Grid item xs={3}>
-              <DanhMucMonAn image="../src/assets/COMBO NHOM.jpg" text="Combo Nhóm" />
-            </Grid>
-            <Grid item xs={3}>
-              <DanhMucMonAn image="../src/assets/GA.jpg" text="Gà Rán - Gà Quay" />
-            </Grid>
-            <Grid item xs={3}>
-              <DanhMucMonAn image="../src/assets/COM.jpg" text="Burger - Cơm - Mì Ý" />
-            </Grid>
-            <Grid item xs={3}>
-              <DanhMucMonAn image="../src/assets/MON AN NHE.jpg" text="Thức Ăn Nhẹ" />
-            </Grid>
-            <Grid item xs={3}>
-              <DanhMucMonAn image="../src/assets/TRANG MIENG.jpg" text="Thức Uống & Tráng Miệng" />
-            </Grid>
+            {results.map((restaurant: any) => (
+              <Grid item xs={3}>
+                <RestaurantItem restaurant={restaurant} />
+              </Grid>
+            ))}
           </Box>
         </Box>
       </Container>
       <Container className="box-do-you-want-like-this-food fix-button-slick">
         <Box my={6}>
           <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
-            <span>MAYBE YOU WILL LIKE </span>
+            <span>NEAR YOU</span>
           </Typography>
           <Slider {...settingsCarousel}>
-            <Box p={1}>
-              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
-              </Link>
-            </Box>
-            <Box p={1}>
-              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
-              </Link>
-            </Box>
-            <Box p={1}>
-              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
-              </Link>
-            </Box>
-            <Box p={1}>
-              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
-              </Link>
-            </Box>
-            <Box p={1}>
-              <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
-              </Link>
-            </Box>
+            {results.map((restaurant: any) => (
+              <Box p={1}>
+                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                  <RestaurantCard item={restaurant} />
+                </Link>
+              </Box>
+            ))}
           </Slider>
         </Box>
       </Container>
-      <img src="../src/assets/banner.png" alt='banner' width={'100%'} height={'500vh'} />
-
+      <img src="../src/assets/banner.png" alt="banner" width={'100%'} height={'500vh'} />
     </>
-
   );
 }

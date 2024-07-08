@@ -26,7 +26,7 @@ export const cartSlice = createSlice({
       } else {
         state.CartArr[foodIndex].quantity += 1;
       }
-      toast.success("added")
+      toast.success('added');
     },
     minusFood: (state, action: PayloadAction<Food>) => {
       const foodIndex = state.CartArr.findIndex((p) => p?.id === action.payload?.id);
@@ -40,6 +40,9 @@ export const cartSlice = createSlice({
       const foodRemoveId = action.payload.id;
       state.CartArr = state.CartArr.filter((item) => item.id !== foodRemoveId);
     },
+    clearCart: (state) => {
+      state.CartArr = [];
+    },
   },
 });
 
@@ -49,6 +52,6 @@ export const selectTotalPrice = (state: RootState) => {
   }, 0);
 };
 
-export const { addFood, minusFood, deleteFood } = cartSlice.actions;
+export const { addFood, minusFood, deleteFood, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
