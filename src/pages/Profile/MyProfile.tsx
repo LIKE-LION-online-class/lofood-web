@@ -1,6 +1,7 @@
 import { Container, Typography, Stack, Box, Grid, Card, CardHeader, CardContent, IconButton, FormControl } from "@mui/material"
 import { LoadingButton } from '@mui/lab'
 import CustomTextField from '@/components/forms/CustomTextField'
+import CustomPassword from '@/components/forms/CustomPassword'
 import { IconEdit } from '@tabler/icons-react'
 import { getUserByIdHttp, updatePasswordUserHttp, updateUserHttp } from '@/apis/user'
 import { useMemo, useState } from 'react'
@@ -16,26 +17,25 @@ const MyProfile = () => {
         queryKey: ['getUserById', id],
         queryFn: getUserByIdHttp
     });
-    console.log(id, 'data');
-    const [changePassword, setChangePassword] = useState(false);
 
+    const [changePassword, setChangePassword] = useState(false);
+    console.log(changePassword, 'changePassword');
     const initialValues = useMemo(
         () => ({
             id: data?.data?.id || null,
-            name: data?.data?.fullName || '',
+            fullName: data?.data?.fullName || '',
             username: data?.data?.username || '',
             address: data?.data?.address || '',
             email: data?.data?.email || null,
             phoneNumber: data?.data?.phoneNumber || null,
             currentPassword: '',
-            password: '',
+            newPassword: '',
             confirmPassword: ''
         }),
         [data]
     )
 
-    console.log(data, 'aaaa');
-    const { mutate: mutateUpdateUser, isPending: updatePending } = useMutation({
+    const { mutate: mutateUpdateUser, isPending: updatePending, isSuccess: isSuccessUpdateUser } = useMutation({
         mutationFn: updateUserHttp,
         onSuccess: () => {
             toast.success('Edit User Success');
@@ -45,11 +45,13 @@ const MyProfile = () => {
             toast.error(error.response.data.error.message, 'error')
         }
     })
+
     const { mutate: mutateUpdatePasswordUser, isPending: updatePasswordLoading } = useMutation({
         mutationFn: updatePasswordUserHttp,
         onSuccess: () => {
             toast.success('Edit Password Success');
-            formik.resetForm()
+            formik.resetForm(),
+                setChangePassword(!changePassword)
         },
         onError: (error) => {
             toast.error(error.response.data.error.message, 'error');
@@ -57,44 +59,65 @@ const MyProfile = () => {
     })
 
     const formik = useFormik({
-        enableReinitialize: true,
-        initialValues,
+        enableReinitialize: true,// hien thi gia tri len form
+        initialValues,// gia init 
         validationSchema: Yup.object({
-            name: Yup.string().required('Required'),
+            fullName: Yup.string().required('Required'),
             username: Yup.string().required('Required'),
             address: Yup.string().required('Required'),
             email: Yup.string().required('Required'),
             phoneNumber: Yup.string().required('Required'),
             ...(changePassword && {
                 currentPassword: Yup.string().required('Required'),
-                password: Yup.string().required('Required'),
+                newPassword: Yup.string().required('Required'),
                 confirmPassword: Yup.string()
                     .required('Required')
-                    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                    .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
             })
         }),
         onSubmit: (values) => {
+
             const data = {
                 id: values.id,
-                name: values.name,
-                fullName: values.name,
+                fullName: values.fullName,
+                username: values.username,
                 address: values.address,
                 phoneNumber: values.phoneNumber,
                 email: values.email
             }
-            mutateUpdateUser(data);
-            if (values.confirmPassword) {
-                const dataUpdatePassword = {
-                    id: values.id,
-                    currentPassword: values.currentPassword,
-                    password: values.password,
-                    newPassword: values.confirmPassword
-                }
-                mutateUpdatePasswordUser(dataUpdatePassword)
+            const dataUpdatePassword = {
+                id: values.id,
+                currentPassword: values.currentPassword,
+                newPassword: values.newPassword,
+                confirmPassword: values.confirmPassword
             }
-            console.log(values, 'values');
+
+            var checkEditFrom = false;
+            var checkEditPassword = false;
+            var checkAllEditPassword = false;
+
+            if (checkEditFrom === true && checkEditPassword === true) {
+                checkAllEditPassword = true;
+                mutateUpdateUser(data);
+                if (values.confirmPassword) {
+                    mutateUpdatePasswordUser(dataUpdatePassword)
+                }
+            } else {
+                if (initialValues.fullName != formik.values.fullName || initialValues.address != formik.values.address || initialValues.phoneNumber != formik.values.phoneNumber) {
+                    checkEditFrom = true;
+                    mutateUpdateUser(data);
+                }
+                if (initialValues.newPassword != formik.values.newPassword) {
+                    checkEditPassword = true;
+                    if (values.confirmPassword) {
+                        mutateUpdatePasswordUser(dataUpdatePassword)
+                    }
+                }
+
+            }
         }
     })
+
     const renderFormControl = ({ id, label, type = 'text', disabled = false }) => (
         <FormControl fullWidth required>
             <Typography variant='subtitle1' fontWeight={600} component='label' htmlFor={id} mb='5px'>
@@ -110,6 +133,22 @@ const MyProfile = () => {
                 onChange={formik.handleChange}
                 error={formik.touched[id] && Boolean(formik.errors[id])}
                 helperText={formik.touched[id] && formik.errors[id]}
+            />
+        </FormControl>
+    )
+    const renderFormControlPassword = ({ id, label, disabled = false }) => (
+
+        <FormControl fullWidth required>
+            <Typography variant='subtitle1' fontWeight={600} component='label' htmlFor={id} mb='5px'>
+                {label}
+            </Typography>
+            <CustomPassword
+                id={id}
+                name={id}
+                value={formik.values[id]}
+                toggleLabel={false}
+                onChange={formik.handleChange}
+                disabled={disabled}
             />
 
         </FormControl>
@@ -138,7 +177,7 @@ const MyProfile = () => {
                             <CardContent>
                                 <Grid container spacing={2}>
                                     <Grid item xs={8}>
-                                        {renderFormControl({ id: 'name', label: 'Name' })}
+                                        {renderFormControl({ id: 'fullName', label: 'fullName' })}
                                     </Grid>
                                     <Grid item xs={4}>
                                         {renderFormControl({ id: 'username', label: 'Username', disabled: true })}
@@ -156,7 +195,7 @@ const MyProfile = () => {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} mt={3} mb={6}>
                         <Card>
                             <CardHeader title='Change Password' />
                             <CardContent>
@@ -166,26 +205,23 @@ const MyProfile = () => {
 
                                 <Grid container spacing={2}>
                                     <Grid item xs={6}>
-                                        {renderFormControl({
+                                        {renderFormControlPassword({
                                             id: 'currentPassword',
                                             label: 'Current Password',
-                                            type: 'text',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {renderFormControl({
-                                            id: 'password',
+                                        {renderFormControlPassword({
+                                            id: 'newPassword',
                                             label: 'New Password',
-                                            type: 'password',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
                                     <Grid item xs={6}>
-                                        {renderFormControl({
+                                        {renderFormControlPassword({
                                             id: 'confirmPassword',
                                             label: 'Confirm Password',
-                                            type: 'password',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
