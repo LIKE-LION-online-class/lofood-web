@@ -66,7 +66,7 @@ const NavigationBar = () => {
                         style={{ textDecoration: 'none', color: 'black' }}
                         className={pathname.includes('/he-thong-nha-hang') ? 'active' : ''}
                       >
-                        List restaurant
+                        Restaurant map
                       </Link>
                     </Typography>
                   </Grid>
