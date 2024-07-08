@@ -13,12 +13,13 @@ interface valuePassword {
     name: string,
     value: string,
     onChange: void,
-    toggleLabel: Boolean
+    toggleLabel: Boolean,
+    disabled: Boolean
 }
 
 
 
-export default function CustomPassword({ id, name, value, onChange, toggleLabel }: valuePassword) {
+export default function CustomPassword({ id, name, value, onChange, toggleLabel, disabled }: valuePassword) {
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -27,13 +28,14 @@ export default function CustomPassword({ id, name, value, onChange, toggleLabel 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
-
+    console.log(typeof disable, 'disable');
     return (
         <FormControl sx={{ width: '100%', background: 'none' }} className={toggleLabel ? 'FeilhasLabel' : 'FielnoLabel'}>
             {
                 toggleLabel ? <InputLabel htmlFor="filled-adornment-password" className='labelPassword'>Password</InputLabel> : ''
             }
             <FilledInput
+                disabled={disabled}
                 label="password"
                 fullWidth
                 required

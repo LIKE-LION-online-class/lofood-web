@@ -182,6 +182,7 @@ export default function Register() {
                     value={formState.password}
                     toggleLabel={true}
                     onChange={handleChange('password')}
+                    disabled={false}
                   />
                 </Grid>
                 <Grid item xs={12}>
