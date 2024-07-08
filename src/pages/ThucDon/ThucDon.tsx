@@ -6,6 +6,7 @@ import Link from '@mui/material/Link';
 // import { foodArr } from '@/redux/foodList';
 import { useEffect, useState } from 'react';
 import instance from '@/utils/axios';
+import { useSelector } from 'react-redux';
 
 var settingsCarousel = {
   narrow: true,
@@ -44,33 +45,57 @@ const ThucDon = () => {
 
   const [foods, setFoods] = useState<[]>([]);
   const [categories, setCategories] = useState<[]>([]);
+  const restaurantID = useSelector((state) => state?.restaurant?.restaurantId);
+
+  // useEffect(() => {
+  //   const fetchDataFood = async () => {
+  //     await instance
+  //       .get('/food')
+  //       .then((res) => {
+  //         setFoods(res.data);
+  //       })
+  //       .catch(() => {
+  //         throw new Error('Failed to get category');
+  //       });
+  //   }
+  //   const fetchData = async () => {
+  //     await instance
+  //       .get('/category')
+  //       .then((res) => {
+  //         setCategories(res.data);
+  //       })
+  //       .catch(() => {
+  //         throw new Error('Failed to get category');
+  //       });
+  //   }
+  //   fetchDataFood();
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     const fetchDataFood = async () => {
       await instance
-        .get('/food')
+        .get(`/food/restaurant/${restaurantID}`)
         .then((res) => {
           setFoods(res.data);
         })
         .catch(() => {
-          throw new Error('Failed to get category');
+          throw new Error('Failed to get food');
         });
-    }
+    };
     const fetchData = async () => {
       await instance
-        .get('/category')
+        .get(`/category/${restaurantID}/restaurant`)
         .then((res) => {
           setCategories(res.data);
         })
         .catch(() => {
           throw new Error('Failed to get category');
         });
-    }
+    };
     fetchDataFood();
     fetchData();
-  }, []);
-
-
+  }, [restaurantID]);
 
   const selecteCategory = async (id: any) => {
     await instance
@@ -81,9 +106,7 @@ const ThucDon = () => {
       .catch(() => {
         throw new Error('Failed to get food by category');
       });
-  }
-
-
+  };
 
   return (
     <Container>

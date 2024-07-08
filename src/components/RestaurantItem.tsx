@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { setRestaurant } from '@/redux/slice/restaurantSlice.tsx';
+import { clearCart } from '@/redux/slice/cartSlice';
 
 interface DanhMucMonAnProps {
   restaurant: any;
@@ -16,6 +17,7 @@ export default function RestaurantItem({ restaurant }: DanhMucMonAnProps) {
       sx={{ width: '100%', borderRadius: 2, overflow: 'hidden' }}
       onClick={() => {
         dispatch(setRestaurant(restaurant?.id));
+        dispatch(clearCart());
       }}
     >
       <CardMedia

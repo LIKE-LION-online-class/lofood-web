@@ -5,14 +5,18 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { useDispatch } from 'react-redux';
-import { addFood } from '@/redux/slice/cartSlice';
 import { setRestaurant } from '@/redux/slice/restaurantSlice.tsx';
+import { clearCart } from '@/redux/slice/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 interface RecipeReviewCardProps {
   item: any;
 }
 
 export default function RestaurantCard({ item }: RecipeReviewCardProps) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <Card sx={{ overflow: 'hidden', padding: '5px' }}>
@@ -43,7 +47,13 @@ export default function RestaurantCard({ item }: RecipeReviewCardProps) {
             color="error"
             size="large"
             sx={{ borderRadius: '25px' }}
-            onClick={() => dispatch(setRestaurant(item?.id))}
+            onClick={() => {
+              dispatch(setRestaurant(item?.id));
+              dispatch(clearCart());
+              navigate('/auth/login');
+            }}
+            component={Link}
+            to="/thuc-don"
           >
             GO TO MENU
           </Button>
