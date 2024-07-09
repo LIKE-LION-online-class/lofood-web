@@ -1,13 +1,14 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Slider, { Settings } from 'react-slick';
+import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRestaurantsHttp } from '@/apis/restaurant';
-import { formatData } from '@/libs';
+import { useQuery } from '@tanstack/react-query';
+import { getIn5KmHttp, getRestaurantsHttp } from '@/apis/restaurant';
+import { formatData } from '@/libs/index';
 import RestaurantItem from '@/components/RestaurantItem';
 import RestaurantCard from '@/components/RestaurantCard';
+import { useSelector } from 'react-redux';
 
 var settingsCarousel = {
   narrow: true,
@@ -17,12 +18,28 @@ var settingsCarousel = {
   slidesToScroll: 1,
 };
 export default function Home() {
-  const { data } = useQuery({
+  const { data: restaurantsData } = useQuery({
     queryKey: ['getRestaurants'],
     queryFn: getRestaurantsHttp,
   });
 
-  const { results } = formatData(data);
+  const { results: resultRestaurant } = formatData(restaurantsData);
+
+  const location = useSelector((state) => state?.location);
+
+  const { latitude, longitude } = location;
+
+  const { data: in5kmData } = useQuery({
+    queryKey: ['getIn5Km', latitude, longitude],
+    queryFn: () =>
+      getIn5KmHttp({
+        latitude,
+        longitude,
+      }),
+    enabled: !!location && !!location.latitude && !!location.longitude,
+  });
+
+  const { results: resultIn5km } = formatData(in5kmData);
 
   return (
     <>
@@ -39,7 +56,7 @@ export default function Home() {
               gridTemplateColumns: 'repeat(4, 1fr)',
             }}
           >
-            {results.map((restaurant: any) => (
+            {resultRestaurant.map((restaurant: any) => (
               <Grid item xs={3}>
                 <RestaurantItem restaurant={restaurant} />
               </Grid>
@@ -53,11 +70,12 @@ export default function Home() {
             <span>NEAR YOU</span>
           </Typography>
           <Slider {...settingsCarousel}>
-            {results.map((restaurant: any) => (
+            {resultIn5km?.map((restaurant: any) => (
               <Box p={1}>
                 <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
                   <RestaurantCard item={restaurant} />
                 </Link>
+                Distance: {restaurant?.distance}km
               </Box>
             ))}
           </Slider>
