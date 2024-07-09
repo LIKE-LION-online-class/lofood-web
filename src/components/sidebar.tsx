@@ -1,8 +1,9 @@
-import { Box, Drawer, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import { Box, Drawer, Button, IconButton, Toolbar, Typography, Stack } from '@mui/material';
 import { AppContext } from "../context/AppContext.tsx";
 import React, { useContext } from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { IconH2 } from '@tabler/icons-react';
 
 const drawerWidth = '100%';
 
@@ -43,45 +44,62 @@ const SideBar = () => {
         </Box>
         <Box className="contentSideBar" sx={{ padding: '16px' }}>
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
-            <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
+            <Typography variant='h2' component={'h2'} mb={1}>
+              Begin
+            </Typography>
+            <Stack sx={{ alignItems: 'flex-start', flexDirection: 'row' }}>
+              <Button
+                to={'/auth/login'}
+                color="inherit"
+                component={Link}
+                onClick={toogleSideBar}
+                sx={{ paddingLeft: 0, fontWeight: 'bold', display: 'inline' }}
+              >
+                Login
+              </Button>
+              <Button
+                to={'/auth/register'}
+                color="inherit"
+                component={Link}
+                onClick={toogleSideBar}
+                sx={{ paddingLeft: 0, fontWeight: 'bold', display: 'inline' }}
+              >
+                Register
+              </Button>
+            </Stack>
+
+          </Box>
+          <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
+            <Typography variant="h2" noWrap component="p" sx={{ marginBottom: '20px', bgcolor: '#f8f7f5' }}>
               <Button
                 to={`/thuc-don`}
                 color="inherit"
                 component={Link}
                 onClick={toogleSideBar}
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontWeight: 'bold' }}
               >
-                Menu
+                <span>
+                  Menu
+                </span>
+                <img src='./src/assets/img-menu.png' alt='img-menu' />
               </Button>
+
             </Typography>
-            <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
+            <Typography variant="h2" noWrap component="p" sx={{ marginBottom: '20px', bgcolor: '#f8f7f5' }}>
               <Button
                 to={`/he-thong-nha-hang`}
                 color="inherit"
                 component={Link}
                 onClick={toogleSideBar}
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontWeight: 'bold' }}
               >
-                List restaurant
+                <span>List restaurant</span>
+                <img src='./src/assets/img-menu.png' alt='img-menu' />
               </Button>
+
             </Typography>
           </Box>
-          <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
-            <Button
-              to={'/auth/login'}
-              color="inherit"
-              component={Link}
-              onClick={toogleSideBar}
-            >
-              Login
-            </Button>
-            <Button
-              to={'/auth/register'}
-              color="inherit"
-              component={Link}
-              onClick={toogleSideBar}
-            >
-              Register
-            </Button>
-          </Box>
+
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography component="h2" variant="h4" pb={2}>
               LIÊN HỆ KFC
