@@ -16,6 +16,7 @@ const ApiUtil = {
     DELETE_USER: "/delete/{id}",
     FOOD_URL: "/food",
     ORDER_URL: "/order",
-    CURRENT_USER_URL: "/currentUser"
+    CURRENT_USER_URL: "/currentUser",
+    IN5KM_LOCATION_URL: "/in5kmLocation"
 };
 export default ApiUtil;

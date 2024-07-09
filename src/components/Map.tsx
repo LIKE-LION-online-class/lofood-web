@@ -18,8 +18,15 @@ import Map, {
   useControl,
 } from 'react-map-gl';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Avatar, Button, Popover } from '@mui/material';
+import { Avatar, Box, Button, Popover } from '@mui/material';
 import RecipeReviewCard from './ProductCard';
+import { useDispatch } from 'react-redux';
+import { setLocation } from '@/redux/slice/locationSlice';
+import { useQuery } from '@tanstack/react-query';
+import { getRestaurantsHttp } from '@/apis/restaurant';
+import { formatData } from '@/libs';
+import { Link } from 'react-router-dom';
+import RestaurantCard from './RestaurantCard';
 
 const buildings3DLayer: LayerProps = {
   id: '3d-buildings',
@@ -97,6 +104,8 @@ export default function AppMap() {
     popupRef.current?.trackPointer();
   }, [popupRef.current]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
       setViewState({
@@ -109,8 +118,16 @@ export default function AppMap() {
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude,
       });
+      dispatch(setLocation(pos.coords));
     });
   }, []);
+
+  const { data } = useQuery({
+    queryKey: ['getRestaurants'],
+    queryFn: getRestaurantsHttp,
+  });
+
+  const { results } = formatData(data);
 
   return (
     <>
@@ -144,7 +161,7 @@ export default function AppMap() {
           />
         </Marker>
 
-        <Marker latitude={10.7743} longitude={106.703} offset={[0, -20]} anchor="bottom">
+        <Marker latitude={10.801984064893402} longitude={106.64140791589209} offset={[0, -20]} anchor="bottom">
           <Button onClick={handleClick}>
             <Avatar
               alt="Remy Sharp"
@@ -166,6 +183,38 @@ export default function AppMap() {
             <RecipeReviewCard image="https://loremflickr.com/400/200/tokyo,girl/all?random=1" />
           </Popover>
         </Marker>
+
+        {results.map((restaurant: any) => (
+          <Marker latitude={restaurant?.latitude} longitude={restaurant?.longitude} offset={[0, -20]} anchor="bottom">
+            <Button onClick={handleClick}>
+              <Avatar
+                alt="Remy Sharp"
+                src="https://cdn3d.iconscout.com/3d/premium/thumb/restaurant-6843937-5603506.png?f=webp"
+              />
+            </Button>
+
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              sx={{ backgroundColor: 'transparent' }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+            >
+              {/* <RecipeReviewCard
+                image={restaurant?.logo ? restaurant?.logo : 'https://loremflickr.com/400/200/tokyo,girl/all?random=1'}
+              /> */}
+              <Box p={1}>
+                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                  <RestaurantCard item={restaurant} />
+                </Link>
+              </Box>
+            </Popover>
+          </Marker>
+        ))}
 
         <NavigationControl />
       </Map>
