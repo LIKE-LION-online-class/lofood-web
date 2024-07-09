@@ -14,7 +14,7 @@ const SideBar = () => {
   } else {
     document.body.classList.add('overflow-hidden');
   }
-  const { pathname } = useLocation();
+
 
   return (
     <Drawer
@@ -44,31 +44,43 @@ const SideBar = () => {
         <Box className="contentSideBar" sx={{ padding: '16px' }}>
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
-              <Link
+              <Button
                 to={`/thuc-don`}
-                style={{ textDecoration: 'none', color: 'black' }}
-                className={pathname.includes('/thuc-don') ? 'active' : ''}
+                color="inherit"
+                component={Link}
+                onClick={toogleSideBar}
               >
                 Menu
-              </Link>
+              </Button>
             </Typography>
             <Typography variant="h2" noWrap component="p" sx={{ paddingBottom: '5px' }}>
-              <Link
+              <Button
                 to={`/he-thong-nha-hang`}
-                style={{ textDecoration: 'none', color: 'black' }}
-                className={pathname.includes('/he-thong-nha-hang') ? 'active' : ''}
+                color="inherit"
+                component={Link}
+                onClick={toogleSideBar}
               >
                 List restaurant
-              </Link>
+              </Button>
             </Typography>
           </Box>
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
-            <Link to={'/auth/login'} color="inherit">
+            <Button
+              to={'/auth/login'}
+              color="inherit"
+              component={Link}
+              onClick={toogleSideBar}
+            >
               Login
-            </Link>
-            <Link to={'/auth/register'} color="inherit" >
+            </Button>
+            <Button
+              to={'/auth/register'}
+              color="inherit"
+              component={Link}
+              onClick={toogleSideBar}
+            >
               Register
-            </Link>
+            </Button>
           </Box>
           <Box component="div" className="box-item" pb={2} sx={{ borderBottom: '1px solid #ccc' }} mb={2}>
             <Typography component="h2" variant="h4" pb={2}>

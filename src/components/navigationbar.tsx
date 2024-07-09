@@ -6,12 +6,15 @@ import { AppContext } from '../context/AppContext.tsx';
 import { center } from '@turf/turf';
 import Profile from './Profile.jsx';
 
+import { Food } from '@/model/Food';
+import { useSelector } from 'react-redux';
+
 const NavigationBar = () => {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const location = useLocation();
   const { isOpen, setIsOpen, toogleSideBar } = useContext(AppContext);
-
+  const cart: Food[] = useSelector((state) => state?.cart?.CartArr);
   const { pathname } = useLocation();
   return (
     <>
@@ -83,9 +86,9 @@ const NavigationBar = () => {
                     <Typography variant="h6" noWrap component="div">
                       <Link
                         to={`/gio-hang`}
-                        style={{ textDecoration: 'none', color: 'black' }}
+                        style={{ textDecoration: 'none', color: 'black', fontSize: '15px' }}
                         className="mat-pripple basket"
-                      ></Link>
+                      >{cart.length}</Link>
                     </Typography>
                   </Grid>
                 </Grid>
