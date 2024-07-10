@@ -34,7 +34,6 @@ const NavigationBar = () => {
             <Grid container sx={{ alignItems: 'center' }} pb={2} pt={2}>
               <Grid item xs={8} className="navigation">
                 <Grid container spacing={2} sx={{ alignItems: 'center' }}>
-
                   <Grid item sx={{ display: { sm: 'block', md: 'none' } }}>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={toogleSideBar}>
                       <MenuIcon sx={{ width: '1.5em', height: '1.5em' }} />
@@ -47,7 +46,7 @@ const NavigationBar = () => {
                         to={`/`}
                         style={{ textDecoration: 'none', color: 'black', fontSize: '0px', display: 'block' }}
                       >
-                        <img width="100" height="100" src="../public/logo-happy-restaurant.png" alt="avatar" />
+                        <img width="100" height="100" src="/assets/logo-happy-restaurant.png" alt="avatar" />
                       </Link>
                     </Typography>
                   </Grid>
@@ -88,7 +87,9 @@ const NavigationBar = () => {
                         to={`/gio-hang`}
                         style={{ textDecoration: 'none', color: 'black', fontSize: '15px' }}
                         className="mat-pripple basket"
-                      >{cart.length}</Link>
+                      >
+                        {cart.length}
+                      </Link>
                     </Typography>
                   </Grid>
                 </Grid>
@@ -104,7 +105,7 @@ const NavigationBar = () => {
               </Button>
               <Typography variant="h2" noWrap component="p">
                 <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <img height="43" src="../src/assets/logo-kfc.png" alt="avatar" />
+                  <img height="43" src="/assets/logo-kfc.png" alt="avatar" />
                 </Link>
               </Typography>
             </Stack>

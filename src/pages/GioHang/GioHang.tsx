@@ -68,7 +68,7 @@ const GioHang = () => {
                   </Box>
                 </Grid>
                 <Grid item xs={6}>
-                  <img src="../src/assets/empty-cart.png" alt="empty-cart" />
+                  <img src="/assets/empty-cart.png" alt="empty-cart" />
                 </Grid>
               </Grid>
             </Box>
@@ -80,7 +80,7 @@ const GioHang = () => {
                 <Grid item xs={8}>
                   <Box mb={2}>
                     {cart.map((item) => (
-                      <ProductInBasket food={item} image="../src/assets/COMBO NHOM.jpg" />
+                      <ProductInBasket food={item} image="/assets/COMBO NHOM.jpg" />
                     ))}
                   </Box>
                   <Grid container>
@@ -94,12 +94,12 @@ const GioHang = () => {
                         spacing={2}
                         sx={{ overflow: 'scroll', overflowY: 'hidden' }}
                       >
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
                       </Stack>
                     </Paper>
                   </Grid>

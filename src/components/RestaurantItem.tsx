@@ -23,7 +23,7 @@ export default function RestaurantItem({ restaurant }: DanhMucMonAnProps) {
       <CardMedia
         component="img"
         height="223"
-        image={restaurant.logo ? restaurant?.logo : '../src/assets/KHUYEN MAI.jpg'}
+        image={restaurant.logo ? restaurant?.logo : '/assets/KHUYEN MAI.jpg'}
         alt="Paella dish"
       />
       <CardContent sx={{ paddingBottom: '16px !important' }}>

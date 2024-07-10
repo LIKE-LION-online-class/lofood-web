@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <>
-      <img src="../src/assets/carousel.jpg" alt="BO" width={'100%'} height={'700vh'} />
+      <img src="/assets/carousel.jpg" alt="BO" width={'100%'} height={'700vh'} />
       <Container>
         <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
           <span>LIST RESTAURANT</span>
@@ -81,7 +81,7 @@ export default function Home() {
           </Slider>
         </Box>
       </Container>
-      <img src="../src/assets/banner.png" alt="banner" width={'100%'} height={'500vh'} />
+      <img src="/assets/banner.png" alt="banner" width={'100%'} height={'500vh'} />
     </>
   );
 }

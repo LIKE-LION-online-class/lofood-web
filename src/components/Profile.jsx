@@ -4,7 +4,7 @@ import { Avatar, Box, Menu, Button, IconButton, MenuItem, ListItemIcon, ListItem
 
 import { IconListCheck, IconMail, IconUser, IconHistory } from '@tabler/icons-react';
 
-import ProfileImg from '@/assets/user-1.jpg';
+import ProfileImg from '/assets/user-1.jpg';
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
