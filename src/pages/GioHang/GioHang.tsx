@@ -49,7 +49,7 @@ const GioHang = () => {
         </Typography>
         {cart.length === 0 ? (
           <>
-            <Box className="empty-product-basket" sx={{ backgroundColor: '#f8f7f5' }} p={6} mb={8}>
+            <Box className="empty-product-basket" sx={{ backgroundColor: '#f8f7f5', padding: { sm: 2, md: 6 } }} mb={8}>
               <Grid container>
                 <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Box className="box-set-item-basket">
@@ -68,7 +68,7 @@ const GioHang = () => {
                   </Box>
                 </Grid>
                 <Grid item xs={6}>
-                  <img src="/assets/empty-cart.png" alt="empty-cart" />
+                  <img src="/assets/empty-cart.png" alt="empty-cart" style={{ width: '100%' }} />
                 </Grid>
               </Grid>
             </Box>
@@ -148,7 +148,7 @@ const GioHang = () => {
           </>
         )}
       </Container>
-    </AppProvider>
+    </AppProvider >
   );
 };
 

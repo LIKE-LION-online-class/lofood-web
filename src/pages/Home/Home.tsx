@@ -49,19 +49,16 @@ export default function Home() {
           <span>LIST RESTAURANT</span>
         </Typography>
         <Box className="box-khuyen-mai">
-          <Box
-            sx={{
-              display: 'grid',
-              gap: 4,
-              gridTemplateColumns: 'repeat(4, 1fr)',
-            }}
-          >
+
+          <Grid container spacing={4}>
             {resultRestaurant.map((restaurant: any) => (
-              <Grid item xs={3}>
+              <Grid item xs={6} sm={4} md={3}>
                 <RestaurantItem restaurant={restaurant} />
               </Grid>
             ))}
-          </Box>
+          </Grid>
+
+
         </Box>
       </Container>
       <Container className="box-do-you-want-like-this-food fix-button-slick">
