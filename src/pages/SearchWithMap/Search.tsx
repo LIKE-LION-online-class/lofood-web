@@ -53,7 +53,15 @@ export default function Search() {
 
   if (isMobile) {
     return (
-      <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" height="100%" width="100%">
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        height="100%"
+        width="100%"
+      >
         <Box height={100} width={100}>
           <img
             src="https://cdn-icons-png.freepik.com/512/10255/10255440.png"
@@ -95,7 +103,7 @@ export default function Search() {
                 }}
                 startIcon={<SearchIcon />}
               >
-                Search-von-test---
+                Search
               </Button>
 
               <Button
@@ -165,7 +173,7 @@ export default function Search() {
             </Stack>
           </Box>
 
-          <Box position="absolute" bottom={8} left="50%" zIndex={99} sx={{ transform: 'translate(-50%, 0)' }}>
+          {/* <Box position="absolute" bottom={8} left="50%" zIndex={99} sx={{ transform: 'translate(-50%, 0)' }}>
             <Box maxWidth={1000}>
               <Slider {...settings}>
                 <RecipeReviewCard image="https://loremflickr.com/400/200/tokyo,girl/all?random=1" />
@@ -175,7 +183,7 @@ export default function Search() {
                 <RecipeReviewCard image="https://loremflickr.com/400/200/tokyo,girl/all?random=5" />
               </Slider>
             </Box>
-          </Box>
+          </Box> */}
           <AppMap />
         </Grid>
       </Grid>
