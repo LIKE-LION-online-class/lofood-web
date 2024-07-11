@@ -1,31 +1,20 @@
 'use client';
 
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-  FormControl,
-  MenuItem
-} from '@mui/material';
+import { Box, Button, Container, Grid, Stack, TextField, Typography, FormControl, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 import * as React from 'react';
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { registerHttp } from '@/apis/auth';
 import { useState, useMemo } from 'react';
-import { User } from '../../types/users.type'
+import { User } from '../../types/users.type';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import { isAxiosError } from '@/utils/utils.ts';
 import CustomPassword from '@/components/forms/CustomPassword';
 import { useNavigate } from 'react-router-dom';
 
-
-type FormStateType = Omit<User, 'id'>
+type FormStateType = Omit<User, 'id'>;
 
 const inititalFormState: FormStateType = {
   fullName: '',
@@ -33,63 +22,59 @@ const inititalFormState: FormStateType = {
   phoneNumber: '',
   username: '',
   email: '',
-  password: ''
-}
+  password: '',
+};
 
 type FormError =
   | {
-    [key in keyof FormStateType]: string
-  }
-  | null
+      [key in keyof FormStateType]: string;
+    }
+  | null;
 export default function Register() {
-
   const registerMutation = useMutation({
     mutationFn: (body: FormStateType) => {
-      return registerHttp(body)
-    }
-  })
+      return registerHttp(body);
+    },
+  });
 
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('ROLE_USER');
   const handleChangeSelect = (event: SelectChangeEvent) => {
     setRole(event.target.value as string);
   };
 
   const [formState, setFormState] = useState<FormStateType>(inititalFormState);
   const handleChange = (name: keyof FormStateType) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState((prev) => ({ ...prev, [name]: event.target.value }))
-  }
+    setFormState((prev) => ({ ...prev, [name]: event.target.value }));
+  };
 
   const navigate = useNavigate();
 
-  const add = { role: role }
-  Object.entries(add).forEach(([key, value]) => { formState[key] = value })
+  const add = { role: role };
+  Object.entries(add).forEach(([key, value]) => {
+    formState[key] = value;
+  });
 
-  console.log('error', registerMutation.error);
-  console.log('formState', formState);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     registerMutation.mutate(formState, {
-
       onSuccess: () => {
-        setFormState(inititalFormState) // reset form
+        setFormState(inititalFormState); // reset form
         toast.success('Register  success');
         navigate('/auth/login');
       },
       onError: (error) => {
         toast.error('Register fail');
-      }
-    })
+      },
+    });
   };
-
-
 
   const errorForm: FormError = useMemo(() => {
     const error = registerMutation.error;
-    console.log('aaaaa-error');
     if (isAxiosError<{ error: FormError }>(error) && error.response?.status === 406) {
-      return error.response?.data.error
-    } return null
+      return error.response?.data.error;
+    }
+    return null;
   }, [registerMutation.error]);
 
   return (
@@ -101,12 +86,14 @@ export default function Register() {
         <Grid item xs={6}>
           <Box p={6}>
             <form onSubmit={handleSubmit}>
-              <Typography variant="h1" component="h1" pb={4}>Đăng ký tài khoản</Typography>
+              <Typography variant="h1" component="h1" pb={4}>
+                Register
+              </Typography>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Họ và tên của bạn"
+                    label="Your full name"
                     required
                     id="fullname"
                     name="fullname"
@@ -118,7 +105,7 @@ export default function Register() {
                   <TextField
                     type="address"
                     fullWidth
-                    label="Địa chỉ thường trú"
+                    label="Your address"
                     required
                     id="address"
                     name="address"
@@ -129,7 +116,7 @@ export default function Register() {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Số điện thoại"
+                    label="Phone number"
                     required
                     id="phoneNumber"
                     name="phoneNumber"
@@ -140,7 +127,7 @@ export default function Register() {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="UserName của bạn"
+                    label="UserName"
                     required
                     id="username"
                     name="username"
@@ -148,8 +135,8 @@ export default function Register() {
                     onChange={handleChange('username')}
                   />
                   {errorForm && (
-                    <Typography className='error' pt={1} component={'p'} variant="p">
-                      <span className='font-medium'>Lỗi! </span>
+                    <Typography className="error" pt={1} component={'p'} variant="p">
+                      <span className="font-medium">Lỗi! </span>
                       {errorForm.message}
                     </Typography>
                   )}
@@ -157,7 +144,7 @@ export default function Register() {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Địa chỉ email của bạn"
+                    label="email"
                     required
                     id="email"
                     name="email"
@@ -166,16 +153,6 @@ export default function Register() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {/* <TextField
-                    type="Password"
-                    fullWidth
-                    label="Mật khẩu"
-                    required
-                    id="password"
-                    name="password"
-                    value={formState.password}
-                    onChange={handleChange('password')}
-                  /> */}
                   <CustomPassword
                     id="password"
                     name="password"
@@ -185,7 +162,7 @@ export default function Register() {
                     disabled={false}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ display: 'none' }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
                     <Select
@@ -195,21 +172,21 @@ export default function Register() {
                       label="Role"
                       onChange={handleChangeSelect}
                     >
-                      <MenuItem value='ROLE_USER'>User</MenuItem>
-                      <MenuItem value='ROLE_BUSINESS'>Business</MenuItem>
+                      <MenuItem value="ROLE_USER">User</MenuItem>
+                      <MenuItem value="ROLE_BUSINESS">Business</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
                 <Grid item xs={6}>
                   <Link to="/auth/login">
-                    <Button>Đăng nhập</Button>
+                    <Button>Login</Button>
                   </Link>
                 </Grid>
                 <Grid item xs={6}>
                   <Stack alignItems="right">
                     <Box ml="auto">
                       <Button variant="contained" sx={{ boxShadow: 0 }} type="submit">
-                        Đăng ký
+                        Register
                       </Button>
                     </Box>
                   </Stack>
@@ -217,10 +194,8 @@ export default function Register() {
               </Grid>
             </form>
           </Box>
-
         </Grid>
       </Grid>
     </Container>
-
   );
 }
