@@ -56,13 +56,7 @@ const GioHang = () => {
                     <Typography component="h1" variant="h1" pb={4}>
                       YOUR CART IS EMPTY!!
                     </Typography>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      href="/thuc-don"
-                      size="large"
-                      sx={{ borderRadius: '25px' }}
-                    >
+                    <Button variant="contained" color="error" href="/" size="large" sx={{ borderRadius: '25px' }}>
                       START ORDERING
                     </Button>
                   </Box>
@@ -83,7 +77,7 @@ const GioHang = () => {
                       <ProductInBasket food={item} image="/assets/COMBO NHOM.jpg" />
                     ))}
                   </Box>
-                  <Grid container>
+                  {/* <Grid container>
                     <Paper elevation={3} sx={{ overflow: 'hidden', padding: '30px', backgroundColor: '#2d2d2d' }}>
                       <Typography component="h3" variant="h3" color="white" pb={2}>
                         YOU MAY LIKE…
@@ -102,7 +96,7 @@ const GioHang = () => {
                         <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
                       </Stack>
                     </Paper>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Grid item xs={4}>
                   <Paper elevation={3} sx={{ overflow: 'hidden', padding: '20px' }}>
@@ -148,7 +142,7 @@ const GioHang = () => {
           </>
         )}
       </Container>
-    </AppProvider >
+    </AppProvider>
   );
 };
 

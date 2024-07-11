@@ -8,7 +8,9 @@ import { getIn5KmHttp, getRestaurantsHttp } from '@/apis/restaurant';
 import { formatData } from '@/libs/index';
 import RestaurantItem from '@/components/RestaurantItem';
 import RestaurantCard from '@/components/RestaurantCard';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setLocation } from '@/redux/slice/locationSlice';
 
 var settingsCarousel = {
   narrow: true,
@@ -40,16 +42,22 @@ export default function Home() {
   });
 
   const { results: resultIn5km } = formatData(in5kmData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      dispatch(setLocation(pos.coords));
+    });
+  }, []);
 
   return (
     <>
-      <img src="/assets/carousel.jpg" alt="BO" width={'100%'} height={'700vh'} />
+      <img src="/assets/carousel.jpg" alt="BO" width={'100%'} height={'800vh'} />
       <Container>
         <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
           <span>LIST RESTAURANT</span>
         </Typography>
         <Box className="box-khuyen-mai">
-
           <Grid container spacing={4}>
             {resultRestaurant.map((restaurant: any) => (
               <Grid item xs={6} sm={4} md={3}>
@@ -57,8 +65,6 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
-
-
         </Box>
       </Container>
       <Container className="box-do-you-want-like-this-food fix-button-slick">
@@ -78,7 +84,7 @@ export default function Home() {
           </Slider>
         </Box>
       </Container>
-      <img src="/assets/banner.png" alt="banner" width={'100%'} height={'500vh'} />
+      <img src="/assets/banner.png" alt="banner" width={'100%'} height={'700vh'} />
     </>
   );
 }

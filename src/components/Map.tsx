@@ -207,11 +207,11 @@ export default function AppMap() {
               {/* <RecipeReviewCard
                 image={restaurant?.logo ? restaurant?.logo : 'https://loremflickr.com/400/200/tokyo,girl/all?random=1'}
               /> */}
-              <Box p={1}>
+              {/* <Box p={1}>
                 <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
                   <RestaurantCard item={restaurant} />
                 </Link>
-              </Box>
+              </Box> */}
             </Popover>
           </Marker>
         ))}

@@ -78,7 +78,7 @@ export default function Register() {
   }, [registerMutation.error]);
 
   return (
-    <Container>
+    <Container style={{ padding: '100px 50px' }}>
       <Grid container spacing={4}>
         <Grid item xs={6}>
           <img height="100%" width="100%" src="/assets/signin.jpg" alt="avatar" />

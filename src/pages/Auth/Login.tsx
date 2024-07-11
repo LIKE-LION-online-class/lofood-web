@@ -38,8 +38,8 @@ export default function Login() {
   } = useForm<LoginInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      username: 'user',
-      password: '12345678',
+      username: '',
+      password: '',
     },
   });
   const style = {
@@ -69,17 +69,17 @@ export default function Login() {
     mutationFn: loginHttp,
     onSuccess: (data) => {
       toast.success('Login Success');
-      localStorage.setItem('token', data.data.token);
-      localStorage.setItem('usersId', JSON.stringify(data.data.usersId));
+      localStorage.setItem('token', data?.data?.token);
+      localStorage.setItem('usersId', JSON.stringify(data?.data?.usersId));
       navigate('/');
     },
     onError: (error) => {
-      toast.error(error.response.data.error);
+      toast.error(error?.response.data.error);
     },
   });
 
   const formikLogin = useFormik({
-    initialValues: { username: '3lesang', password: '12345678' },
+    initialValues: { username: '', password: '' },
     validationSchema: Yup.object({
       username: Yup.string().required('Required'),
       password: Yup.string().required('Required'),
@@ -114,7 +114,7 @@ export default function Login() {
     },
   });
   return (
-    <Container>
+    <Container style={{ padding: '100px 50px' }}>
       <Grid container spacing={4}>
         <Grid item xs={6}>
           <img height="100%" width="100%" src="/assets/signin.jpg" alt="avatar" />
@@ -188,7 +188,7 @@ export default function Login() {
                   <CloseOutlinedIcon />
                 </IconButton>
                 <Typography id="modal-modal-title" variant="h6" component="h2" mb={2}>
-                  Bạn quên mật khẩu?
+                  You forget password
                 </Typography>
                 <form onSubmit={formikForgetPassword.handleSubmit}>
                   <TextField

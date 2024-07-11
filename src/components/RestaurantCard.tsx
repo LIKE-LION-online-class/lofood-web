@@ -50,7 +50,6 @@ export default function RestaurantCard({ item }: RecipeReviewCardProps) {
             onClick={() => {
               dispatch(setRestaurant(item?.id));
               dispatch(clearCart());
-              navigate('/auth/login');
             }}
             component={Link}
             to="/thuc-don"
