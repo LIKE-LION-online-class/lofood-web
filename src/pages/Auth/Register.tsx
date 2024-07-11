@@ -81,7 +81,7 @@ export default function Register() {
     <Container>
       <Grid container spacing={4}>
         <Grid item xs={6}>
-          <img height="100%" width="100%" src="../src/assets/signin.jpg" alt="avatar" />
+          <img height="100%" width="100%" src="/assets/signin.jpg" alt="avatar" />
         </Grid>
         <Grid item xs={6}>
           <Box p={6}>

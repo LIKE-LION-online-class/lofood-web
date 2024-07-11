@@ -9,7 +9,8 @@ import {
   Stack,
   TextField,
   Modal,
-  Typography, IconButton,
+  Typography,
+  IconButton,
 } from '@mui/material';
 import { TypeOf, object, string } from 'zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -17,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router-dom';
 import * as React from 'react';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -73,24 +74,24 @@ export default function Login() {
       navigate('/');
     },
     onError: (error) => {
-      toast.error(error.response.data.error)
-    }
+      toast.error(error.response.data.error);
+    },
   });
 
   const formikLogin = useFormik({
     initialValues: { username: '3lesang', password: '12345678' },
     validationSchema: Yup.object({
       username: Yup.string().required('Required'),
-      password: Yup.string().required('Required')
+      password: Yup.string().required('Required'),
     }),
     onSubmit: (values) => {
       const data = {
         password: values.password,
         username: values.username,
-      }
+      };
       login.mutate(data);
-    }
-  })
+    },
+  });
   // forgetPassword
   const forgetPassword = useMutation({
     mutationKey: ['forgetPassword'],
@@ -100,35 +101,37 @@ export default function Login() {
       setOpen(false);
     },
     onError: (error) => {
-      toast.error(error.response.data.error, 'error')
-    }
+      toast.error(error.response.data.error, 'error');
+    },
   });
   const formikForgetPassword = useFormik({
     initialValues: { email: '' },
     validationSchema: Yup.object({
-      email: Yup.string().required('Required').email('Invalid email address')
+      email: Yup.string().required('Required').email('Invalid email address'),
     }),
     onSubmit: (value) => {
       forgetPassword.mutate(value.email);
-    }
-  })
+    },
+  });
   return (
     <Container>
       <Grid container spacing={4}>
         <Grid item xs={6}>
-          <img height="100%" width="100%" src="../src/assets/signin.jpg" alt="avatar" />
+          <img height="100%" width="100%" src="/assets/signin.jpg" alt="avatar" />
         </Grid>
         <Grid item xs={6}>
           <Box p={6}>
             <form onSubmit={formikLogin.handleSubmit}>
-              <Typography component="h1" variant="h1" pb={4}>login</Typography>
+              <Typography component="h1" variant="h1" pb={4}>
+                login
+              </Typography>
               <Box mb={3}>
                 <TextField
                   fullWidth
                   label="Username"
                   required
-                  id='username'
-                  name='username'
+                  id="username"
+                  name="username"
                   value={formikLogin.values.username}
                   disabled={login.isPending}
                   onChange={formikLogin.handleChange}
@@ -141,9 +144,9 @@ export default function Login() {
                   label="Password"
                   required
                   disabled={login.isPending}
-                  id='password'
-                  name='password'
-                  type='password'
+                  id="password"
+                  name="password"
+                  type="password"
                   value={formikLogin.values.password}
                   onChange={formikLogin.handleChange}
                   error={formikLogin.errors.password}
@@ -174,7 +177,14 @@ export default function Login() {
           >
             <Box sx={style}>
               <Box sx={{ position: 'relative' }}>
-                <IconButton onClick={handleClose} className="btn-close-sidebar" edge="start" color="inherit" aria-label="menu" sx={{ position: 'absolute', top: '-20px', right: '0' }}>
+                <IconButton
+                  onClick={handleClose}
+                  className="btn-close-sidebar"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ position: 'absolute', top: '-20px', right: '0' }}
+                >
                   <CloseOutlinedIcon />
                 </IconButton>
                 <Typography id="modal-modal-title" variant="h6" component="h2" mb={2}>
@@ -185,9 +195,9 @@ export default function Login() {
                     fullWidth
                     label="Email"
                     required
-                    id='email'
-                    name='email'
-                    type='text'
+                    id="email"
+                    name="email"
+                    type="text"
                     disabled={forgetPassword.isPending}
                     value={formikForgetPassword.values.email}
                     onChange={formikForgetPassword.handleChange}
@@ -200,12 +210,10 @@ export default function Login() {
                   </Stack>
                 </form>
               </Box>
-
             </Box>
           </Modal>
         </Grid>
       </Grid>
-
     </Container>
   );
 }

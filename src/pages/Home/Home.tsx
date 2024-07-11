@@ -43,25 +43,22 @@ export default function Home() {
 
   return (
     <>
-      <img src="../src/assets/carousel.jpg" alt="BO" width={'100%'} height={'700vh'} />
+      <img src="/assets/carousel.jpg" alt="BO" width={'100%'} height={'700vh'} />
       <Container>
         <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
           <span>LIST RESTAURANT</span>
         </Typography>
         <Box className="box-khuyen-mai">
-          <Box
-            sx={{
-              display: 'grid',
-              gap: 4,
-              gridTemplateColumns: 'repeat(4, 1fr)',
-            }}
-          >
+
+          <Grid container spacing={4}>
             {resultRestaurant.map((restaurant: any) => (
-              <Grid item xs={3}>
+              <Grid item xs={6} sm={4} md={3}>
                 <RestaurantItem restaurant={restaurant} />
               </Grid>
             ))}
-          </Box>
+          </Grid>
+
+
         </Box>
       </Container>
       <Container className="box-do-you-want-like-this-food fix-button-slick">
@@ -81,7 +78,7 @@ export default function Home() {
           </Slider>
         </Box>
       </Container>
-      <img src="../src/assets/banner.png" alt="banner" width={'100%'} height={'500vh'} />
+      <img src="/assets/banner.png" alt="banner" width={'100%'} height={'500vh'} />
     </>
   );
 }

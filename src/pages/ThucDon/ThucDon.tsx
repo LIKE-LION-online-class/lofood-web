@@ -166,22 +166,22 @@ const ThucDon = () => {
           ))}
           {/* <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid> */}
         </Box>
@@ -199,22 +199,22 @@ const ThucDon = () => {
         >
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
         </Box>
@@ -232,22 +232,22 @@ const ThucDon = () => {
         >
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
           <Grid item xs={3}>
             <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-              <NewProductCard image="../src/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
+              <NewProductCard image="/assets/COMBO NHOM.jpg" text="Ưu Đãi" />
             </Link>
           </Grid>
         </Box>

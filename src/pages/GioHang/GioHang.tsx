@@ -49,7 +49,7 @@ const GioHang = () => {
         </Typography>
         {cart.length === 0 ? (
           <>
-            <Box className="empty-product-basket" sx={{ backgroundColor: '#f8f7f5' }} p={6} mb={8}>
+            <Box className="empty-product-basket" sx={{ backgroundColor: '#f8f7f5', padding: { sm: 2, md: 6 } }} mb={8}>
               <Grid container>
                 <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Box className="box-set-item-basket">
@@ -68,7 +68,7 @@ const GioHang = () => {
                   </Box>
                 </Grid>
                 <Grid item xs={6}>
-                  <img src="../src/assets/empty-cart.png" alt="empty-cart" />
+                  <img src="/assets/empty-cart.png" alt="empty-cart" style={{ width: '100%' }} />
                 </Grid>
               </Grid>
             </Box>
@@ -80,7 +80,7 @@ const GioHang = () => {
                 <Grid item xs={8}>
                   <Box mb={2}>
                     {cart.map((item) => (
-                      <ProductInBasket food={item} image="../src/assets/COMBO NHOM.jpg" />
+                      <ProductInBasket food={item} image="/assets/COMBO NHOM.jpg" />
                     ))}
                   </Box>
                   <Grid container>
@@ -94,12 +94,12 @@ const GioHang = () => {
                         spacing={2}
                         sx={{ overflow: 'scroll', overflowY: 'hidden' }}
                       >
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="../src/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
+                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
                       </Stack>
                     </Paper>
                   </Grid>
@@ -148,7 +148,7 @@ const GioHang = () => {
           </>
         )}
       </Container>
-    </AppProvider>
+    </AppProvider >
   );
 };
 

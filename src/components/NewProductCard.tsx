@@ -17,7 +17,12 @@ export default function NewProductCard({ image, item }: RecipeReviewCardProps) {
 
   return (
     <Card sx={{ overflow: 'hidden', padding: '5px' }}>
-      <CardMedia component="img" height="223" image={item?.image ? item?.image : "../src/assets/COMBO NHOM.jpg"} alt="Paella dish" />
+      <CardMedia
+        component="img"
+        height="223"
+        image={item?.image ? item?.image : '/assets/COMBO NHOM.jpg'}
+        alt="Paella dish"
+      />
       <CardContent>
         <Stack direction="row" spacing={2} justifyContent="space-between" pb={2}>
           <Typography gutterBottom variant="h3" component="h3">

@@ -23,7 +23,7 @@ export default function RestaurantCard({ item }: RecipeReviewCardProps) {
       <CardMedia
         component="img"
         height="223"
-        image={item?.logo ? item?.logo : '../src/assets/COMBO NHOM.jpg'}
+        image={item?.logo ? item?.logo : '/assets/COMBO NHOM.jpg'}
         alt="Paella dish"
       />
       <CardContent>
