@@ -370,3 +370,7 @@ html {
     padding: 8.5px 14px !important;
   }
 }
+
+.icon-search.active~.file-input {
+  width: 250px !important;
+}

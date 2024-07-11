@@ -11,3 +11,10 @@ export const formatData = (rawData) => {
     total: rawData?.data?.length || 0,
   };
 };
+
+export const formatDataSearch = (rawData) => {
+  return {
+    resultsOfSearch: rawData?.dataRetaurant || [],
+    totalOfSearch: rawData?.dataRetaurant?.length || 0,
+  };
+};

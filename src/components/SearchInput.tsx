@@ -1,54 +1,47 @@
-import { SearchOutlined } from '@mui/icons-material';
-import { styled, alpha, InputBase } from '@mui/material';
+import React, { useContext } from 'react';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import DirectionsIcon from '@mui/icons-material/Directions';
+import { AppContext } from '../context/AppContext.tsx';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  border: '1px solid #e0e0e0',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 1),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 1),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
+type Props = {
+  placeholder: string;
+  value?: string;
+  width?: string;
+  height?: string;
+  onChange?: (value: string) => void;
+}
+export default function CustomizedInputBase({
+  width = "0px",
+  height = '20px',
+  onChange,
+  ...props
+}: Props) {
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+  const { isOpen, toogleSideBar } = useContext(AppContext);
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '40ch',
-    },
-  },
-}));
-
-export default function SearchInput() {
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchOutlined />
-      </SearchIconWrapper>
-      <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
-    </Search>
+    <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}
+    >
+      <IconButton className='icon-search' type="button" sx={{ p: '10px' }} aria-label="search" onClick={toogleSideBar}>
+        <SearchIcon />
+      </IconButton>
+      <InputBase
+        className='file-input'
+        {...props}
+        style={{ width, height }}
+        onChange={e => onChange && onChange(e.target.value)}
+      />
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
+        <DirectionsIcon />
+      </IconButton>
+    </Paper>
   );
 }

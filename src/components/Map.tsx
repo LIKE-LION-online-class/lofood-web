@@ -26,6 +26,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getRestaurantsHttp } from '@/apis/restaurant';
 import { formatData } from '@/libs';
 import RestaurantCard from '@/components/RestaurantCard';
+import { formatDataSearch } from '@/libs';
 
 const buildings3DLayer: LayerProps = {
   id: '3d-buildings',
@@ -46,7 +47,7 @@ function DeckGLOverlay(props: DeckProps) {
   return null;
 }
 
-export default function AppMap() {
+export default function AppMap(dataRetaurant: Array) {
   const layers = [
     new ScatterplotLayer({
       id: 'deckgl-circle',
@@ -126,7 +127,10 @@ export default function AppMap() {
   });
 
   const { results } = formatData(data);
+  const { resultsOfSearch } = formatDataSearch(dataRetaurant);
 
+  console.log(resultsOfSearch, 'results-after-search');
+  console.log(results, 'results-first');
   return (
     <>
       <Map
@@ -150,8 +154,8 @@ export default function AppMap() {
           {...defaultViewport}
           offset={[0, -20]}
           anchor="bottom"
-          // popup={popup}
-          // ref={markerRef}
+        // popup={popup}
+        // ref={markerRef}
         >
           <Avatar
             alt="Remy Sharp"
@@ -182,7 +186,7 @@ export default function AppMap() {
           </Popover>
         </Marker>
 
-        {results.map((restaurant: any) => (
+        {resultsOfSearch.map((restaurant: any) => (
           <Marker latitude={restaurant?.latitude} longitude={restaurant?.longitude} offset={[0, -20]} anchor="bottom">
             <Button onClick={handleClick}>
               <Avatar
