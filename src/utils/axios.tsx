@@ -6,9 +6,9 @@ import React from 'react';
 const instance = axios.create({
   baseURL: 'https://ktcbackend-production.up.railway.app/',
   headers: {
-    'Content-Type': 'application/json'
-  }
-})
+    'Content-Type': 'application/json',
+  },
+});
 
 export const ApiClientProvider = ({ children }: { children: React.ReactElement }) => {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ export const ApiClientProvider = ({ children }: { children: React.ReactElement }
       return config;
     },
     (error) => {
+      toast.error('please login');
       return Promise.reject(error);
     },
   );
@@ -36,10 +37,11 @@ export const ApiClientProvider = ({ children }: { children: React.ReactElement }
       switch (status) {
         case 401:
           if (location.pathname !== '/auth/login') {
-            // toast.error('please login');
+            toast.error('please login');
             navigate('/auth/login');
-            break;
           }
+          localStorage.setItem('token', '');
+          break;
       }
       return Promise.reject(error);
     },

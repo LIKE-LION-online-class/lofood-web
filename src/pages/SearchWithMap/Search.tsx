@@ -92,7 +92,7 @@ export default function Search() {
         <Grid item xs={12} position="relative">
           <Box position="absolute" top={8} left={2} zIndex={99}>
             <Stack direction="row" spacing={1}>
-              <Button
+              {/* <Button
                 variant="contained"
                 sx={{
                   borderRadius: 99,
@@ -133,7 +133,7 @@ export default function Search() {
                 }}
               >
                 Ratings
-              </Button>
+              </Button> */}
               <Popover
                 id={id}
                 open={open}
