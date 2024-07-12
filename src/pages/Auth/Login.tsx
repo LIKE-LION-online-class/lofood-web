@@ -47,7 +47,7 @@ export default function Login() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '50%',
+    width: { md: '50%', xs: '80%' },
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -116,10 +116,10 @@ export default function Login() {
   return (
     <Container style={{ padding: '100px 50px' }}>
       <Grid container spacing={4}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <img height="100%" width="100%" src="/assets/signin.jpg" alt="avatar" />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Box p={6}>
             <form onSubmit={formikLogin.handleSubmit}>
               <Typography component="h1" variant="h1" pb={4}>

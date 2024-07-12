@@ -27,8 +27,8 @@ const inititalFormState: FormStateType = {
 
 type FormError =
   | {
-      [key in keyof FormStateType]: string;
-    }
+    [key in keyof FormStateType]: string;
+  }
   | null;
 export default function Register() {
   const registerMutation = useMutation({
@@ -80,10 +80,10 @@ export default function Register() {
   return (
     <Container style={{ padding: '100px 50px' }}>
       <Grid container spacing={4}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <img height="100%" width="100%" src="/assets/signin.jpg" alt="avatar" />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Box p={6}>
             <form onSubmit={handleSubmit}>
               <Typography variant="h1" component="h1" pb={4}>
