@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { setRestaurant } from '@/redux/slice/restaurantSlice.tsx';
 import { clearCart } from '@/redux/slice/cartSlice';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 interface DanhMucMonAnProps {
   restaurant: any;
@@ -13,13 +15,7 @@ interface DanhMucMonAnProps {
 export default function RestaurantItem({ restaurant }: DanhMucMonAnProps) {
   const dispatch = useDispatch();
   return (
-    <Card
-      sx={{ width: '100%', borderRadius: 2, overflow: 'hidden' }}
-      onClick={() => {
-        dispatch(setRestaurant(restaurant?.id));
-        dispatch(clearCart());
-      }}
-    >
+    <Card sx={{ width: '100%', borderRadius: 2, overflow: 'hidden', height: '' }}>
       <CardMedia
         component="img"
         height="223"
@@ -35,6 +31,20 @@ export default function RestaurantItem({ restaurant }: DanhMucMonAnProps) {
         </Typography>
         <Typography>PHONE NUMBER: {restaurant?.phoneNumber}</Typography>
       </CardContent>
+      <Button
+        variant="contained"
+        color="success"
+        size="large"
+        sx={{ borderRadius: '25px' }}
+        onClick={() => {
+          dispatch(setRestaurant(restaurant?.id));
+          dispatch(clearCart());
+        }}
+        component={Link}
+        to="/thuc-don"
+      >
+        GO TO MENU
+      </Button>
     </Card>
   );
 }

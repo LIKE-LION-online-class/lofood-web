@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <>
       <img src="/assets/carousel.jpg" alt="BO" width={'100%'} height={'800vh'} />
-      <Container>
+      {/* <Container>
         <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
           <span>LIST RESTAURANT</span>
         </Typography>
@@ -66,7 +66,24 @@ export default function Home() {
             ))}
           </Grid>
         </Box>
+      </Container> */}
+      <Container className="box-do-you-want-like-this-food fix-button-slick">
+        <Box my={6}>
+          <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
+            <span>NEAR YOU</span>
+          </Typography>
+          <Slider {...settingsCarousel}>
+            {resultRestaurant?.map((restaurant: any) => (
+              <Box p={1}>
+                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
+                  <RestaurantItem restaurant={restaurant} />
+                </Link>
+              </Box>
+            ))}
+          </Slider>
+        </Box>
       </Container>
+
       <Container className="box-do-you-want-like-this-food fix-button-slick">
         <Box my={6}>
           <Typography variant="h2" noWrap component="h2" my={4} className="heading-line" sx={{ position: 'relative' }}>
@@ -75,15 +92,13 @@ export default function Home() {
           <Slider {...settingsCarousel}>
             {resultIn5km?.map((restaurant: any) => (
               <Box p={1}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <RestaurantCard item={restaurant} />
-                </Link>
-                Distance: {restaurant?.distance}km
+                <RestaurantCard item={restaurant} />
               </Box>
             ))}
           </Slider>
         </Box>
       </Container>
+
       <img src="/assets/banner.png" alt="banner" width={'100%'} height={'700vh'} />
     </>
   );

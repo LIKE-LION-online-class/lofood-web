@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import instance from '@/utils/axios';
 import { clearCart } from '@/redux/slice/cartSlice';
+import { formatMoney } from '@/common/format';
 
 const GioHang = () => {
   const dispatch = useDispatch();
@@ -77,26 +78,6 @@ const GioHang = () => {
                       <ProductInBasket food={item} image="/assets/COMBO NHOM.jpg" />
                     ))}
                   </Box>
-                  {/* <Grid container>
-                    <Paper elevation={3} sx={{ overflow: 'hidden', padding: '30px', backgroundColor: '#2d2d2d' }}>
-                      <Typography component="h3" variant="h3" color="white" pb={2}>
-                        YOU MAY LIKE…
-                      </Typography>
-                      <Stack
-                        className="box-img"
-                        direction="row"
-                        spacing={2}
-                        sx={{ overflow: 'scroll', overflowY: 'hidden' }}
-                      >
-                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                        <img src="/assets/add_3taro.jpg" alt="add_3taro" height="162" />
-                      </Stack>
-                    </Paper>
-                  </Grid> */}
                 </Grid>
                 <Grid item xs={4}>
                   <Paper elevation={3} sx={{ overflow: 'hidden', padding: '20px' }}>
@@ -109,15 +90,7 @@ const GioHang = () => {
                           TOTAL PRICE
                         </Typography>
                         <Typography component="p" variant="p">
-                          {totalPrice}
-                        </Typography>
-                      </Stack>
-                      <Stack direction="row" justifyContent={'space-between'}>
-                        <Typography component="p" variant="h2">
-                          TOTAL
-                        </Typography>
-                        <Typography component="p" variant="h2">
-                          {totalPrice}
+                          {formatMoney(totalPrice)}
                         </Typography>
                       </Stack>
                     </Box>

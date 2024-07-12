@@ -36,41 +36,9 @@ document.addEventListener('load', (e) => {
   });
 });
 const ThucDon = () => {
-  // const { data } = useQuery({
-  //   queryKey: ['getAllFood'],
-  //   queryFn: getfoodHttp,
-  // });
-
-  // var { foods } = formatFoodData(data);
-
   const [foods, setFoods] = useState<[]>([]);
   const [categories, setCategories] = useState<[]>([]);
   const restaurantID = useSelector((state) => state?.restaurant?.restaurantId);
-
-  // useEffect(() => {
-  //   const fetchDataFood = async () => {
-  //     await instance
-  //       .get('/food')
-  //       .then((res) => {
-  //         setFoods(res.data);
-  //       })
-  //       .catch(() => {
-  //         throw new Error('Failed to get category');
-  //       });
-  //   }
-  //   const fetchData = async () => {
-  //     await instance
-  //       .get('/category')
-  //       .then((res) => {
-  //         setCategories(res.data);
-  //       })
-  //       .catch(() => {
-  //         throw new Error('Failed to get category');
-  //       });
-  //   }
-  //   fetchDataFood();
-  //   fetchData();
-  // }, []);
 
   useEffect(() => {
     const fetchDataFood = async () => {

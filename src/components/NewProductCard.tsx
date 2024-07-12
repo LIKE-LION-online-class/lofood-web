@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import { Food } from '@/model/Food';
 import { useDispatch } from 'react-redux';
 import { addFood } from '@/redux/slice/cartSlice';
+import { formatMoney } from '@/common/format';
 interface RecipeReviewCardProps {
   image: any;
   item: Food;
@@ -29,7 +30,7 @@ export default function NewProductCard({ image, item }: RecipeReviewCardProps) {
             {item?.name ? item?.name : 'Lizard'}
           </Typography>
           <Typography gutterBottom variant="h3" component="h3">
-            {item?.price ? item?.price : '25.000'}
+            {item?.price ? formatMoney(item?.price) : '25.000'}
           </Typography>
         </Stack>
         <Typography variant="body2" color="text.secondary" component="p" pb={2}>

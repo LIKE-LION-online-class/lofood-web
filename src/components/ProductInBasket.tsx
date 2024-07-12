@@ -11,6 +11,7 @@ import { useContext } from 'react';
 import { Food } from '@/model/Food.tsx';
 import { useDispatch } from 'react-redux';
 import { addFood, deleteFood, minusFood } from '@/redux/slice/cartSlice.tsx';
+import { formatMoney } from '@/common/format';
 
 interface RecipeReviewCardProps {
   image?: string;
@@ -42,7 +43,7 @@ const ProductInBasket = ({ image, food }: RecipeReviewCardProps) => {
                     {food.name}
                   </Typography>
                   <Typography gutterBottom variant="h3" component="h3" className="product-name">
-                    Price :{food.price}
+                    Price :{formatMoney(food.price)}
                   </Typography>
                   <Box className="detail-product">
                     <Link
@@ -90,7 +91,7 @@ const ProductInBasket = ({ image, food }: RecipeReviewCardProps) => {
                 </Link>
               </Stack>
               <Typography gutterBottom variant="h3" component="h3" className="price">
-                {food.price ? food.price : '25.000'}
+                {food.price ? formatMoney(food.price) : '25.000'}
               </Typography>
             </Stack>
           </CardActions>

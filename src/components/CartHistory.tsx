@@ -6,20 +6,18 @@ import { Grid, Box, ToggleButton } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 import { AppContext } from '../context/AppContext.tsx';
-import { useContext, useEffect, useState } from 'react';
-import { formatDate } from "../common/format";
+import { useContext } from 'react';
+import { formatDate, formatMoney } from '../common/format.tsx';
 
 const CartHistoryItem = ({ item }) => {
   const { isOpen, toogleSideBar } = useContext(AppContext);
-  console.log(item?.foodOrderResponses);
-
 
   return (
     <Card sx={{ overflow: 'hidden', padding: '5px' }} className="card-productInBasket">
       <Grid container sx={{ alignItems: 'flex-start' }}>
         <Grid item xs={8}>
           <Grid sx={{ display: 'flex', alignItems: 'flex-start' }}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <CardContent>
                 <Stack direction="column" pb={2}>
                   <Typography gutterBottom variant="h3" component="h3" className="product-name">
@@ -38,11 +36,14 @@ const CartHistoryItem = ({ item }) => {
                     {isOpen ? (
                       <Typography variant="p" component="div" className="content">
                         {item?.foodOrderResponses.map((item) => {
-                          return <>
-                            <ToggleButton value="bold" aria-label="bold" disabled>
-                              {item?.quantity}
-                            </ToggleButton>
-                            {item?.foodDetailOrderResponse?.name}({item?.priceOrder * item?.quantity}$) <br /></>
+                          return (
+                            <>
+                              <ToggleButton value="bold" aria-label="bold" disabled>
+                                {item?.quantity}
+                              </ToggleButton>
+                              {item?.foodDetailOrderResponse?.name}({item?.priceOrder * item?.quantity}$) <br />
+                            </>
+                          );
                         })}
                       </Typography>
                     ) : (
@@ -58,7 +59,7 @@ const CartHistoryItem = ({ item }) => {
           <CardActions>
             <Stack direction="row" spacing={2} justifyContent="space-between">
               <Typography gutterBottom variant="h3" component="h3" className="price">
-                Total : {item.totalPrice}
+                Total : {formatMoney(item.totalPrice)}
               </Typography>
             </Stack>
           </CardActions>

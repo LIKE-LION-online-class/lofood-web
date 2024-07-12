@@ -18,15 +18,14 @@ import Map, {
   useControl,
 } from 'react-map-gl';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Avatar, Box, Button, Popover } from '@mui/material';
+import { Avatar, Button, Popover } from '@mui/material';
 import RecipeReviewCard from './ProductCard';
 import { useDispatch } from 'react-redux';
 import { setLocation } from '@/redux/slice/locationSlice';
 import { useQuery } from '@tanstack/react-query';
 import { getRestaurantsHttp } from '@/apis/restaurant';
 import { formatData } from '@/libs';
-import { Link } from 'react-router-dom';
-import RestaurantCard from './RestaurantCard';
+import RestaurantCard from '@/components/RestaurantCard';
 
 const buildings3DLayer: LayerProps = {
   id: '3d-buildings',
@@ -73,7 +72,6 @@ export default function AppMap() {
   });
 
   const [firstLabelLayerId, setFirstLabelLayerId] = useState();
-  console.log(firstLabelLayerId);
   const onMapLoad = useCallback(() => {
     if (!mapRef?.current) return;
     setFirstLabelLayerId(getFirstLabelLayerId(mapRef.current.getStyle()));
@@ -194,7 +192,7 @@ export default function AppMap() {
             </Button>
 
             <Popover
-              id={id}
+              id={restaurant?.id}
               open={open}
               anchorEl={anchorEl}
               onClose={handleClose}
@@ -204,14 +202,8 @@ export default function AppMap() {
                 horizontal: 'left',
               }}
             >
-              {/* <RecipeReviewCard
-                image={restaurant?.logo ? restaurant?.logo : 'https://loremflickr.com/400/200/tokyo,girl/all?random=1'}
-              /> */}
-              {/* <Box p={1}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <RestaurantCard item={restaurant} />
-                </Link>
-              </Box> */}
+              {/* <RestaurantCard item={restaurant} /> */}
+              <RecipeReviewCard image="https://loremflickr.com/400/200/tokyo,girl/all?random=1" />
             </Popover>
           </Marker>
         ))}
