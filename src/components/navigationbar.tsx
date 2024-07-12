@@ -16,6 +16,7 @@ const NavigationBar = () => {
   const { pathname } = useLocation();
   return (
     <>
+<<<<<<< HEAD
       {!pathname.includes('/auth/register') && !pathname.includes('/auth/login') ? (
         <>
           {' '}
@@ -63,6 +64,38 @@ const NavigationBar = () => {
                         </Typography>
                       </Grid>
                     </Grid>
+=======
+      <AppBar
+        className="main-header"
+        position="fixed"
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          height: '110px',
+          justifyContent: 'center',
+          borderBottom: '1px solid #ccc',
+        }}
+        elevation={0}
+      >
+        <Container maxWidth="lg">
+          {!pathname.includes('/gio-hang') && !pathname.includes('/auth/login') ? (
+            <Grid container sx={{ alignItems: 'center' }} pb={2} pt={2}>
+              <Grid item xs={8} className="navigation">
+                <Grid container spacing={2} sx={{ alignItems: 'center' }}>
+                  <Grid item sx={{ display: { sm: 'block', md: 'none' } }} className='icon-mobile'>
+                    <IconButton edge="start" color="inherit" aria-label="menu" onClick={toogleSideBar}>
+                      <MenuIcon sx={{ width: '1.5em', height: '1.5em' }} />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h2" noWrap component="p">
+                      <Link
+                        to={`/`}
+                        style={{ textDecoration: 'none', color: 'black', fontSize: '0px', display: 'block' }}
+                      >
+                        <img width="100" height="100" src="/assets/logo-happy-restaurant.png" alt="avatar" />
+                      </Link>
+                    </Typography>
+>>>>>>> 89f2eea (adđ)
                   </Grid>
                   <Grid item xs={4}>
                     <Grid

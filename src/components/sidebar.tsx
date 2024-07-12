@@ -87,7 +87,7 @@ const SideBar = () => {
                 <span style={{ fontSize: '17px' }}>
                   Menu
                 </span>
-                <img src='public/assets/img-menu.png' alt='img-menu' />
+                <img src='/assets/img-menu.png' alt='img-menu' />
               </Button>
               <Button
                 to={'/he-thong-nha-hang'}
@@ -99,7 +99,7 @@ const SideBar = () => {
                 <span style={{ fontSize: '17px' }}>
                   Restaurant
                 </span>
-                <img src='public/assets/img-menu.png' alt='img-menu' />
+                <img src='/assets/img-menu.png' alt='img-menu' />
               </Button>
             </Stack>
           </Box>

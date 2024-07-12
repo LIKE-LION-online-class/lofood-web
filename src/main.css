@@ -113,10 +113,17 @@ body {
 }
 
 .navigation {
+  .icon-mobile {
+    .active {
+      color: inherit !important;
+    }
+  }
+
   .active {
     color: red !important;
   }
 }
+
 
 .navigation-thuc-don {
   position: sticky;
