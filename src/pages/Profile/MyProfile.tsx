@@ -176,19 +176,19 @@ const MyProfile = () => {
                             <CardHeader title='Profile' />
                             <CardContent>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={8}>
+                                    <Grid item xs={12} sm={8}>
                                         {renderFormControl({ id: 'fullName', label: 'fullName' })}
                                     </Grid>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={12} sm={4}>
                                         {renderFormControl({ id: 'username', label: 'Username', disabled: true })}
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={12}>
                                         {renderFormControl({ id: 'address', label: 'Address' })}
                                     </Grid>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={12} sm={4}>
                                         {renderFormControl({ id: 'phoneNumber', label: 'Phone Number' })}
                                     </Grid>
-                                    <Grid item xs={8}>
+                                    <Grid item xs={12} sm={8}>
                                         {renderFormControl({ id: 'email', label: 'Email', disabled: true })}
                                     </Grid>
                                 </Grid>
@@ -204,21 +204,21 @@ const MyProfile = () => {
                                 </IconButton>
 
                                 <Grid container spacing={2}>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12} sm={6}>
                                         {renderFormControlPassword({
                                             id: 'currentPassword',
                                             label: 'Current Password',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12} sm={6}>
                                         {renderFormControlPassword({
                                             id: 'newPassword',
                                             label: 'New Password',
                                             disabled: !changePassword
                                         })}
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12} sm={6}>
                                         {renderFormControlPassword({
                                             id: 'confirmPassword',
                                             label: 'Confirm Password',
