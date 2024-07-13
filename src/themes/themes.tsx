@@ -90,7 +90,7 @@ export const AppThemeProvider: React.FC<Props> = ({ children }) => {
       palette: {
         mode: mode as PaletteMode,
         primary: {
-          main: '#1c9c7c',
+          main: '#FBBE74',
         },
         secondary: {
           main: '#9DF3C4',
@@ -130,7 +130,7 @@ export const AppThemeProvider: React.FC<Props> = ({ children }) => {
         background: {
           default: mode === 'dark' ? '#000000' : '#FCFBFA',
           opposite: mode === 'dark' ? '#FCFBFA' : '#000000',
-          paper: mode === 'dark' ? '#131313' : '#FCFCFC',
+          paper: mode === 'dark' ? '#131313' : '#FFFFFF',
         },
         text: {
           primary: mode === 'dark' ? '#FFFFFF' : '#000000',
@@ -275,6 +275,13 @@ export const AppThemeProvider: React.FC<Props> = ({ children }) => {
           styleOverrides: {
             root: {
               aspectRatio: '1/1',
+            },
+          },
+        },
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              textTransform: 'none',
             },
           },
         },

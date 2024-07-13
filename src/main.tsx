@@ -1,24 +1,25 @@
-import { AppThemeProvider } from './themes/themes';
-import ReactDOM from 'react-dom/client';
-import React from 'react';
-import App from './App';
-import './main.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import CustomToast from '@/components/CustomToast';
+import { AppThemeProvider } from '@/themes/themes';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import App from './App';
+import './i18n';
+import './main.css';
+
 const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}>
+    <AppThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <AppThemeProvider>
-          <App />
-        </AppThemeProvider>
-        <ToastContainer />
+        <App />
+        <CustomToast />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </Provider>
+    </AppThemeProvider>
   </React.StrictMode>,
 );
