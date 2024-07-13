@@ -1,9 +1,11 @@
-import { BrowserRouter } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import Routing from './router/Routing';
-import { RouterProvider} from "react-router-dom";
+import { Suspense } from 'react';
 const App = () => {
   return (
-    <RouterProvider router={Routing}/>
+    <Suspense fallback={<div></div>}>
+      <RouterProvider router={Routing} />
+    </Suspense>
   );
 };
 

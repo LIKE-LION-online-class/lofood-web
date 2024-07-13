@@ -1,70 +1,107 @@
-import { Routes, Route } from 'react-router-dom';
-import Register from '@/pages/Auth/Register';
-import Login from '@/pages/Auth/Login';
-import HeThongNhaHang from '@/pages/HeThongNhaHang/HeThongNhaHang';
-import Home from '@/pages/Home/Home';
-import MainLayout from '@/components/MainLayout';
-import { Outlet, createBrowserRouter, RouteObject } from 'react-router-dom';
-import ThucDon from '@/pages/ThucDon/ThucDon.tsx';
-import GioHang from '@/pages/GioHang/GioHang.tsx';
-import Order from '@/pages/Order/Order';
-import OrderHistory from '@/pages/CartHistory/OrderHistory';
-import { ApiClientProvider } from '@/utils/axios';
-import MyProfile from '@/pages/Profile/MyProfile';
+import { createBrowserRouter } from 'react-router-dom';
+import { lazy } from 'react';
 
+import NavigationBar from '@/layouts/Header/NavigationBar';
+import MainLayout from '@/layouts/MainLayout';
 
-const appRoutes: RouteObject[] = [
+const MapPage = lazy(() => import('@/pages/MapPage'));
+const HomePage = lazy(() => import('@/pages/HomePage'));
+const LoginPage = lazy(() => import('@/pages/AuthPage/LoginPage'));
+const RegisterPage = lazy(() => import('@/pages/AuthPage/RegisterPage'));
+const ForgotPasswordPage = lazy(() => import('@/pages/AuthPage/ForgotPasswordPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const CategoryPage = lazy(() => import('@/pages/CategoryPage'));
+const CartPage = lazy(() => import('@/pages/CartPage'));
+const CheckoutPage = lazy(() => import('@/pages/CheckoutPage'));
+const OrderSuccessPage = lazy(() => import('@/pages/OrderPage/OrderSuccessPage'));
+
+const AccountPage = lazy(() => import('@/pages/AccountPage'));
+const ProfilePage = lazy(() => import('@/pages/AccountPage/ProfilePage'));
+const HistoryPage = lazy(() => import('@/pages/AccountPage/HistoryPage'));
+const ChangePasswordPage = lazy(() => import('@/pages/AccountPage/ChangePasswordPage'));
+
+const Routing = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <HomePage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/category/:id',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <CategoryPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/cart',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <CartPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/checkout',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <CheckoutPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/order/success/:id',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <OrderSuccessPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/map',
+    element: <MapPage />,
+  },
+  {
+    path: '/auth/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/auth/register',
+    element: <RegisterPage />,
+  },
+  {
+    path: '/auth/forgot-password',
+    element: <ForgotPasswordPage />,
+  },
+  {
+    path: '/account',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <AccountPage />
+      </MainLayout>
+    ),
     children: [
       {
-        index: true,
-        element: <Home />,
+        path: 'profile',
+        element: <ProfilePage />,
       },
       {
-        path: '/thuc-don',
-        element: <ThucDon />,
+        path: 'history',
+        element: <HistoryPage />,
       },
       {
-        path: '/he-thong-nha-hang',
-        element: <HeThongNhaHang />,
-      },
-      {
-        path: '/gio-hang',
-        element: <GioHang />,
-      },
-      {
-        path: '/auth/login',
-        element: <Login />,
-      },
-      {
-        path: '/auth/register',
-        element: <Register />,
-      },
-      {
-        path: '/auth/my-profile',
-        element: <MyProfile />,
-      },
-      {
-        path: '/order',
-        element: <Order />,
-      },
-      {
-        path: '/order-history',
-        element: <OrderHistory />,
+        path: 'password',
+        element: <ChangePasswordPage />,
       },
     ],
   },
-];
-const Routing = createBrowserRouter([
   {
-    element: (
-      <ApiClientProvider>
-        <Outlet />
-      </ApiClientProvider>
-    ),
-    children: appRoutes,
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 
