@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import SkeletonBox from '@/components/SkeletonBox';
 import { IconStar, IconStarFilled } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 function ListRestaurant() {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ function ListRestaurant() {
     return data?.data?.map((item: any) => (
       <Grid item xs={12} sm={6} md={3} key={item.id}>
         <Card elevation={0}>
-          <CardActionArea>
+          <CardActionArea component={Link} to={`/restaurant/${item?.id}`}>
             <CardMedia component="img" height="140" image={item?.logo} alt="green iguana" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">

@@ -102,9 +102,9 @@ function index() {
                       onClick={tab.onClick}
                       component={Link}
                       to={tab.to}
-                      sx={{
-                        backgroundColor: pathname === tab.to ? '#ddd' : 'inherit',
-                      }}
+                      // sx={{
+                      //   backgroundColor: pathname === tab.to ? '#ddd' : 'inherit',
+                      // }}
                     >
                       <ListItemIcon>{tab.icon}</ListItemIcon>
                       <ListItemText>{tab.label}</ListItemText>

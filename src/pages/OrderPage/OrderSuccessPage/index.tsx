@@ -1,6 +1,6 @@
-import { getOrderByIdHttp } from '@/api/order';
-import SkeletonBox from '@/components/SkeletonBox';
+import { cancelOrderHttp, getOrderByIdHttp } from '@/api/order';
 import { formatVND } from '@/libs';
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Button,
@@ -9,53 +9,117 @@ import {
   CardHeader,
   Chip,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
   Grid,
+  LinearProgress,
   List,
   ListItemButton,
   ListItemText,
   Stack,
   Typography,
 } from '@mui/material';
-import { IconCoin } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
+import { IconCheck, IconCoin } from '@tabler/icons-react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
-
-// const getStatus = (status: string) => {
-//   switch (status) {
-//     case 'PROCESSING':
-//       return 'Đang xử lý';
-//     case 'SHIPPING':
-//       return 'Đang giao hàng';
-//     case 'DELIVERED':
-//       return 'Đã giao hàng';
-//     case 'CANCELED':
-//       return 'Đã hủy';
-//     default:
-//       return 'Không xác định';
-//   }
-// };
+import { Link, useParams } from 'react-router-dom';
 
 function index() {
   const { id } = useParams();
   const { t } = useTranslation();
+
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['cancelOrder', id],
+    mutationFn: cancelOrderHttp,
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ['getOrder', id],
+      });
+      setOpen(false);
+    },
+  });
+
+  const [open, setOpen] = React.useState(false);
+
   const { data, isLoading } = useQuery({
     queryKey: ['getOrder', id],
     queryFn: () => getOrderByIdHttp(id as string),
     enabled: !!id,
   });
 
-  console.log(data);
+  const handleCancelOrder = () => {
+    mutate(id as string);
+  };
+
+  const renderOrerAction = () => {
+    const renderButton = () => {
+      switch (data?.data?.status) {
+        case 'PROCESSING':
+          return (
+            <LoadingButton
+              variant="contained"
+              color="warning"
+              size="small"
+              disableElevation
+              onClick={() => setOpen(true)}
+              sx={{
+                borderRadius: 99,
+              }}
+            >
+              Hủy đạt hàng
+            </LoadingButton>
+          );
+        case 'CONFIRMED':
+          return <Button endIcon={<IconCheck />}>Đã nhận hàng</Button>;
+        case 'CANCEL':
+          return (
+            <Button
+              disabled
+              variant="contained"
+              size="small"
+              color="error"
+              sx={{
+                borderRadius: 99,
+              }}
+            >
+              Đã hủy đơn hàng
+            </Button>
+          );
+        default:
+          return null;
+      }
+    };
+
+    return (
+      <React.Fragment>
+        {renderButton()}
+        <Dialog open={open}>
+          <DialogContent>
+            <Typography>{t('cancelOrder')}</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpen(false)}>{t('cancel')}</Button>
+            <LoadingButton variant="contained" onClick={handleCancelOrder} disableElevation loading={isPending}>
+              {t('cancelOrder')}
+            </LoadingButton>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
+    );
+  };
 
   const renderInfo = () => {
     if (isLoading) {
-      return <SkeletonBox height={600} />;
+      return <LinearProgress />;
     }
     if (!data?.data) {
       return null;
     }
     return (
-      <>
+      <React.Fragment>
         <Box
           height={100}
           sx={{
@@ -77,7 +141,7 @@ function index() {
                 </Typography>
               </Box>
             }
-            action={<Button>Hủy đạt hàng</Button>}
+            action={renderOrerAction()}
           />
           <CardContent>
             <Stack direction="row" alignItems="flex-end" gap={2}>
@@ -87,7 +151,7 @@ function index() {
 
             <List>
               {data?.data?.foodOrderResponses.map((item: any) => (
-                <ListItemButton>
+                <ListItemButton component={Link} to={`/food/${item?.id}`}>
                   <ListItemText>{item.quantity}</ListItemText>
                   <ListItemText
                     sx={{
@@ -102,7 +166,7 @@ function index() {
             </List>
           </CardContent>
         </Card>
-      </>
+      </React.Fragment>
     );
   };
   return (

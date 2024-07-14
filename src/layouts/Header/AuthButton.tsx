@@ -20,7 +20,7 @@ function AuthButton() {
 
   return (
     <React.Fragment>
-      <Stack direction="row" spacing={1} alignItems="end">
+      <Stack direction="row" spacing={1} alignItems="center">
         <Cart />
         <User />
       </Stack>

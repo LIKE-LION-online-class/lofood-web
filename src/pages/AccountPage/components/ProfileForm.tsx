@@ -31,7 +31,6 @@ function ProfileForm() {
     }),
     [data],
   );
-  console.log(data);
   const { mutate: mutateUpdateUser, isPending } = useMutation({
     mutationFn: updateUserHttp,
     onSuccess: () => {

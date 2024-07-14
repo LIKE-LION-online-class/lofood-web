@@ -6,26 +6,46 @@ import { Grid } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import { RESET } from 'jotai/utils';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+export const useQueryString = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 function CheckoutSubmit() {
   const [cart, setCart] = useAtom(cartAtom);
   const navigate = useNavigate();
+
+  const query = useQueryString();
+
+  const flow = query.get('flow');
+
   const { mutate, isPending } = useMutation({
     mutationKey: ['createOrder'],
     mutationFn: createOrderHttp,
     onSuccess(data) {
       notify('Đặt hàng thành công', 'success');
-      setCart(RESET);
+      if (flow !== 'buynow') {
+        setCart(RESET);
+      }
       navigate(`/order/success/${data?.data?.data?.id}`);
     },
     onError(error) {
       notify('Đặt hàng thất bại', 'error');
-      console.log(error);
     },
   });
 
   const handleCreateOrder = () => {
+    if (flow === 'buynow' && cart?.itemsBuyNow?.quantity) {
+      return mutate({
+        foodOrderRequests: [
+          { foodId: cart?.itemsBuyNow.id, priceOrder: cart?.itemsBuyNow.price, quantity: cart?.itemsBuyNow.quantity },
+        ],
+        status: 'PROCESSING',
+        totalPrice: cart.itemsBuyNow.price * cart.itemsBuyNow.quantity,
+      });
+    }
+
     mutate({
       foodOrderRequests: cart.items.map((food) => ({
         foodId: food.id,
@@ -43,8 +63,14 @@ function CheckoutSubmit() {
         fullWidth
         variant="contained"
         disableElevation
-        color="error"
         loading={isPending}
+        sx={{
+          backgroundColor: '#FF424E',
+          color: 'white',
+          '&:hover': {
+            backgroundColor: '#FF424E',
+          },
+        }}
         size="large"
         onClick={handleCreateOrder}
       >

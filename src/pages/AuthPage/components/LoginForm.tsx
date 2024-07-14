@@ -23,7 +23,6 @@ export default function LoginForm() {
       navigate('/');
     },
     onError: (error: any) => {
-      console.log(error);
       notify(error?.response.data.error, 'error');
     },
   });

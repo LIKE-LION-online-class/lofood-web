@@ -18,10 +18,14 @@ export const createOrderHttp = (data: IOrderRequest) => {
   return axiosInstance.post('/order', data);
 };
 
-export const updateOrderStatusHttp = (id: string, status: string) => {
-  return axiosInstance.post(`/order/updateStatus/${id}/${status}`);
-};
-
 export const getOrderByIdHttp = (id: string) => {
   return axiosInstance.get(`/order/${id}`);
+};
+
+export const cancelOrderHttp = (id: string) => {
+  return axiosInstance.put(`/order/cancel/${id}`);
+};
+
+export const getOrderUserLogged = () => {
+  return axiosInstance.get('/order/getOrderUserLogged');
 };
