@@ -66,6 +66,7 @@
   "cancel": "취소",
   "cancelOrder": "주문 취소",
   "name": "이름",
-  "restaurant.nearby": "근처 레스토랑",
-  "restaurant.noData": "데이터 없음"
+  "restaurantNearby": "근처 레스토랑",
+  "restaurantNoData": "데이터 없음",
+  "registerStore": "가게 등록"
 }
