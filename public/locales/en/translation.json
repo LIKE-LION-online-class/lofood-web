@@ -65,5 +65,7 @@
   "bestPrice": "Best Price",
   "cancel": "Cancel",
   "cancelOrder": "Cancel Order",
-  "name": "Name"
+  "name": "Name",
+  "restaurant.nearby": "Nearby Restaurants",
+  "restaurant.noData": "No data"
 }

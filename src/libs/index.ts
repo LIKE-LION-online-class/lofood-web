@@ -7,10 +7,6 @@ export const formatVND = (amount: number): string => {
   }).format(amount);
 };
 
-export const convertMeterToKilometer = (meter: number): string => {
-  return (meter / 1000).toFixed(0);
-};
-
 export const handleCart = ({
   cart,
   food,
