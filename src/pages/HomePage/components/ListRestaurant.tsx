@@ -62,7 +62,7 @@ function ListRestaurant() {
   return (
     <Grid item xs={12}>
       <Card elevation={0}>
-        <CardHeader title={t('recommend')} titleTypographyProps={{ variant: 'h3' }} />
+        <CardHeader title={t('restaurant')} titleTypographyProps={{ variant: 'h3' }} />
         <CardContent>
           <Grid container spacing={3}>
             {renderList()}

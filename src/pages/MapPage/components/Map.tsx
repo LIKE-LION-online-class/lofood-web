@@ -120,9 +120,7 @@ export default function AppMap() {
     queryKey: ['getRestaurants'],
     queryFn: getRestaurantsHttp,
   });
-  console.log(data);
 
-  // const { results } = formatData(data);
 
   return (
     <Map
@@ -146,8 +144,8 @@ export default function AppMap() {
         {...defaultViewport}
         offset={[0, -20]}
         anchor="bottom"
-        // popup={popup}
-        // ref={markerRef}
+      // popup={popup}
+      // ref={markerRef}
       >
         <Avatar
           alt="Remy Sharp"
@@ -178,7 +176,7 @@ export default function AppMap() {
         </Popover>
       </Marker>
 
-      {/* {results.map((restaurant: any) => (
+      {data?.data?.map((restaurant: any) => (
         <Marker latitude={restaurant?.latitude} longitude={restaurant?.longitude} offset={[0, -20]} anchor="bottom">
           <Button onClick={handleClick}>
             <Avatar
@@ -186,7 +184,6 @@ export default function AppMap() {
               src="https://cdn3d.iconscout.com/3d/premium/thumb/restaurant-6843937-5603506.png?f=webp"
             />
           </Button>
-
           <Popover
             id={id}
             open={open}
@@ -199,16 +196,11 @@ export default function AppMap() {
             }}
           >
             <RecipeReviewCard
-                image={restaurant?.logo ? restaurant?.logo : 'https://loremflickr.com/400/200/tokyo,girl/all?random=1'}
-              />
-            <Box p={1}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <RestaurantCard item={restaurant} />
-                </Link>
-              </Box>
+              image={restaurant?.logo ? restaurant?.logo : 'https://loremflickr.com/400/200/tokyo,girl/all?random=1'}
+            />
           </Popover>
         </Marker>
-      ))} */}
+      ))}
 
       <NavigationControl />
     </Map>
