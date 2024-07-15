@@ -67,6 +67,7 @@
   "cancelOrder": "Hủy đơn hàng",
   "name": "Tên",
   "restaurant": "Nhà hàng",
-  "restaurant.nearby": "Nhà hàng gần bạn",
-  "restaurant.noData": "Không có dữ liệu"
+  "restaurantNearby": "Nhà hàng gần bạn",
+  "restaurantNoData": "Không có dữ liệu",
+  "registerStore": "Đăng ký cửa hàng"
 }

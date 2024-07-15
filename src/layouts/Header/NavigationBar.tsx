@@ -28,7 +28,7 @@ const NavigationBar = () => {
       <Box height={40} bgcolor="black" color="white">
         <Container maxWidth="xl">
           <Stack direction="row" alignItems="center">
-            <Button color="inherit">Đăng ký đối tác</Button>
+            <Button color="inherit">{t('registerStore')}</Button>
           </Stack>
         </Container>
       </Box>

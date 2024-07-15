@@ -52,7 +52,7 @@ function ListNearRestaurant() {
     if (!data?.data?.length) {
       return (
         <Grid item xs={12} md={12}>
-          <Typography textAlign="center">{t('restaurant.noData')}</Typography>
+          <Typography textAlign="center">{t('restaurantNoData')}</Typography>
         </Grid>
       );
     }
@@ -72,7 +72,7 @@ function ListNearRestaurant() {
     <Grid item xs={12}>
       <Card elevation={0}>
         <CardHeader
-          title={t('restaurant.nearby')}
+          title={t('restaurantNearby')}
           titleTypographyProps={{
             variant: 'h3',
           }}
