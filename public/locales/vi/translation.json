@@ -65,5 +65,8 @@
   "bestPrice": "Giá tốt nhất",
   "cancel": "Hủy",
   "cancelOrder": "Hủy đơn hàng",
-  "name": "Tên"
+  "name": "Tên",
+  "restaurant": "Nhà hàng",
+  "restaurant.nearby": "Nhà hàng gần bạn",
+  "restaurant.noData": "Không có dữ liệu"
 }

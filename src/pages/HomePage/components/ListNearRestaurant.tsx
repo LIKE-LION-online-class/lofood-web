@@ -1,21 +1,33 @@
 import { getNearestLocationHttp } from '@/api/restaurant';
 import { coordsAtom } from '@/atom';
 import SkeletonBox from '@/components/SkeletonBox';
-import { convertMeterToKilometer } from '@/libs';
-import { Button, Card, CardActionArea, CardContent, CardHeader, CardMedia, Grid, Stack } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-const distances = [10000, 20000, 30000, 40000];
+const distances = [10, 20, 30, 40];
 
 function ListNearRestaurant() {
   const [coords] = useAtom(coordsAtom);
 
   const { latitude, longitude } = coords;
 
-  const [select, setSelect] = useState(10000);
+  const { t } = useTranslation();
+
+  const [select, setSelect] = useState(10);
 
   const { data, isLoading } = useQuery({
     queryKey: ['getNearestLocation', select],
@@ -29,23 +41,38 @@ function ListNearRestaurant() {
     enabled: !!latitude && !!longitude && !!select,
   });
 
-  if (isLoading) {
-    return (
-      <Grid item xs={12}>
-        <SkeletonBox height={200} />
+  const renderList = () => {
+    if (isLoading) {
+      return (
+        <Grid item xs={12}>
+          <SkeletonBox height={200} />
+        </Grid>
+      );
+    }
+    if (!data?.data?.length) {
+      return (
+        <Grid item xs={12} md={12}>
+          <Typography textAlign="center">{t('restaurant.noData')}</Typography>
+        </Grid>
+      );
+    }
+    return data?.data?.map((item: any) => (
+      <Grid item xs={12} key={item.id} md={2}>
+        <Card elevation={0}>
+          <CardActionArea component={Link} to={`/restaurant/${item?.id}`}>
+            <CardMedia component="img" height="160" image={item?.logo} />
+            <CardHeader title={item?.name} subheader={item?.description} />
+            <CardContent></CardContent>
+          </CardActionArea>
+        </Card>
       </Grid>
-    );
-  }
-
-  if (!data?.data?.length) {
-    return null;
-  }
-
+    ));
+  };
   return (
     <Grid item xs={12}>
       <Card elevation={0}>
         <CardHeader
-          title="Near you"
+          title={t('restaurant.nearby')}
           titleTypographyProps={{
             variant: 'h3',
           }}
@@ -58,7 +85,7 @@ function ListNearRestaurant() {
                   size="small"
                   onClick={() => setSelect(item)}
                 >
-                  {`${convertMeterToKilometer(Number(item))} km`}
+                  {`${item} km`}
                 </Button>
               ))}
             </Stack>
@@ -67,17 +94,7 @@ function ListNearRestaurant() {
 
         <CardContent>
           <Grid container spacing={3}>
-            {data?.data?.map((item: any) => (
-              <Grid item xs={12} key={item.id} md={2}>
-                <Card elevation={0}>
-                  <CardActionArea component={Link} to={`/restaurant/${item?.id}`}>
-                    <CardMedia component="img" height="160" image={item?.logo} />
-                    <CardHeader title={item?.name} subheader={item?.description} />
-                    <CardContent></CardContent>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            ))}
+            {renderList()}
           </Grid>
         </CardContent>
       </Card>

@@ -1,5 +1,5 @@
 import { getCategoryByIdHttp } from '@/api/category';
-import { CardContentNoPadding } from '@/components/CardContentNoPadding';
+import SkeletonBox from '@/components/SkeletonBox';
 import { Breadcrumbs, Card, Grid, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ function CateBreadcrumb() {
 
   const { id } = useParams();
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['getCategory', id],
     queryFn: () => getCategoryByIdHttp(id as string),
     enabled: !!id,
@@ -26,6 +26,16 @@ function CateBreadcrumb() {
     </Typography>,
   ];
 
+  const renderBreadcrumbs = () => {
+    if (isLoading) {
+      return <SkeletonBox height={50} />;
+    }
+    return (
+      <Breadcrumbs separator="›" aria-label="breadcrumb">
+        {breadcrumbs}
+      </Breadcrumbs>
+    );
+  };
   return (
     <Grid item xs={12}>
       <Card
@@ -34,11 +44,7 @@ function CateBreadcrumb() {
           backgroundColor: 'transparent',
         }}
       >
-        <CardContentNoPadding>
-          <Breadcrumbs separator="›" aria-label="breadcrumb">
-            {breadcrumbs}
-          </Breadcrumbs>
-        </CardContentNoPadding>
+        {renderBreadcrumbs()}
       </Card>
     </Grid>
   );
