@@ -1,19 +1,18 @@
 import { tokenAtom, userInfoAtom } from '@/atom';
 import {
+  Button,
   Card,
-  CardContent,
   CardHeader,
   Container,
   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   Grid,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Button,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
 } from '@mui/material';
 import {
   IconBell,
@@ -27,10 +26,9 @@ import {
 import { useAtom } from 'jotai';
 import { RESET } from 'jotai/utils';
 import { useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function index() {
-  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [, setToken] = useAtom(tokenAtom);
   const [, setUserInfo] = useAtom(userInfoAtom);
@@ -41,9 +39,9 @@ function index() {
       icon: <IconUserCircle size={20} />,
     },
     {
-      label: 'Password',
-      to: '/account/password',
-      icon: <IconSettings size={20} />,
+      label: 'History',
+      to: '/account/history',
+      icon: <IconHistory size={20} />,
     },
     {
       label: 'Notification',
@@ -61,9 +59,9 @@ function index() {
       icon: <IconCar size={20} />,
     },
     {
-      label: 'History',
-      to: '/account/history',
-      icon: <IconHistory size={20} />,
+      label: 'Password',
+      to: '/account/password',
+      icon: <IconSettings size={20} />,
     },
     {
       label: 'Logout',
@@ -95,16 +93,16 @@ function index() {
                     variant: 'h3',
                   }}
                 />
-                <List dense>
+                <List dense disablePadding>
                   {tabs.map((tab) => (
                     <ListItemButton
                       key={tab.label}
                       onClick={tab.onClick}
                       component={Link}
                       to={tab.to}
-                      sx={{
-                        backgroundColor: pathname === tab.to ? '#ddd' : 'inherit',
-                      }}
+                      // sx={{
+                      //   backgroundColor: pathname === tab.to ? '#ddd' : 'inherit',
+                      // }}
                     >
                       <ListItemIcon>{tab.icon}</ListItemIcon>
                       <ListItemText>{tab.label}</ListItemText>
@@ -119,9 +117,7 @@ function index() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Card elevation={0}>
-                <CardContent>
-                  <Outlet />
-                </CardContent>
+                <Outlet />
               </Card>
             </Grid>
           </Grid>
@@ -131,13 +127,13 @@ function index() {
       <Dialog open={open} onClose={() => {}}>
         <DialogContent>
           <DialogContentText>Are you sure you want to logout?</DialogContentText>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button onClick={handleLogout} variant="contained" disableElevation>
-              Logout
-            </Button>
-          </DialogActions>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={handleLogout} variant="contained" disableElevation>
+            Logout
+          </Button>
+        </DialogActions>
       </Dialog>
     </Container>
   );

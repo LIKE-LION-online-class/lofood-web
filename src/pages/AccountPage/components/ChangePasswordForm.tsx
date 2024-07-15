@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 
 function ChangePasswordForm() {
   const [userInfo] = useAtom(userInfoAtom);
-  const { usersId } = userInfo;
+  const { id } = userInfo;
 
   const initialValues = useMemo(
     () => ({
@@ -24,7 +24,7 @@ function ChangePasswordForm() {
   );
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ['updatePasswordUser', usersId],
+    mutationKey: ['updatePasswordUser', id],
     mutationFn: updatePasswordUserHttp,
     onSuccess: () => {
       notify('Update password success', 'success');
@@ -45,7 +45,7 @@ function ChangePasswordForm() {
     }),
     onSubmit: (values) => {
       mutate({
-        id: usersId,
+        id: id as string,
         currentPassword: values.currentPassword,
         newPassword: values.newPassword,
       });

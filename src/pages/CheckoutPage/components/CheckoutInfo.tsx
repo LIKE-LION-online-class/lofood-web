@@ -14,48 +14,81 @@ import {
   ListItemButton,
   ListItemText,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
+import React from 'react';
 import { useState } from 'react';
+import { useQueryString } from './CheckoutSubmit';
 
 function CheckoutInfo() {
   const [cart] = useAtom(cartAtom);
 
   const [open, setOpen] = useState(true);
 
+  const query = useQueryString();
+
+  const flow = query.get('flow');
+
   const handleClick = () => {
     setOpen(!open);
   };
-  const render = () => {
+
+  const renderList = () => {
+    if (flow === 'buynow' && cart?.itemsBuyNow?.quantity) {
+      return (
+        <ListItemButton sx={{ pl: 4 }} dense>
+          <ListItemText primary={`${cart.itemsBuyNow.quantity}x`} />
+          <ListItemText primary={cart.itemsBuyNow.name} />
+          <ListItemText primary={formatVND(cart.itemsBuyNow.price)} />
+        </ListItemButton>
+      );
+    }
+    return cart.items.map((item) => (
+      <ListItemButton sx={{ pl: 4 }} dense key={item?.id}>
+        <ListItemText primary={`${item.quantity}x`} />
+        <ListItemText primary={item.name} />
+        <ListItemText primary={formatVND(item.price)} />
+      </ListItemButton>
+    ));
+  };
+  const renderInfo = () => {
     return (
-      <>
+      <React.Fragment>
         <ListItemButton onClick={handleClick} dense>
-          <ListItemText primary={`6 món ăn (Xem thông tin)`} />
+          <ListItemText primary={`${flow === 'buynow' ? 1 : cart.items.length} món ăn (Xem thông tin)`} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding dense>
-            {cart.items.map((item) => (
-              <ListItemButton sx={{ pl: 4 }} dense key={item?.id}>
-                <ListItemText primary={`${item.quantity}x`} />
-                <ListItemText primary={item.name} />
-                <ListItemText primary={formatVND(item.price)} />
-              </ListItemButton>
-            ))}
+            {renderList()}
           </List>
         </Collapse>
-      </>
+      </React.Fragment>
     );
   };
+
+  const totalPrice = () => {
+    if (flow === 'buynow' && cart?.itemsBuyNow?.quantity) {
+      return cart.itemsBuyNow.price * cart.itemsBuyNow.quantity;
+    }
+    return cart.totalPrice;
+  };
+
   return (
     <Grid item xs={12}>
       <Card elevation={0}>
-        <CardHeader title="Đơn hàng" subheader={render()} />
+        <CardHeader
+          title="Đơn hàng"
+          subheader={renderInfo()}
+          titleTypographyProps={{
+            variant: 'h3',
+          }}
+        />
         <CardContent>
           <Stack direction="row" spacing={2} justifyContent="space-between">
             <Typography color="gray">Tạm tính</Typography>
-            <Typography>{formatVND(cart.totalPrice)}</Typography>
+            <Typography>{formatVND(totalPrice())}</Typography>
           </Stack>
 
           <Typography color="gray" variant="caption">
@@ -68,7 +101,7 @@ function CheckoutInfo() {
           <Stack direction="row" justifyContent="space-between">
             <Typography color="gray">Tổng tiền</Typography>
             <Typography color="red" fontWeight={600}>
-              {formatVND(cart.totalPrice)}
+              {formatVND(totalPrice())}
             </Typography>
           </Stack>
         </CardContent>

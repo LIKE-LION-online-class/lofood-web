@@ -32,7 +32,7 @@
     "@mui/lab": "^5.0.0-alpha.171",
     "@mui/material": "^5.16.0",
     "@mui/styles": "^5.16.1",
-    "@mui/x-data-grid": "^7.8.0",
+    "@mui/x-data-grid": "^7.10.0",
     "@mui/x-data-grid-generator": "^7.8.0",
     "@tabler/icons-react": "^3.10.0",
     "@tanstack/react-query": "^5.49.2",
@@ -40,6 +40,7 @@
     "@turf/turf": "^7.0.0",
     "@types/react-slick": "^0.23.13",
     "axios": "^1.7.2",
+    "dayjs": "^1.11.11",
     "deck.gl": "^9.0.20",
     "formik": "^2.4.6",
     "geojson": "^0.5.0",
@@ -58,6 +59,7 @@
     "react-router-dom": "^6.23.0",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
+    "yet-another-react-lightbox": "^3.21.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {

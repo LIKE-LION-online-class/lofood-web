@@ -1,92 +1,151 @@
-import { addToCart, formatVND, removeFromCart, removeItemFromCart } from '@/libs';
-import {
-  Card,
-  CardHeader,
-  Checkbox,
-  Chip,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { IconMinus, IconPlus, IconTrash } from '@tabler/icons-react';
-import CheckboxList from './CheckList';
-import ProductCardCart from './ProductCardCart';
-import { useAtom } from 'jotai';
 import { cartAtom } from '@/atom';
-import { CardContentNoPadding } from '@/components/CardContentNoPadding';
+import StyledDataGrid from '@/components/StyledDataGrid';
 import { IFood } from '@/interfaces';
+import { formatVND, handleCart } from '@/libs';
+import { Box, Card, CardHeader, CardMedia, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { GridColDef } from '@mui/x-data-grid';
+import { IconMinus, IconPlus, IconTrash } from '@tabler/icons-react';
+import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 
-function ListCartProduct() {
+function ListCartItem() {
   const [cart, setCart] = useAtom(cartAtom);
+
   const { t } = useTranslation();
+
   const handleAddToCart = (food: IFood) => {
-    const newCart = addToCart(cart, food);
-    setCart({ ...newCart, open: false });
+    setCart(handleCart({ cart, food, type: 'increment' }));
   };
 
   const handleRemoveFromCart = (food: IFood) => {
-    const newCart = removeFromCart(cart, food);
-    setCart(newCart);
+    setCart(handleCart({ cart, food, type: 'decrement' }));
   };
 
   const handleRemoveItemFromCart = (food: IFood) => {
-    const newCart = removeItemFromCart(cart, food);
-    setCart(newCart);
+    setCart(handleCart({ cart, food, type: 'remove' }));
   };
 
-  const renderList = () => {
-    return cart.items.map((item: IFood) => (
-      <Grid item xs={12}>
-        <Card elevation={0}>
-          <CardContentNoPadding>
-            <List>
-              <ListItem
-                secondaryAction={
-                  <IconButton edge="end" aria-label="comments" onClick={() => handleRemoveItemFromCart(item)}>
-                    <IconTrash size={16} />
-                  </IconButton>
-                }
-                disablePadding
-              >
-                <ListItemIcon>
-                  <Checkbox edge="start" tabIndex={-1} disableRipple />
-                </ListItemIcon>
-                <ProductCardCart image={item.image} title={item.name} description={item.description} />
-                <ListItemText>
-                  <Typography fontWeight={600} width="42px">
-                    {formatVND(item.price)}
-                  </Typography>
-                </ListItemText>
-                <ListItemText>
-                  <Stack direction="row" sx={{ border: '1px solid #ddd', width: 'fit-content' }} borderRadius={99}>
-                    <IconButton onClick={() => handleRemoveFromCart(item)}>
-                      <IconMinus size={14} />
-                    </IconButton>
-                    <Stack justifyContent="center" alignItems="center" width={32}>
-                      {item.quantity}
-                    </Stack>
-                    <IconButton onClick={() => handleAddToCart(item)}>
-                      <IconPlus size={14} />
-                    </IconButton>
-                  </Stack>
-                </ListItemText>
-                <ListItemText>
-                  <Chip label={formatVND(item.quantity * item.price)} size="small" color="error" />
-                </ListItemText>
-              </ListItem>
-            </List>
-          </CardContentNoPadding>
+  const columns: GridColDef[] = [
+    {
+      field: 'name',
+      headerName: t('name'),
+      width: 200,
+      renderCell: (params) => (
+        <Card
+          elevation={0}
+          sx={{
+            backgroundColor: 'transparent',
+            height: '100%',
+          }}
+        >
+          <Stack direction="row" alignItems="center" gap={2} height="100%">
+            <CardMedia
+              image={params.row.image}
+              sx={{
+                width: 40,
+                height: 40,
+              }}
+            />
+            <Typography>{params.row.name}</Typography>
+          </Stack>
         </Card>
-      </Grid>
-    ));
-  };
+      ),
+    },
+    { field: 'description', headerName: t('description'), width: 150 },
+    {
+      field: 'price',
+      headerName: t('price'),
+      type: 'number',
+      width: 200,
+      valueFormatter: (value) => {
+        return formatVND(value as number);
+      },
+    },
+    {
+      field: 'quantity',
+      headerName: t('quantity'),
+      align: 'center',
+      headerAlign: 'center',
+      type: 'number',
+      width: 200,
+      renderCell: (params) => (
+        <Box>
+          <IconButton
+            onClick={(event) => {
+              event.preventDefault();
+              handleRemoveFromCart(params.row as IFood);
+            }}
+          >
+            <IconMinus size={18} />
+          </IconButton>
+          <Box component="span" sx={{ padding: '0 8px' }}>
+            {params.row.quantity}
+          </Box>
+          <IconButton
+            onClick={(event) => {
+              event.preventDefault();
+              handleAddToCart(params.row as IFood);
+            }}
+          >
+            <IconPlus size={18} />
+          </IconButton>
+        </Box>
+      ),
+    },
+    {
+      field: 'total',
+      headerName: t('total'),
+      type: 'number',
+      width: 160,
+      valueFormatter: (value) => {
+        return formatVND(value as number);
+      },
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      width: 110,
+      align: 'right',
+      headerAlign: 'right',
+      renderCell: (params) => (
+        <IconButton
+          onClick={(event) => {
+            event.preventDefault();
+            handleRemoveItemFromCart(params.row as IFood);
+          }}
+        >
+          <IconTrash size={14} />
+        </IconButton>
+      ),
+    },
+  ];
 
+  const rows = cart.items.map((item: IFood) => ({
+    id: item.id,
+    name: item.name,
+    image: item.image,
+    description: item.description,
+    price: item.price,
+    quantity: item.quantity,
+    total: item.quantity * item.price,
+  }));
+
+  return (
+    <StyledDataGrid
+      columns={columns}
+      rows={rows}
+      autoHeight
+      rowHeight={72}
+      hideFooter
+      hideFooterPagination
+      hideFooterSelectedRowCount
+      checkboxSelection
+    />
+  );
+}
+
+function ListCartProduct() {
+  const { t } = useTranslation();
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -97,12 +156,9 @@ function ListCartProduct() {
               variant: 'h3',
             }}
           />
-          <CardContentNoPadding>
-            <CheckboxList />
-          </CardContentNoPadding>
+          <ListCartItem />
         </Card>
       </Grid>
-      {renderList()}
     </Grid>
   );
 }

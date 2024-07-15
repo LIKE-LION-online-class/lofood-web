@@ -19,6 +19,8 @@ const AccountPage = lazy(() => import('@/pages/AccountPage'));
 const ProfilePage = lazy(() => import('@/pages/AccountPage/ProfilePage'));
 const HistoryPage = lazy(() => import('@/pages/AccountPage/HistoryPage'));
 const ChangePasswordPage = lazy(() => import('@/pages/AccountPage/ChangePasswordPage'));
+const RestaurantPage = lazy(() => import('@/pages/RestaurantPage'));
+const FoodPage = lazy(() => import('@/pages/FoodPage'));
 
 const Routing = createBrowserRouter([
   {
@@ -58,6 +60,22 @@ const Routing = createBrowserRouter([
     element: (
       <MainLayout header={<NavigationBar />}>
         <OrderSuccessPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/restaurant/:id',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <RestaurantPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/food/:id',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <FoodPage />
       </MainLayout>
     ),
   },

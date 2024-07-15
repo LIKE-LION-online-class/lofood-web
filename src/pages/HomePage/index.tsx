@@ -43,6 +43,8 @@ export default function Page() {
     <Container maxWidth="xl">
       <Grid container spacing={3} mt={2}>
         <Promo />
+        <ListNearRestaurant />
+
         <Grid item xs={12} sm={3}>
           <Grid container spacing={3}>
             <ListCategory />
@@ -51,7 +53,6 @@ export default function Page() {
         <Grid item xs={12} sm={9}>
           <Grid container spacing={3}>
             <ListSlide />
-            <ListNearRestaurant />
             <ListRestaurant />
           </Grid>
         </Grid>

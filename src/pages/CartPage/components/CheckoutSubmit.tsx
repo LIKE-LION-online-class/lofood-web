@@ -9,7 +9,19 @@ function CheckoutSubmit() {
   return (
     <Grid item xs={12}>
       <Link to="/checkout">
-        <Button fullWidth variant="contained" disableElevation color="error" size="large">
+        <Button
+          fullWidth
+          variant="contained"
+          disableElevation
+          size="large"
+          sx={{
+            backgroundColor: '#FF424E',
+            color: 'white',
+            '&:hover': {
+              backgroundColor: '#FF424E',
+            },
+          }}
+        >
           Mua hàng ({cart.items.length} món ăn)
         </Button>
       </Link>

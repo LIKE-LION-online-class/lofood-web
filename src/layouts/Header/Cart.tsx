@@ -37,7 +37,7 @@ function Cart() {
     <React.Fragment>
       <IconButton size="small" ref={ref} component={Link} to="/cart">
         <Badge badgeContent={cart?.items?.length} color="error">
-          <IconBasket />
+          <IconBasket size={18} />
         </Badge>
       </IconButton>
 

@@ -18,12 +18,18 @@ export default function LoginForm() {
     mutationKey: ['login'],
     mutationFn: loginHttp,
     onSuccess: (data) => {
-      setUserInfo(data?.data);
-      setToken(data?.data?.token);
-      navigate('/');
+      if (data?.data) {
+        setUserInfo({
+          id: data?.data?.usersId,
+          username: data?.data?.userName,
+          refreshToken: data?.data?.refreshToken,
+          role: data?.data?.roles[0],
+        });
+        setToken(data?.data?.token);
+        navigate('/');
+      }
     },
     onError: (error: any) => {
-      console.log(error);
       notify(error?.response.data.error, 'error');
     },
   });

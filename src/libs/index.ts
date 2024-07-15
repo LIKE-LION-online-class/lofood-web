@@ -7,70 +7,54 @@ export const formatVND = (amount: number): string => {
   }).format(amount);
 };
 
-export const addToCart = (cart: ICart, food: IFood): ICart => {
+export const convertMeterToKilometer = (meter: number): string => {
+  return (meter / 1000).toFixed(0);
+};
+
+export const handleCart = ({
+  cart,
+  food,
+  type,
+}: {
+  cart: ICart;
+  food: IFood;
+  type: 'update' | 'increment' | 'decrement' | 'remove';
+}): ICart => {
   const existingItem = cart.items.find((cartItem) => cartItem.id === food.id);
 
   let updatedItems;
+
   if (existingItem) {
-    updatedItems = cart.items.map((cartItem) =>
-      cartItem.id === food.id ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 } : cartItem,
-    );
+    if (type === 'remove') {
+      updatedItems = cart.items.filter((cartItem) => cartItem.id !== food.id);
+    } else {
+      updatedItems = cart.items.map((cartItem) => {
+        switch (type) {
+          case 'update':
+            return cartItem.id === food.id ? { ...cartItem, quantity: food.quantity } : cartItem;
+          case 'increment':
+            return cartItem.id === food.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem;
+          case 'decrement':
+            return cartItem.id === food.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem;
+          default:
+            return cartItem;
+        }
+      });
+    }
   } else {
     updatedItems = [...cart.items, { ...food, quantity: 1 }];
   }
 
-  const newCart = {
-    ...cart,
-    items: updatedItems,
-    totalPrice: cart.totalPrice + food.price,
-    totalQuantity: cart.totalQuantity + 1,
-    open: true,
-  };
+  updatedItems = updatedItems.filter((item) => item.quantity > 0);
 
-  return newCart;
-};
-
-export const removeFromCart = (cart: ICart, food: IFood): ICart => {
-  const existingItem = cart.items.find((cartItem) => cartItem.id === food.id);
-
-  if (!existingItem) {
-    return cart;
-  }
-
-  let updatedItems;
-  if (existingItem.quantity === 1) {
-    updatedItems = cart.items.filter((cartItem) => cartItem.id !== food.id);
-  } else {
-    updatedItems = cart.items.map((cartItem) =>
-      cartItem.id === food.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem,
-    );
-  }
+  const totalQuantity = updatedItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = updatedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const newCart = {
     ...cart,
     items: updatedItems,
-    totalPrice: cart.totalPrice - food.price,
-    totalQuantity: cart.totalQuantity - 1,
-    open: false,
-  };
-
-  return newCart;
-};
-
-export const removeItemFromCart = (cart: ICart, food: IFood): ICart => {
-  const existingItem = cart.items.find((cartItem) => cartItem.id === food.id);
-
-  if (!existingItem) {
-    return cart;
-  }
-
-  const updatedItems = cart.items.filter((cartItem) => cartItem.id !== food.id);
-
-  const newCart = {
-    ...cart,
-    items: updatedItems,
-    totalPrice: cart.totalPrice - food.price * food.quantity,
-    totalQuantity: cart.totalQuantity - food.quantity,
+    totalPrice,
+    totalQuantity,
     open: false,
   };
 

@@ -1,4 +1,4 @@
-import axiosInstance from "./axios";
+import axiosInstance from './axios';
 
 interface LoginData {
   username: string;
@@ -10,6 +10,8 @@ interface RegisterData {
   username: string;
   password: string;
   email: string;
+  address: string;
+  role: string;
 }
 
 interface ForgetPasswordData {
