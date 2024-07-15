@@ -1,6 +1,7 @@
 import { getCategoriesHttp } from '@/api/category';
 import SkeletonBox from '@/components/SkeletonBox';
-import { Card, CardHeader, Grid, List, ListItemButton, ListItemText } from '@mui/material';
+import { Card, CardHeader, Grid, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -28,7 +29,7 @@ function ListCategory() {
 
   const renderList = () => {
     return (
-      <List dense>
+      <List dense disablePadding>
         {data?.data?.map((item: any, index: number) => (
           <ListItemButton
             key={item?.id}
@@ -43,6 +44,9 @@ function ListCategory() {
               }}
             />
             <ListItemText primary={item.name} />
+            <ListItemIcon>
+              <IconChevronRight size={16} />
+            </ListItemIcon>
           </ListItemButton>
         ))}
       </List>

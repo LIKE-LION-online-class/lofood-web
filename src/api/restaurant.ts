@@ -1,16 +1,18 @@
 import axiosInstance from './axios';
 
-interface IGetIn5KmHttp {
-  latitude: number;
-  longitude: number;
+interface INearestLocation {
+  displayRadius?: number;
+  latitude?: number;
+  longitude?: number;
+  pageSize?: number;
 }
 
 export const getRestaurantsHttp = () => {
   return axiosInstance.get('/restaurant');
 };
 
-export const getIn5KmHttp = ({ latitude, longitude }: IGetIn5KmHttp) => {
-  return axiosInstance.get(`/restaurant/in5kmLocation/${latitude}/${longitude}`);
+export const getNearestLocationHttp = (data: INearestLocation) => {
+  return axiosInstance.post('/restaurant/nearestLocation', data);
 };
 
 export const getRestaurantByIdHttp = (id: string) => {

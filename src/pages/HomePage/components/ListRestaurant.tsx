@@ -1,11 +1,10 @@
 import { getRestaurantsHttp } from '@/api/restaurant';
-import { Box, Button, Card, CardContent, CardHeader, Grid, Rating, Stack } from '@mui/material';
+import SkeletonBox from '@/components/SkeletonBox';
+import { Box, Button, Card, CardActionArea, CardContent, CardHeader, Grid, Rating, Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import SkeletonBox from '@/components/SkeletonBox';
 import { IconStar, IconStarFilled } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -33,14 +32,9 @@ function ListRestaurant() {
       <Grid item xs={12} sm={6} md={3} key={item.id}>
         <Card elevation={0}>
           <CardActionArea component={Link} to={`/restaurant/${item?.id}`}>
-            <CardMedia component="img" height="140" image={item?.logo} alt="green iguana" />
+            <CardMedia component="img" height="160" image={item?.logo} alt="green iguana" />
+            <CardHeader title={item?.name} subheader={item?.description} />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {item?.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" mb={1}>
-                {item?.description}
-              </Typography>
               <Rating
                 name="read-only"
                 defaultValue={2}

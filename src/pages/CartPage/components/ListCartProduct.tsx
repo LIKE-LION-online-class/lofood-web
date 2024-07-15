@@ -1,7 +1,7 @@
 import { cartAtom } from '@/atom';
 import StyledDataGrid from '@/components/StyledDataGrid';
 import { IFood } from '@/interfaces';
-import { handleCart } from '@/libs';
+import { formatVND, handleCart } from '@/libs';
 import { Box, Card, CardHeader, CardMedia, Grid, IconButton, Stack, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import { IconMinus, IconPlus, IconTrash } from '@tabler/icons-react';
@@ -57,6 +57,9 @@ function ListCartItem() {
       headerName: t('price'),
       type: 'number',
       width: 200,
+      valueFormatter: (value) => {
+        return formatVND(value as number);
+      },
     },
     {
       field: 'quantity',
@@ -94,6 +97,9 @@ function ListCartItem() {
       headerName: t('total'),
       type: 'number',
       width: 160,
+      valueFormatter: (value) => {
+        return formatVND(value as number);
+      },
     },
     {
       field: 'action',
@@ -128,6 +134,8 @@ function ListCartItem() {
     <StyledDataGrid
       columns={columns}
       rows={rows}
+      autoHeight
+      rowHeight={72}
       hideFooter
       hideFooterPagination
       hideFooterSelectedRowCount

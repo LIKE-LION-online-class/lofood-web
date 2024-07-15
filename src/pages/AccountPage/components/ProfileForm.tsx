@@ -14,10 +14,10 @@ function ProfileForm() {
   const [userInfo] = useAtom(userInfoAtom);
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { usersId } = userInfo;
+  const { id } = userInfo;
   const { data } = useQuery({
-    queryKey: ['getUserById', usersId],
-    queryFn: () => getUserByIdHttp(usersId),
+    queryKey: ['getUserById', id],
+    queryFn: () => getUserByIdHttp(id as string),
   });
 
   const initialValues = useMemo(
@@ -36,7 +36,7 @@ function ProfileForm() {
     onSuccess: () => {
       notify('Update profile success', 'success');
       queryClient.invalidateQueries({
-        queryKey: ['getUserById', usersId],
+        queryKey: ['getUserById', id],
       });
     },
     onError: () => {},

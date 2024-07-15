@@ -13,7 +13,7 @@ const MainLayout = ({ header, sidebar, footer, children }: MainLayoutProps) => {
     <React.Fragment>
       {header}
       {sidebar}
-      <Box bgcolor="#F5F5FA" minHeight="100vh" mt="64px" pb={10}>
+      <Box mt="104px" pb={10}>
         {children}
       </Box>
       {footer}

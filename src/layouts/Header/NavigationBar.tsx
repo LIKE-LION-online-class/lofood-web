@@ -6,6 +6,7 @@ import {
   Container,
   IconButton,
   InputAdornment,
+  Stack,
   TextField,
   Toolbar,
   Tooltip,
@@ -24,6 +25,14 @@ const NavigationBar = () => {
 
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} elevation={0}>
+      <Box height={40} bgcolor="black" color="white">
+        <Container maxWidth="xl">
+          <Stack direction="row" alignItems="center">
+            <Button color="inherit">Đăng ký đối tác</Button>
+          </Stack>
+        </Container>
+      </Box>
+
       <Container maxWidth="xl" disableGutters>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">

@@ -3,7 +3,7 @@ import { cartAtom } from '@/atom';
 import { notify } from '@/components/CustomToast';
 import { LoadingButton } from '@mui/lab';
 import { Grid } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import { RESET } from 'jotai/utils';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ function CheckoutSubmit() {
   const navigate = useNavigate();
 
   const query = useQueryString();
+  const queryClient = useQueryClient();
 
   const flow = query.get('flow');
 
@@ -28,9 +29,10 @@ function CheckoutSubmit() {
       if (flow !== 'buynow') {
         setCart(RESET);
       }
+      queryClient.refetchQueries({ queryKey: ['getorderuserlogged'] });
       navigate(`/order/success/${data?.data?.data?.id}`);
     },
-    onError(error) {
+    onError() {
       notify('Đặt hàng thất bại', 'error');
     },
   });
