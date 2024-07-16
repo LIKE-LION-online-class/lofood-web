@@ -9,20 +9,18 @@ const axiosInstance = axios.create({
 
 const refreshToken = async () => {
   const token = localStorage.getItem('refresh_token');
-  if (token != null) {
-    const response = await axiosInstance.post('/auth/refreshToken', {
-      refreshToken: JSON.parse(token as string),
-    });
-    localStorage.setItem('token', JSON.stringify(response.data.accessToken));
-    localStorage.setItem('refresh_token', JSON.stringify(response.data.refreshToken));
-  }
+  const data = await axiosInstance.post('/security/refreshToken', {
+    refreshToken: token,
+  });
+  localStorage.setItem('access_token', data.data.token);
+  localStorage.setItem('refresh_token', data.data.refreshToken);
 };
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token != null) {
-      config.headers.Authorization = `Bearer ${JSON.parse(token as string)}`;
+    const token = localStorage.getItem('access_token');
+    if (token !== null) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -37,7 +35,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
-      return refreshToken();
+      refreshToken();
     }
   },
 );

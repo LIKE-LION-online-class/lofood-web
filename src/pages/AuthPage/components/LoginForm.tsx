@@ -23,7 +23,7 @@ export default function LoginForm() {
           username: data?.data?.userName,
           role: data?.data?.roles[0],
         });
-        localStorage.setItem('token', data?.data?.token);
+        localStorage.setItem('access_token', data?.data?.token);
         localStorage.setItem('refresh_token', data?.data?.refreshToken);
         navigate('/');
       }
