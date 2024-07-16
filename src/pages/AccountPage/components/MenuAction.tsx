@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardHeader,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -25,10 +24,10 @@ import {
 } from '@tabler/icons-react';
 import { useAtom } from 'jotai';
 import { RESET } from 'jotai/utils';
-import { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function index() {
+function MenuAction() {
   const [open, setOpen] = useState(false);
   const [, setToken] = useAtom(tokenAtom);
   const [, setUserInfo] = useAtom(userInfoAtom);
@@ -39,7 +38,7 @@ function index() {
       icon: <IconUserCircle size={20} />,
     },
     {
-      label: 'History',
+      label: 'Order',
       to: '/account/history',
       icon: <IconHistory size={20} />,
     },
@@ -81,49 +80,25 @@ function index() {
   };
 
   return (
-    <Container maxWidth="xl">
-      <Grid container spacing={3} mt={2}>
-        <Grid item xs={12} sm={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Card elevation={0}>
-                <CardHeader
-                  title="Setting"
-                  titleTypographyProps={{
-                    variant: 'h3',
-                  }}
-                />
-                <List dense disablePadding>
-                  {tabs.map((tab) => (
-                    <ListItemButton
-                      key={tab.label}
-                      onClick={tab.onClick}
-                      component={Link}
-                      to={tab.to}
-                      // sx={{
-                      //   backgroundColor: pathname === tab.to ? '#ddd' : 'inherit',
-                      // }}
-                    >
-                      <ListItemIcon>{tab.icon}</ListItemIcon>
-                      <ListItemText>{tab.label}</ListItemText>
-                    </ListItemButton>
-                  ))}
-                </List>
-              </Card>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Card elevation={0}>
-                <Outlet />
-              </Card>
-            </Grid>
-          </Grid>
-        </Grid>
+    <React.Fragment>
+      <Grid item xs={12}>
+        <Card elevation={0}>
+          <CardHeader
+            title="Setting"
+            titleTypographyProps={{
+              variant: 'h3',
+            }}
+          />
+          <List dense disablePadding>
+            {tabs.map((tab) => (
+              <ListItemButton key={tab.label} onClick={tab.onClick} component={Link} to={tab.to}>
+                <ListItemIcon>{tab.icon}</ListItemIcon>
+                <ListItemText>{tab.label}</ListItemText>
+              </ListItemButton>
+            ))}
+          </List>
+        </Card>
       </Grid>
-
       <Dialog open={open} onClose={() => {}}>
         <DialogContent>
           <DialogContentText>Are you sure you want to logout?</DialogContentText>
@@ -135,8 +110,8 @@ function index() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Container>
+    </React.Fragment>
   );
 }
 
-export default index;
+export default MenuAction;

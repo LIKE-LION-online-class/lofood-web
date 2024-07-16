@@ -19,6 +19,7 @@ import { IconDotsVertical } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import AccountLayout from '../components/AccountLayout';
 
 const getStatus = (status: string): { color: 'warning' | 'success' | 'error' | 'info' | 'default'; text: string } => {
   switch (status) {
@@ -115,10 +116,9 @@ function index() {
   const columns: GridColDef[] = [
     {
       field: 'id',
-      headerName: 'No.',
+      headerName: 'Id',
       filterable: false,
-      width: 200,
-      renderCell: (params) => params.api.getAllRowIds().indexOf(params.id) + 1,
+      width: 400,
     },
     {
       field: 'totalPrice',
@@ -140,7 +140,7 @@ function index() {
     {
       field: 'createDate',
       headerName: 'Create Date',
-      width: 300,
+      width: 200,
       valueFormatter: (value) => {
         return dayjs(value).format('DD/MM/YYYY');
       },
@@ -169,32 +169,33 @@ function index() {
   }));
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12}>
-        <Card elevation={0}>
-          <CardHeader
-            title="Order History"
-            titleTypographyProps={{
-              variant: 'h3',
-            }}
-          />
-          <StyledDataGrid
-            columns={columns}
-            autoHeight
-            checkboxSelection
-            rowHeight={56}
-            rows={initialRows}
-            loading={isLoading}
-            slotProps={{
-              loadingOverlay: {
-                variant: 'skeleton',
-                noRowsVariant: 'skeleton',
-              },
-            }}
-          />
-        </Card>
+    <AccountLayout>
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+          <Card elevation={0}>
+            <CardHeader
+              title="Order History"
+              titleTypographyProps={{
+                variant: 'h3',
+              }}
+            />
+            <StyledDataGrid
+              columns={columns}
+              autoHeight
+              rowHeight={56}
+              rows={initialRows}
+              loading={isLoading}
+              slotProps={{
+                loadingOverlay: {
+                  variant: 'skeleton',
+                  noRowsVariant: 'skeleton',
+                },
+              }}
+            />
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </AccountLayout>
   );
 }
 

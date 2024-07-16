@@ -1,7 +1,12 @@
+import AccountLayout from '../components/AccountLayout';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 
 function index() {
-  return <ChangePasswordForm />;
+  return (
+    <AccountLayout>
+      <ChangePasswordForm />
+    </AccountLayout>
+  );
 }
 
 export default index;

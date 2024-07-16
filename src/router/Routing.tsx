@@ -1,5 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
 
 import NavigationBar from '@/layouts/Header/NavigationBar';
 import MainLayout from '@/layouts/MainLayout';
@@ -15,7 +15,6 @@ const CartPage = lazy(() => import('@/pages/CartPage'));
 const CheckoutPage = lazy(() => import('@/pages/CheckoutPage'));
 const OrderSuccessPage = lazy(() => import('@/pages/OrderPage/OrderSuccessPage'));
 
-const AccountPage = lazy(() => import('@/pages/AccountPage'));
 const ProfilePage = lazy(() => import('@/pages/AccountPage/ProfilePage'));
 const HistoryPage = lazy(() => import('@/pages/AccountPage/HistoryPage'));
 const ChangePasswordPage = lazy(() => import('@/pages/AccountPage/ChangePasswordPage'));
@@ -96,26 +95,20 @@ const Routing = createBrowserRouter([
     element: <ForgotPasswordPage />,
   },
   {
-    path: '/account',
+    path: '/account/profile',
     element: (
       <MainLayout header={<NavigationBar />}>
-        <AccountPage />
+        <ProfilePage />
       </MainLayout>
     ),
-    children: [
-      {
-        path: 'profile',
-        element: <ProfilePage />,
-      },
-      {
-        path: 'history',
-        element: <HistoryPage />,
-      },
-      {
-        path: 'password',
-        element: <ChangePasswordPage />,
-      },
-    ],
+  },
+  {
+    path: '/account/history',
+    element: <MainLayout header={<NavigationBar />}>{<HistoryPage />}</MainLayout>,
+  },
+  {
+    path: '/account/password',
+    element: <MainLayout header={<NavigationBar />}>{<ChangePasswordPage />}</MainLayout>,
   },
   {
     path: '*',

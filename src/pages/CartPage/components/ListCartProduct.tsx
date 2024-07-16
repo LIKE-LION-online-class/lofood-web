@@ -51,11 +51,10 @@ function ListCartItem() {
         </Card>
       ),
     },
-    { field: 'description', headerName: t('description'), width: 150 },
+    { field: 'description', headerName: t('description'), width: 260 },
     {
       field: 'price',
       headerName: t('price'),
-      type: 'number',
       width: 200,
       valueFormatter: (value) => {
         return formatVND(value as number);
@@ -139,7 +138,6 @@ function ListCartItem() {
       hideFooter
       hideFooterPagination
       hideFooterSelectedRowCount
-      checkboxSelection
     />
   );
 }
