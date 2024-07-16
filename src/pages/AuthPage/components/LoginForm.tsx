@@ -1,5 +1,5 @@
 import { loginHttp } from '@/api/auth';
-import { tokenAtom, userInfoAtom } from '@/atom';
+import { userInfoAtom } from '@/atom';
 import { notify } from '@/components/CustomToast';
 import { LoadingButton } from '@mui/lab';
 import { Box, Stack, TextField, Typography } from '@mui/material';
@@ -12,7 +12,6 @@ import { useAtom } from 'jotai';
 export default function LoginForm() {
   const navigate = useNavigate();
   const [, setUserInfo] = useAtom(userInfoAtom);
-  const [, setToken] = useAtom(tokenAtom);
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['login'],
@@ -22,10 +21,10 @@ export default function LoginForm() {
         setUserInfo({
           id: data?.data?.usersId,
           username: data?.data?.userName,
-          refreshToken: data?.data?.refreshToken,
           role: data?.data?.roles[0],
         });
-        setToken(data?.data?.token);
+        localStorage.setItem('token', data?.data?.token);
+        localStorage.setItem('refresh_token', data?.data?.refreshToken);
         navigate('/');
       }
     },

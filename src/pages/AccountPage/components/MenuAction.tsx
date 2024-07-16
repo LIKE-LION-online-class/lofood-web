@@ -1,4 +1,4 @@
-import { tokenAtom, userInfoAtom } from '@/atom';
+import { userInfoAtom } from '@/atom';
 import {
   Button,
   Card,
@@ -29,7 +29,6 @@ import { Link } from 'react-router-dom';
 
 function MenuAction() {
   const [open, setOpen] = useState(false);
-  const [, setToken] = useAtom(tokenAtom);
   const [, setUserInfo] = useAtom(userInfoAtom);
   const tabs = [
     {
@@ -75,8 +74,9 @@ function MenuAction() {
 
   const handleLogout = () => {
     setOpen(false);
-    setToken(RESET);
     setUserInfo(RESET);
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
   };
 
   return (
