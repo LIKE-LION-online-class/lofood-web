@@ -1,11 +1,20 @@
 import { Card, Container, Grid } from '@mui/material';
 import MenuAction from './MenuAction';
+import { useAtom } from 'jotai';
+import { userInfoAtom } from '@/atom';
+import { Navigate } from 'react-router-dom';
 
 interface AccountLayoutProps {
   children?: React.ReactNode;
 }
 
 function AccountLayout({ children }: AccountLayoutProps) {
+  const [userInfo] = useAtom(userInfoAtom);
+
+  if (!userInfo?.id) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <Container maxWidth="xl">
       <Grid container spacing={3} mt={2}>
