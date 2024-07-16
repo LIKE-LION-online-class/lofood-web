@@ -13,8 +13,8 @@ const refreshToken = async () => {
     const response = await axiosInstance.post('/auth/refreshToken', {
       refreshToken: JSON.parse(token as string),
     });
-    localStorage.setItem('token', JSON.stringify(response.data.token));
-    localStorage.setItem('refresh_token', JSON.stringify(response.data.refresh_token));
+    localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+    localStorage.setItem('refresh_token', JSON.stringify(response.data.refreshToken));
   }
 };
 
