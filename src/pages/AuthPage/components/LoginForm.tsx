@@ -1,5 +1,5 @@
 import { loginHttp } from '@/api/auth';
-import { tokenAtom, userInfoAtom } from '@/atom';
+import { userInfoAtom } from '@/atom';
 import { notify } from '@/components/CustomToast';
 import { LoadingButton } from '@mui/lab';
 import { Box, Stack, TextField, Typography } from '@mui/material';
@@ -12,18 +12,23 @@ import { useAtom } from 'jotai';
 export default function LoginForm() {
   const navigate = useNavigate();
   const [, setUserInfo] = useAtom(userInfoAtom);
-  const [, setToken] = useAtom(tokenAtom);
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['login'],
     mutationFn: loginHttp,
     onSuccess: (data) => {
-      setUserInfo(data?.data);
-      setToken(data?.data?.token);
-      navigate('/');
+      if (data?.data) {
+        setUserInfo({
+          id: data?.data?.usersId,
+          username: data?.data?.userName,
+          role: data?.data?.roles[0],
+        });
+        localStorage.setItem('access_token', data?.data?.token);
+        localStorage.setItem('refresh_token', data?.data?.refreshToken);
+        navigate('/');
+      }
     },
     onError: (error: any) => {
-      console.log(error);
       notify(error?.response.data.error, 'error');
     },
   });

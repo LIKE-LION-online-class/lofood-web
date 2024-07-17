@@ -7,7 +7,7 @@ interface LayoutProps {
 }
 function Layout({ children, title, subtitle }: LayoutProps) {
   return (
-    <Grid container alignItems="center">
+    <Grid container alignItems="center" bgcolor="white">
       <Grid item xs={6}>
         <Box
           height="100vh"

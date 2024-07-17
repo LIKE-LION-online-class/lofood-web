@@ -1,35 +1,35 @@
-import { CardContentNoPadding } from '@/components/CardContentNoPadding';
 import { Button, Card, Grid } from '@mui/material';
-import { IconCloudStorm, IconFlame } from '@tabler/icons-react';
+import { IconCloudStorm, IconCoin, IconFlame } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 function Promo() {
+  const { t } = useTranslation();
   const titles = [
     {
       id: 1,
-      title: 'Uy tín',
-      startIcon: <IconFlame />,
+      title: t('hotDeal'),
+      startIcon: <IconFlame size={18} />,
     },
     {
       id: 2,
-      title: 'Giao hàng nhanh',
-      startIcon: <IconCloudStorm />,
+      title: t('fastDelivery'),
+      startIcon: <IconCloudStorm size={18} />,
     },
     {
       id: 3,
-      title: 'Gía siêu rẻ',
+      title: t('bestPrice'),
+      startIcon: <IconCoin size={18} />,
     },
   ];
 
   return (
     <Grid item xs={12}>
       <Card elevation={0}>
-        <CardContentNoPadding>
-          {titles.map((item) => (
-            <Button variant="text" color="inherit" startIcon={item.startIcon} key={item.id}>
-              {item.title}
-            </Button>
-          ))}
-        </CardContentNoPadding>
+        {titles.map((item) => (
+          <Button variant="text" color="inherit" startIcon={item.startIcon} key={item.id}>
+            {item.title}
+          </Button>
+        ))}
       </Card>
     </Grid>
   );

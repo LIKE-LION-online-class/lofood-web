@@ -4,11 +4,19 @@ import * as path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  build: {},
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  server: { port: process.env.PORT || 5173}
+  server: { port: 5173 },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          '@mui': ['@mui/material', '@emotion/react', '@emotion/styled'],
+        },
+      },
+    },
+  },
 });

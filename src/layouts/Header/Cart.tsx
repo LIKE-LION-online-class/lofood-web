@@ -14,35 +14,35 @@ const TransparentAlert = styled(Alert)(({ theme }) => ({
 
 function Cart() {
   const { t } = useTranslation();
-  const [cart, setCart] = useAtom(cartAtom);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const ref = useRef(null);
   const navigate = useNavigate();
+
+  const [cart, setCart] = useAtom(cartAtom);
+  const ref = useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
   const handleClose = () => {
-    setAnchorEl(null);
     setCart({ ...cart, open: false });
   };
-
-  const open = Boolean(anchorEl);
 
   const handleClick = () => {
     handleClose();
     navigate('/cart');
   };
+
   useEffect(() => {
-    cart.open && setAnchorEl(ref.current);
-  }, [cart]);
+    setAnchorEl(ref.current);
+  }, []);
 
   return (
     <React.Fragment>
       <IconButton size="small" ref={ref} component={Link} to="/cart">
         <Badge badgeContent={cart?.items?.length} color="error">
-          <IconBasket />
+          <IconBasket size={18} />
         </Badge>
       </IconButton>
 
       <Popover
-        open={open}
+        open={cart.open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}

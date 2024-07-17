@@ -7,11 +7,20 @@ const axiosInstance = axios.create({
   },
 });
 
+const refreshToken = async () => {
+  const token = localStorage.getItem('refresh_token');
+  const data = await axiosInstance.post('/security/refreshToken', {
+    refreshToken: token,
+  });
+  localStorage.setItem('access_token', data.data.token);
+  localStorage.setItem('refresh_token', data.data.refreshToken);
+};
+
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    if (token !== 'undefined' || !token) {
-      config.headers.Authorization = `Bearer ${JSON.parse(token as string)}`;
+    const token = localStorage.getItem('access_token');
+    if (token !== null) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -24,7 +33,11 @@ axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
-  () => {},
+  (error) => {
+    if (error.response.status === 401) {
+      refreshToken();
+    }
+  },
 );
 
 export default axiosInstance;

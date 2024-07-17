@@ -2,7 +2,7 @@ import { getFoodByCategoryHttp } from '@/api/food';
 import { cartAtom } from '@/atom';
 import SkeletonBox from '@/components/SkeletonBox';
 import { IFood } from '@/interfaces';
-import { addToCart, formatVND } from '@/libs';
+import { formatVND, handleCart } from '@/libs';
 import {
   Box,
   Card,
@@ -19,7 +19,7 @@ import {
 import { IconBasket } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function ListFoodByCate() {
   const { id } = useParams();
@@ -31,9 +31,8 @@ function ListFoodByCate() {
     queryFn: () => getFoodByCategoryHttp(id as string),
   });
 
-  const handleAddToCart = (item: IFood) => {
-    const newCart = addToCart(cart, item);
-    setCart(newCart);
+  const handleAddToCart = (food: IFood) => {
+    setCart({ ...handleCart({ cart, food, type: 'increment' }), open: true });
   };
 
   if (isLoading) {
@@ -58,7 +57,7 @@ function ListFoodByCate() {
     return data?.data?.map((item: IFood) => (
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <Card elevation={0}>
-          <CardActionArea>
+          <CardActionArea component={Link} to={`/food/${item?.id}`}>
             <CardMedia component="img" height="140" image={item?.image} alt="green iguana" />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -76,7 +75,10 @@ function ListFoodByCate() {
                     sx={{
                       backgroundColor: '#f5f5f5',
                     }}
-                    onClick={() => handleAddToCart(item)}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleAddToCart(item);
+                    }}
                   >
                     <IconBasket size={16} />
                   </IconButton>

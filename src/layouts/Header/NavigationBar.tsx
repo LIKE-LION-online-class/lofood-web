@@ -1,3 +1,4 @@
+import { addressAtom } from '@/atom';
 import {
   AppBar,
   Box,
@@ -5,18 +6,18 @@ import {
   Container,
   IconButton,
   InputAdornment,
+  Stack,
   TextField,
   Toolbar,
   Tooltip,
   Typography,
 } from '@mui/material';
 import { IconMap, IconMapPin, IconSearch } from '@tabler/icons-react';
+import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import AuthButton from './AuthButton';
 import SelectLanguage from './SelectLanguage';
-import { useAtom } from 'jotai';
-import { addressAtom } from '@/atom';
 
 const NavigationBar = () => {
   const { t } = useTranslation();
@@ -24,6 +25,14 @@ const NavigationBar = () => {
 
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} elevation={0}>
+      <Box height={40} bgcolor="black" color="white">
+        <Container maxWidth="xl">
+          <Stack direction="row" alignItems="center">
+            <Button color="inherit">{t('registerStore')}</Button>
+          </Stack>
+        </Container>
+      </Box>
+
       <Container maxWidth="xl" disableGutters>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
@@ -34,7 +43,7 @@ const NavigationBar = () => {
           <Box ml={2}>
             {address.city && (
               <Button startIcon={<IconMapPin size={16} />} color="inherit">
-                Giao đến:
+                {t('deliveringTo')}:
                 <Typography
                   fontSize={14}
                   fontWeight={600}
@@ -71,10 +80,11 @@ const NavigationBar = () => {
           />
           <Box sx={{ flexGrow: 1 }} />
           <SelectLanguage />
+          <Box mr={1} />
           <AuthButton />
           <Tooltip title="Map view">
             <IconButton component={Link} to="/map">
-              <IconMap size={20} />
+              <IconMap size={18} />
             </IconButton>
           </Tooltip>
         </Toolbar>

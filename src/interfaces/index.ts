@@ -34,6 +34,8 @@ export interface ICart {
   totalQuantity: number;
   totalPrice: number;
   open: boolean;
+  itemsBuyOnly?: IFood[];
+  itemsBuyNow?: IFood;
 }
 
 export interface ILocation {

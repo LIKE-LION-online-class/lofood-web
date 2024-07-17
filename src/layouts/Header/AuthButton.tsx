@@ -9,7 +9,7 @@ import User from './User';
 function AuthButton() {
   const [userInfo] = useAtom(userInfoAtom);
 
-  if (userInfo?.userName === '')
+  if (!userInfo?.id)
     return (
       <React.Fragment>
         <Button component={Link} to="/auth/login" color="inherit">
@@ -20,7 +20,7 @@ function AuthButton() {
 
   return (
     <React.Fragment>
-      <Stack direction="row" spacing={1} alignItems="end">
+      <Stack direction="row" spacing={1} alignItems="center">
         <Cart />
         <User />
       </Stack>

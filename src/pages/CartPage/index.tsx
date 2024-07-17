@@ -6,12 +6,12 @@ import TotalPriceCheckout from './components/TotalPriceCheckout';
 
 function Page() {
   return (
-    <Container maxWidth="xl">
-      <Grid container spacing={3} mt={2}>
-        <Grid item xs={12} sm={9}>
+    <Container maxWidth="lg">
+      <Grid container spacing={3} mt={2} justifyContent="center">
+        <Grid item xs={12} sm={12}>
           <ListCartProduct />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={12}>
           <Grid container spacing={3}>
             <AddressCheckout />
             <TotalPriceCheckout />

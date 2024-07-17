@@ -1,17 +1,20 @@
 import { atomWithStorage } from 'jotai/utils';
 import { ICart, ILocation } from './interfaces';
 
-export const userInfoAtom = atomWithStorage('user_info', {
-  usersId: '',
-  userName: '',
-});
+interface IUserInfo {
+  id?: string;
+  username?: string;
+  role?: string;
+}
 
-export const tokenAtom = atomWithStorage('token', null);
+interface ICoords {
+  latitude?: number;
+  longitude?: number;
+}
 
-export const coordsAtom = atomWithStorage('coords', {
-  latitude: 0,
-  longitude: 0,
-});
+export const userInfoAtom = atomWithStorage<IUserInfo>('user_info', {});
+
+export const coordsAtom = atomWithStorage<ICoords>('coords', {});
 
 export const addressAtom = atomWithStorage<ILocation>('address', {});
 

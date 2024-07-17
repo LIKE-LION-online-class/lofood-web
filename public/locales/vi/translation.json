@@ -1,9 +1,9 @@
 {
   "welcome": "Chào mừng",
-  "description": "Đây là một ví dụ về ứng dụng đa ngôn ngữ.",
+  "description": "Mô tả",
   "category": "Danh mục",
   "loadMore": "Tải thêm",
-  "recommend": "Nhà hàng nôi bật nhất",
+  "recommend": "Nhà hàng nổi bật",
   "search": "Bạn đang tìm kiếm gì hôm nay?...",
   "goToCart": "Xem giỏ hàng và thanh toán",
   "fullName": "Họ và tên",
@@ -55,5 +55,19 @@
   "orderPaymentSuccess": "Thanh toán thành công",
   "orderId": "Mã đơn hàng",
   "createdAt": "Ngày tạo",
-  "newPassword": "Mật khẩu mới"
+  "newPassword": "Mật khẩu mới",
+  "deliveringTo": "Giao hàng đến",
+  "food": "Món ăn",
+  "info": "Thông tin",
+  "hotDeal": "Ưu đãi hấp dẫn",
+  "reputation": "Uy tín",
+  "fastDelivery": "Giao hàng nhanh",
+  "bestPrice": "Giá tốt nhất",
+  "cancel": "Hủy",
+  "cancelOrder": "Hủy đơn hàng",
+  "name": "Tên",
+  "restaurant": "Nhà hàng",
+  "restaurantNearby": "Nhà hàng gần bạn",
+  "restaurantNoData": "Không có dữ liệu",
+  "registerStore": "Đăng ký cửa hàng"
 }

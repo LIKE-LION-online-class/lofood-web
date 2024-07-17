@@ -28,7 +28,7 @@ function User() {
               />
             }
           >
-            {userInfo?.userName}
+            {userInfo?.username}
           </Button>
         </Link>
       </Tooltip>

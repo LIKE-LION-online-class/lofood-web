@@ -1,6 +1,6 @@
 {
   "welcome": "Welcome",
-  "description": "This is an example of a multi-language application.",
+  "description": "Description",
   "category": "Category",
   "loadMore": "Load More",
   "recommend": "Featured Restaurants",
@@ -55,5 +55,18 @@
   "orderPaymentSuccess": "Payment Success",
   "orderId": "Order ID",
   "createdAt": "Create At",
-  "newPassword": "New Password"
+  "newPassword": "New Password",
+  "deliveringTo": "Delivering To",
+  "food": "Food",
+  "info": "Info",
+  "hotDeal": "Hot Deal",
+  "fastFood": "Fast Food",
+  "fastDelivery": "Fast Delivery",
+  "bestPrice": "Best Price",
+  "cancel": "Cancel",
+  "cancelOrder": "Cancel Order",
+  "name": "Name",
+  "restaurantNearby": "Nearby Restaurants",
+  "restaurantNoData": "No data",
+  "registerStore": "Register Store"
 }
