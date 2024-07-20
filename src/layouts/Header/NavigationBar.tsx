@@ -28,7 +28,7 @@ const NavigationBar = () => {
       <Box height={40} bgcolor="black" color="white">
         <Container maxWidth="xl">
           <Stack direction="row" alignItems="center">
-            <Button color="inherit" component={Link} to="https://lofoodcms.web.app/auth/register">
+            <Button color="inherit" component={Link} target="_blank" to="https://mfoodmap.web.app/account/signin">
               {t('registerStore')}
             </Button>
           </Stack>
