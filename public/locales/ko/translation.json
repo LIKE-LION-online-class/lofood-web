@@ -68,5 +68,12 @@
   "name": "이름",
   "restaurantNearby": "근처 레스토랑",
   "restaurantNoData": "데이터 없음",
-  "registerStore": "가게 등록"
+  "registerStore": "가게 등록",
+  "Profile": "프로필",
+  "Order": "Đặt hàng",
+  "Notification": "주문하다",
+  "Payment": "지불",
+  "Shipping": "배송",
+  "Password": "비밀번호",
+  "Logout": "로그 아웃"
 }

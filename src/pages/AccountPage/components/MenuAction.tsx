@@ -26,43 +26,44 @@ import { useAtom } from 'jotai';
 import { RESET } from 'jotai/utils';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 function MenuAction() {
   const [open, setOpen] = useState(false);
   const [, setUserInfo] = useAtom(userInfoAtom);
+  const { t } = useTranslation();
   const tabs = [
     {
-      label: 'Profile',
+      label: t('Profile'),
       to: '/account/profile',
       icon: <IconUserCircle size={20} />,
     },
     {
-      label: 'Order',
+      label: t('Order'),
       to: '/account/history',
       icon: <IconHistory size={20} />,
     },
     {
-      label: 'Notification',
+      label: t('Notification'),
       to: '/account/notification',
       icon: <IconBell size={20} />,
     },
     {
-      label: 'Payment',
+      label: t('Payment'),
       to: '/account/payment',
       icon: <IconPaywall size={20} />,
     },
     {
-      label: 'Shipping',
+      label: t('Shipping'),
       to: '/account/shipping',
       icon: <IconCar size={20} />,
     },
     {
-      label: 'Password',
+      label: t('Password'),
       to: '/account/password',
       icon: <IconSettings size={20} />,
     },
     {
-      label: 'Logout',
+      label: t('Logout'),
       to: '/account/logout',
       icon: <IconLogout size={20} />,
       onClick: (event: any) => {
@@ -99,7 +100,7 @@ function MenuAction() {
           </List>
         </Card>
       </Grid>
-      <Dialog open={open} onClose={() => {}}>
+      <Dialog open={open} onClose={() => { }}>
         <DialogContent>
           <DialogContentText>Are you sure you want to logout?</DialogContentText>
         </DialogContent>

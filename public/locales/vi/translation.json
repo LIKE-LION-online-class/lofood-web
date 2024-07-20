@@ -69,5 +69,12 @@
   "restaurant": "Nhà hàng",
   "restaurantNearby": "Nhà hàng gần bạn",
   "restaurantNoData": "Không có dữ liệu",
-  "registerStore": "Đăng ký cửa hàng"
+  "registerStore": "Đăng ký cửa hàng",
+  "Profile": "Hồ Sơ",
+  "Order": "Đặt hàng",
+  "Notification": "Thông báo",
+  "Payment": "Thanh Toán",
+  "Shipping": "Vận Chuyển",
+  "Password": "Mật Khẩu",
+  "Logout": "Thoát đăng nhập"
 }
