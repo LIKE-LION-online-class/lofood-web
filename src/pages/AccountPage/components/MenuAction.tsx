@@ -85,7 +85,7 @@ function MenuAction() {
       <Grid item xs={12}>
         <Card elevation={0}>
           <CardHeader
-            title="Setting"
+            title={t('Setting')}
             titleTypographyProps={{
               variant: 'h3',
             }}

@@ -6,8 +6,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-
+import { useTranslation } from 'react-i18next';
 export default function RegisterForm() {
+  const { t } = useTranslation();
   const { mutate, isPending } = useMutation({
     mutationFn: registerHttp,
     onSuccess: () => {
@@ -50,7 +51,7 @@ export default function RegisterForm() {
       <Grid container spacing={3}>
         <Grid item xs={7}>
           <Typography variant="subtitle2" component="label" mb="5px">
-            Full Name
+            {t('Full Name')}
           </Typography>
           <TextField
             size="small"
@@ -64,7 +65,7 @@ export default function RegisterForm() {
         </Grid>
         <Grid item xs={5}>
           <Typography variant="subtitle2" component="label" mb="5px">
-            Username
+            {t('Username')}
           </Typography>
           <TextField
             size="small"
@@ -79,7 +80,7 @@ export default function RegisterForm() {
 
         <Grid item xs={12}>
           <Typography variant="subtitle2" component="label" mb="5px">
-            Phone Number
+            {t('Phone Number')}
           </Typography>
           <TextField
             size="small"
@@ -107,7 +108,7 @@ export default function RegisterForm() {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="subtitle2" component="label" mb="5px">
-            Password
+            {t('Password')}
           </Typography>
           <TextField
             size="small"
@@ -123,7 +124,7 @@ export default function RegisterForm() {
 
         <Grid item xs={12}>
           <Typography variant="subtitle2" component="label" mb="5px">
-            Confirm Password
+            {t('Confirm Password')}
           </Typography>
           <TextField
             size="small"
@@ -140,7 +141,8 @@ export default function RegisterForm() {
         <Grid item xs={12}>
           <Stack direction="row" alignItems="end" justifyContent="space-between">
             <Typography variant="subtitle2">
-              Already have an account? <Link to="/auth/login">Log in</Link>
+              {t('Already have an account?')}
+              <Link to="/auth/login">&nbsp;{t('Login')}</Link>
             </Typography>
             <LoadingButton
               variant="contained"
@@ -149,7 +151,7 @@ export default function RegisterForm() {
               loading={isPending}
               disabled={isPending || !formik.isValid || !formik.dirty}
             >
-              Register
+              {t('Register')}
             </LoadingButton>
           </Stack>
         </Grid>

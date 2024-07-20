@@ -39,7 +39,7 @@ function ProfileForm() {
         queryKey: ['getUserById', id],
       });
     },
-    onError: () => {},
+    onError: () => { },
   });
 
   const formik = useFormik({
@@ -70,7 +70,7 @@ function ProfileForm() {
         <Grid item xs={12}>
           <Card elevation={0}>
             <CardHeader
-              title="Profile"
+              title={t('Profile')}
               titleTypographyProps={{
                 variant: 'h3',
               }}

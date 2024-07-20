@@ -6,8 +6,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-
+import { useTranslation } from 'react-i18next';
 export default function ForgotPasswordForm() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationKey: ['forgetPassword'],
@@ -57,7 +58,7 @@ export default function ForgotPasswordForm() {
           loading={isPending}
           disabled={isPending}
         >
-          Send
+          {t('Send')}
         </LoadingButton>
       </Stack>
     </form>
