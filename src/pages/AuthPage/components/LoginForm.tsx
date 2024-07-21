@@ -9,7 +9,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAtom } from 'jotai';
 
-export default function LoginForm() {
+interface LoginFormProps {
+  onRegisterClick?: (e: any) => void;
+  onForgotPasswordClick?: (e: any) => void;
+}
+
+export default function LoginForm({ onRegisterClick, onForgotPasswordClick }: LoginFormProps) {
   const navigate = useNavigate();
   const [, setUserInfo] = useAtom(userInfoAtom);
 
@@ -81,12 +86,17 @@ export default function LoginForm() {
       </Box>
 
       <Typography textAlign="right" mb={3} variant="subtitle2" color="primary">
-        <Link to="/auth/forgot-password">Forgot password?</Link>
+        <Link to="/auth/forgot-password" onClick={onForgotPasswordClick}>
+          Forgot password?
+        </Link>
       </Typography>
       <Stack direction="row" alignItems="end" justifyContent="space-between">
         <Typography variant="subtitle2">
           Don't have an account?
-          <Link to="/auth/register">Register</Link>
+          <Link to="/auth/register" onClick={onRegisterClick}>
+            {' '}
+            Register
+          </Link>
         </Typography>
         <LoadingButton
           variant="contained"

@@ -4,7 +4,7 @@ import Layout from '../components/FormLayout';
 function Page() {
   return (
     <Layout title="Enjoy your day!" subtitle="Enter your account">
-      <RegisterForm />
+      <RegisterForm roleType="ROLE_BUSINESS" />
     </Layout>
   );
 }

@@ -7,8 +7,13 @@ import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-export default function RegisterForm() {
-  const { mutate, isPending } = useMutation({
+interface RegisterFormProps {
+  onLoginClick?: (e: any) => void;
+  roleType?: string;
+}
+
+export default function RegisterForm({ onLoginClick, roleType }: RegisterFormProps) {
+  const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: registerHttp,
     onSuccess: () => {
       notify('Register success', 'success');
@@ -27,7 +32,7 @@ export default function RegisterForm() {
       password: '',
       confirmPassword: '',
       address: '',
-      role: 'ROLE_USER',
+      role: roleType || 'ROLE_USER',
     },
     validationSchema: Yup.object({
       fullName: Yup.string().required('Required'),
@@ -44,6 +49,10 @@ export default function RegisterForm() {
       mutate(data);
     },
   });
+
+  if (roleType === 'ROLE_BUSINESS' && isSuccess) {
+    return <Typography>Your account is pending approval. Please wait for the admin to approve it.</Typography>;
+  }
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -140,7 +149,10 @@ export default function RegisterForm() {
         <Grid item xs={12}>
           <Stack direction="row" alignItems="end" justifyContent="space-between">
             <Typography variant="subtitle2">
-              Already have an account? <Link to="/auth/login">Log in</Link>
+              Already have an account?{' '}
+              <Link to="/auth/login" onClick={onLoginClick}>
+                Log in
+              </Link>
             </Typography>
             <LoadingButton
               variant="contained"
