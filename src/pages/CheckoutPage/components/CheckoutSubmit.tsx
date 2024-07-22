@@ -1,5 +1,5 @@
 import { createOrderHttp } from '@/api/order';
-import { cartAtom } from '@/atom';
+import { addressAtom, cartAtom } from '@/atom';
 import { notify } from '@/components/CustomToast';
 import { LoadingButton } from '@mui/lab';
 import { Grid } from '@mui/material';
@@ -14,6 +14,7 @@ export const useQueryString = () => {
 
 function CheckoutSubmit() {
   const [cart, setCart] = useAtom(cartAtom);
+  const [address] = useAtom(addressAtom);
   const navigate = useNavigate();
 
   const query = useQueryString();
@@ -44,6 +45,8 @@ function CheckoutSubmit() {
           { foodId: cart?.itemsBuyNow.id, priceOrder: cart?.itemsBuyNow.price, quantity: cart?.itemsBuyNow.quantity },
         ],
         status: 'PROCESSING',
+        address: address.formatted_address,
+        note: cart?.note,
         totalPrice: cart.itemsBuyNow.price * cart.itemsBuyNow.quantity,
       });
     }
@@ -54,6 +57,8 @@ function CheckoutSubmit() {
         priceOrder: food.price,
         quantity: food.quantity,
       })),
+      address: address.formatted_address,
+      note: cart?.note,
       status: 'PROCESSING',
       totalPrice: cart.totalPrice,
     });

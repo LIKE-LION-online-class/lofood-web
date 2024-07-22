@@ -31,6 +31,8 @@ export interface IFood {
 
 export interface ICart {
   items: IFood[];
+  address?: string;
+  note?: string;
   totalQuantity: number;
   totalPrice: number;
   open: boolean;

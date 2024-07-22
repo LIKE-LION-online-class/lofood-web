@@ -29,7 +29,7 @@ function ListRestaurant() {
 
   const renderList = () => {
     return data?.data?.map((item: any) => (
-      <Grid item xs={12} sm={6} md={3} key={item.id}>
+      <Grid item xs={12} sm={6} md={2} key={item.id}>
         <Card elevation={0}>
           <CardActionArea component={Link} to={`/restaurant/${item?.id}`}>
             <CardMedia component="img" height="160" image={item?.logo} alt="green iguana" />

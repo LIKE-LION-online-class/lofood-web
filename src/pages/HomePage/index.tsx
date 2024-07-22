@@ -1,14 +1,13 @@
+import { getAddressHttp } from '@/api/location';
 import { addressAtom, coordsAtom } from '@/atom';
 import { Container, Grid } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
-import ListCategory from './components/ListCategory';
 import ListNearRestaurant from './components/ListNearRestaurant';
 import ListRestaurant from './components/ListRestaurant';
 import ListSlide from './components/ListSlide';
 import Promo from './components/Promo';
-import { useQuery } from '@tanstack/react-query';
-import { getAddressHttp } from '@/api/location';
 
 export default function Page() {
   const [coords, setCoords] = useAtom(coordsAtom);
@@ -45,12 +44,12 @@ export default function Page() {
         <Promo />
         <ListNearRestaurant />
 
-        <Grid item xs={12} sm={3}>
+        {/* <Grid item xs={12} sm={3}>
           <Grid container spacing={3}>
             <ListCategory />
           </Grid>
-        </Grid>
-        <Grid item xs={12} sm={9}>
+        </Grid> */}
+        <Grid item xs={12} sm={12}>
           <Grid container spacing={3}>
             <ListSlide />
             <ListRestaurant />

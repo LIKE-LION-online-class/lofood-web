@@ -5,13 +5,19 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 
-function RestaurantHomeFood() {
+interface RestaurantHomeFoodProps {
+  id?: string;
+}
+
+function RestaurantHomeFood({ id: propId }: RestaurantHomeFoodProps) {
   const { t } = useTranslation();
   const { id } = useParams();
 
+  const queryId = id || propId as string;
+
   const { data, isLoading } = useQuery({
-    queryKey: ['getFoodByRestaurantId', id],
-    queryFn: () => getFoodByRestaurantIdHttp(id as string),
+    queryKey: ['getFoodByRestaurantId', queryId],
+    queryFn: () => getFoodByRestaurantIdHttp(queryId),
   });
 
   if (!data?.data?.length && !isLoading) {
@@ -28,7 +34,7 @@ function RestaurantHomeFood() {
         <CardContent>
           <Grid container spacing={2}>
             {data?.data?.map((item: any) => (
-              <Grid item xs={12} md={2} key={item?.id}>
+              <Grid item xs={12} md={4} key={item?.id}>
                 <Card elevation={0}>
                   <CardActionArea component={Link} to={`/food/${item?.id}`}>
                     <CardMedia image={item?.image} sx={{ height: 150 }} />

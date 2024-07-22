@@ -3,7 +3,7 @@ import { userInfoAtom } from '@/atom';
 import { notify } from '@/components/CustomToast';
 import { LoadingButton } from '@mui/lab';
 import { Box, Stack, TextField, Typography } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -19,7 +19,7 @@ export default function LoginForm({ onRegisterClick, onForgotPasswordClick }: Lo
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [, setUserInfo] = useAtom(userInfoAtom);
-
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationKey: ['login'],
     mutationFn: loginHttp,
@@ -33,6 +33,15 @@ export default function LoginForm({ onRegisterClick, onForgotPasswordClick }: Lo
         localStorage.setItem('access_token', data?.data?.token);
         localStorage.setItem('refresh_token', data?.data?.refreshToken);
         navigate('/');
+        queryClient.invalidateQueries({
+          queryKey: ['getRestaurants'],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['getNearestLocation', 10],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['getCategories'],
+        });
       }
     },
     onError: (error: any) => {
