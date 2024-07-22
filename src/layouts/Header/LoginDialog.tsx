@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,7 +22,7 @@ const Transition = React.forwardRef(function Transition(
 export default function LoginDialog() {
   const [open, setOpen] = React.useState(false);
   const [tab, setTab] = React.useState('login');
-
+  const { t } = useTranslation();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -76,7 +77,7 @@ export default function LoginDialog() {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>Sign in</DialogTitle>
+        <DialogTitle>{t(tab)}</DialogTitle>
 
         <DialogContent>{renderTab()}</DialogContent>
       </Dialog>
