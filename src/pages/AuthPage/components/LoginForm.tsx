@@ -8,11 +8,16 @@ import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAtom } from 'jotai';
-
 import { useTranslation } from 'react-i18next';
-export default function LoginForm() {
-  const { t } = useTranslation();
+
+interface LoginFormProps {
+  onRegisterClick?: (e: any) => void;
+  onForgotPasswordClick?: (e: any) => void;
+}
+
+export default function LoginForm({ onRegisterClick, onForgotPasswordClick }: LoginFormProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [, setUserInfo] = useAtom(userInfoAtom);
 
   const { mutate, isPending } = useMutation({
@@ -47,62 +52,63 @@ export default function LoginForm() {
   });
 
   return (
-    <>
-      <form onSubmit={formik.handleSubmit}>
-        <Box mb={3}>
-          <Typography variant="subtitle2" component="label" mb="5px">
-            {t('Username')}
-          </Typography>
-          <TextField
-            fullWidth
-            required
-            size="small"
-            name="username"
-            value={formik.values.username}
-            disabled={isPending}
-            onChange={formik.handleChange}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
-          />
-        </Box>
-        <Box mb={1}>
-          <Typography variant="subtitle2" component="label" mb="5px">
-            {t('Password')}
-          </Typography>
-          <TextField
-            fullWidth
-            required
-            size="small"
-            disabled={isPending}
-            name="password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-        </Box>
-
-        <Typography textAlign="right" mb={3} variant="subtitle2" color="primary">
-          <Link to="/auth/forgot-password">{t('Forgot password?')}</Link>
+    <form onSubmit={formik.handleSubmit}>
+      <Box mb={3}>
+        <Typography variant="subtitle2" component="label" mb="5px">
+          {t('Username')}
         </Typography>
-        <Stack direction="row" alignItems="end" justifyContent="space-between">
-          <Typography variant="subtitle2">
-            {t("Don't have an account ?")}
-            <Link to="/auth/register">&nbsp;{t('Register')}</Link>
-          </Typography>
-          <LoadingButton
-            variant="contained"
-            sx={{ boxShadow: 0, textTransform: 'none' }}
-            type="submit"
-            loading={isPending}
-            disabled={isPending}
-          >
-            {t('Login')}
-          </LoadingButton>
-        </Stack>
-      </form>
+        <TextField
+          fullWidth
+          required
+          size="small"
+          name="username"
+          value={formik.values.username}
+          disabled={isPending}
+          onChange={formik.handleChange}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
+        />
+      </Box>
+      <Box mb={1}>
+        <Typography variant="subtitle2" component="label" mb="5px">
+          {t('Password')}
+        </Typography>
+        <TextField
+          fullWidth
+          required
+          size="small"
+          disabled={isPending}
+          name="password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+        />
+      </Box>
 
-    </>
+      <Typography textAlign="right" mb={3} variant="subtitle2" color="primary">
+        <Link to="/auth/forgot-password" onClick={onForgotPasswordClick}>
+          {t('Forgot password?')}
+        </Link>
+      </Typography>
+      <Stack direction="row" alignItems="end" justifyContent="space-between">
+        <Typography variant="subtitle2">
+          {t("Don't have an account ?")}
+          <Link to="/auth/register" onClick={onRegisterClick}>
+            &nbsp;{t('Register')}
+          </Link>
+        </Typography>
+        <LoadingButton
+          variant="contained"
+          sx={{ boxShadow: 0, textTransform: 'none' }}
+          type="submit"
+          loading={isPending}
+          disabled={isPending}
+        >
+          {t('Login')}
+        </LoadingButton>
+      </Stack>
+    </form>
   );
 }

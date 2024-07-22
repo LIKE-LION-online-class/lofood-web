@@ -1,16 +1,9 @@
-import RegisterForm from '../components/RegisterForm';
 import Layout from '../components/FormLayout';
-import { Box } from '@mui/material';
-import SelectLanguage from '../../../layouts/Header/SelectLanguage';
-import { useTranslation } from 'react-i18next';
+import RegisterForm from '../components/RegisterForm';
 function Page() {
-  const { t } = useTranslation();
   return (
-    <Layout title={t('Enjoy your day!')} subtitle={t('Enter your account')}>
-      <RegisterForm />
-      <Box sx={{ position: "fixed", bottom: '20px', right: '70px' }}>
-        <SelectLanguage />
-      </Box>
+    <Layout title="Enjoy your day!" subtitle="Enter your account">
+      <RegisterForm roleType="ROLE_BUSINESS" />
     </Layout>
   );
 }

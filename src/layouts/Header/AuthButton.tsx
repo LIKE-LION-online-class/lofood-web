@@ -1,22 +1,15 @@
 import { userInfoAtom } from '@/atom';
-import { Button, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useAtom } from 'jotai';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Cart from './Cart';
+import LoginDialog from './LoginDialog';
 import User from './User';
 
 function AuthButton() {
   const [userInfo] = useAtom(userInfoAtom);
 
-  if (!userInfo?.id)
-    return (
-      <React.Fragment>
-        <Button component={Link} to="/auth/login" color="inherit">
-          Log in
-        </Button>
-      </React.Fragment>
-    );
+  if (!userInfo?.id) return <LoginDialog />;
 
   return (
     <React.Fragment>
