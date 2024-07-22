@@ -41,7 +41,7 @@ function ListRestaurant() {
   const renderList = () => {
     return data?.pages?.map((page: any) => (
       <>
-        {page.data.map((item: any) => (
+        {page?.data?.map((item: any) => (
           <Grid item xs={12} sm={6} md={2} key={item.id}>
             <Card elevation={0}>
               <CardActionArea component={Link} to={`/restaurant/${item?.id}`}>
