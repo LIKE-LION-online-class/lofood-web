@@ -5,14 +5,20 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-function RestaurantHead() {
+interface RestaurantHeadProps {
+  id?: string;
+}
+
+function RestaurantHead({ id: propsId }: RestaurantHeadProps) {
   const { id } = useParams();
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery({
-    queryKey: ['restaurant', id],
-    queryFn: () => getRestaurantByIdHttp(id as string),
-  });
 
+  const queryId = id || (propsId as string);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['restaurant', queryId],
+    queryFn: () => getRestaurantByIdHttp(queryId),
+  });
 
   const renderCard = () => {
     if (isLoading) {

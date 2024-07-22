@@ -8,7 +8,7 @@ import { MapboxOverlay } from '@deck.gl/mapbox';
 mapboxgl.accessToken = 'pk.eyJ1IjoiM2xlc2FuZyIsImEiOiJjbHhvN292eWgwYnZuMm1vNjY3MzZtMWxnIn0.wYFyQroipPfS2UWPkj-C5g';
 
 import { getRestaurantsHttp } from '@/api/restaurant';
-import { Avatar, Button, Popover } from '@mui/material';
+import { Avatar } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Map, {
@@ -81,24 +81,9 @@ export default function AppMap() {
 
   const popupRef = useRef<mapboxgl.Popup>();
 
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   useEffect(() => {
     popupRef.current?.trackPointer();
   }, [popupRef.current]);
-
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -112,7 +97,6 @@ export default function AppMap() {
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude,
       });
-      // dispatch(setLocation(pos.coords));
     });
   }, []);
 
@@ -120,9 +104,8 @@ export default function AppMap() {
     queryKey: ['getRestaurants'],
     queryFn: getRestaurantsHttp,
   });
-  console.log(data);
 
-  // const { results } = formatData(data);
+  console.log(data);
 
   return (
     <Map
@@ -142,73 +125,23 @@ export default function AppMap() {
       <DeckGLOverlay layers={layers} />
       <Layer {...buildings3DLayer} />
 
-      <Marker
-        {...defaultViewport}
-        offset={[0, -20]}
-        anchor="bottom"
-        // popup={popup}
-        // ref={markerRef}
-      >
+      <Marker {...defaultViewport} offset={[0, -20]} anchor="bottom">
         <Avatar
           alt="Remy Sharp"
           src="https://cdn0.iconfinder.com/data/icons/white-cat-emoticon-filled/64/cute_cat_kitten_face_avatar-27-512.png"
         />
       </Marker>
 
-      <Marker latitude={10.801984064893402} longitude={106.64140791589209} offset={[0, -20]} anchor="bottom">
-        <Button onClick={handleClick}>
-          <Avatar
-            alt="Remy Sharp"
-            src="https://cdn3d.iconscout.com/3d/premium/thumb/restaurant-6843937-5603506.png?f=webp"
-          />
-        </Button>
-
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          sx={{ backgroundColor: 'transparent' }}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-        >
-          <RecipeReviewCard image="https://loremflickr.com/400/200/tokyo,girl/all?random=1" />
-        </Popover>
-      </Marker>
-
-      {/* {results.map((restaurant: any) => (
+      {data?.data?.map((restaurant: any) => (
         <Marker latitude={restaurant?.latitude} longitude={restaurant?.longitude} offset={[0, -20]} anchor="bottom">
-          <Button onClick={handleClick}>
-            <Avatar
-              alt="Remy Sharp"
-              src="https://cdn3d.iconscout.com/3d/premium/thumb/restaurant-6843937-5603506.png?f=webp"
-            />
-          </Button>
-
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            sx={{ backgroundColor: 'transparent' }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-          >
-            <RecipeReviewCard
-                image={restaurant?.logo ? restaurant?.logo : 'https://loremflickr.com/400/200/tokyo,girl/all?random=1'}
-              />
-            <Box p={1}>
-                <Link to={`/`} style={{ textDecoration: 'none', color: 'black' }}>
-                  <RestaurantCard item={restaurant} />
-                </Link>
-              </Box>
-          </Popover>
+          <RecipeReviewCard
+            id={restaurant?.id}
+            image={restaurant?.logo}
+            name={restaurant?.name}
+            description={restaurant?.description}
+          />
         </Marker>
-      ))} */}
+      ))}
 
       <NavigationControl />
     </Map>

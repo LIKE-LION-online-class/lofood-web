@@ -6,6 +6,8 @@ interface IOrderRequest {
     priceOrder: number;
     quantity: number;
   }[];
+  note?: string;
+  address?: string;
   status: string;
   totalPrice: number;
 }

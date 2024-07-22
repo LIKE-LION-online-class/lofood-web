@@ -5,13 +5,19 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 
-function RestaurantHomeCate() {
+interface RestaurantHomeCateProps {
+  id?: string;
+}
+
+function RestaurantHomeCate({ id: propId }: RestaurantHomeCateProps) {
   const { t } = useTranslation();
   const { id } = useParams();
 
+  const queryId = id || (propId as string);
+
   const { data, isLoading } = useQuery({
-    queryKey: ['getCategoryByRestaurant', id],
-    queryFn: () => getCategoriesByRestaurantIdHttp(id as string),
+    queryKey: ['getCategoryByRestaurant', queryId],
+    queryFn: () => getCategoriesByRestaurantIdHttp(queryId),
   });
 
   const images = [

@@ -14,7 +14,7 @@ const CategoryPage = lazy(() => import('@/pages/CategoryPage'));
 const CartPage = lazy(() => import('@/pages/CartPage'));
 const CheckoutPage = lazy(() => import('@/pages/CheckoutPage'));
 const OrderSuccessPage = lazy(() => import('@/pages/OrderPage/OrderSuccessPage'));
-
+const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const ProfilePage = lazy(() => import('@/pages/AccountPage/ProfilePage'));
 const HistoryPage = lazy(() => import('@/pages/AccountPage/HistoryPage'));
 const ChangePasswordPage = lazy(() => import('@/pages/AccountPage/ChangePasswordPage'));
@@ -51,6 +51,14 @@ const Routing = createBrowserRouter([
     element: (
       <MainLayout header={<NavigationBar />}>
         <CheckoutPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: '/search',
+    element: (
+      <MainLayout header={<NavigationBar />}>
+        <SearchPage />
       </MainLayout>
     ),
   },

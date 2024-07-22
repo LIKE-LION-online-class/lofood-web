@@ -3,6 +3,7 @@ import CheckoutInfo from './components/CheckoutInfo';
 import CheckoutSubmit from './components/CheckoutSubmit';
 import PaymnetMethod from './components/PaymentMethod';
 import AddressCheckout from '../CartPage/components/AddressCheckout';
+import CheckoutNote from './components/CheckoutNote';
 
 function Page() {
   return (
@@ -14,6 +15,7 @@ function Page() {
         <Grid item xs={12} sm={12}>
           <Grid container spacing={3}>
             <AddressCheckout />
+            <CheckoutNote />
             <CheckoutInfo />
             <CheckoutSubmit />
           </Grid>

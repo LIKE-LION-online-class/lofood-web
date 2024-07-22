@@ -1,4 +1,4 @@
-import { Card, CardHeader, Grid } from '@mui/material';
+import { Card, CardContent, CardHeader, FormControl, FormControlLabel, Grid, Radio, RadioGroup } from '@mui/material';
 
 function PaymentMethod() {
   return (
@@ -10,6 +10,13 @@ function PaymentMethod() {
             variant: 'h3',
           }}
         />
+        <CardContent>
+          <FormControl>
+            <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="cash" name="radio-buttons-group">
+              <FormControlLabel value="cash" control={<Radio />} label="Cash" />
+            </RadioGroup>
+          </FormControl>
+        </CardContent>
       </Card>
     </Grid>
   );

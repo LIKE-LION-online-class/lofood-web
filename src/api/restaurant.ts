@@ -7,8 +7,10 @@ interface INearestLocation {
   pageSize?: number;
 }
 
-export const getRestaurantsHttp = () => {
-  return axiosInstance.get('/restaurant');
+export const getRestaurantsHttp = ({ params }: { params?: any }) => {
+  return axiosInstance.get('/restaurant', {
+    params,
+  });
 };
 
 export const getNearestLocationHttp = (data: INearestLocation) => {
@@ -21,4 +23,8 @@ export const getRestaurantByIdHttp = (id: string) => {
 
 export const getRestaurantByCategoryIdHttp = (id: string) => {
   return axiosInstance.get(`/restaurant/category/${id}`);
+};
+
+export const searchRestaurantHttp = (query: string) => {
+  return axiosInstance.get(`/restaurant/search?query=${query}`);
 };
