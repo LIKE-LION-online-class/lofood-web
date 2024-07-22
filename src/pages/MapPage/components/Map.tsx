@@ -102,7 +102,7 @@ export default function AppMap() {
 
   const { data } = useQuery({
     queryKey: ['getRestaurants'],
-    queryFn: getRestaurantsHttp,
+    queryFn: () => getRestaurantsHttp({}),
   });
 
   console.log(data);
