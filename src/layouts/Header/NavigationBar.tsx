@@ -15,13 +15,19 @@ import {
 import { IconMap, IconMapPin, IconSearch } from '@tabler/icons-react';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthButton from './AuthButton';
 import SelectLanguage from './SelectLanguage';
 
 const NavigationBar = () => {
   const { t } = useTranslation();
   const [address] = useAtom(addressAtom);
+  const navigate = useNavigate();
+  const handleKeyPress = (event: any) => {
+    if (event.key === 'Enter') {
+      navigate(`/search?q=${event.target.value}`);
+    }
+  };
 
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} elevation={0}>
@@ -65,6 +71,7 @@ const NavigationBar = () => {
             size="small"
             fullWidth
             placeholder={t('search')}
+            onKeyDown={handleKeyPress}
             sx={{
               maxWidth: 500,
               '& .MuiOutlinedInput-root': {

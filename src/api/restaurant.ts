@@ -22,3 +22,7 @@ export const getRestaurantByIdHttp = (id: string) => {
 export const getRestaurantByCategoryIdHttp = (id: string) => {
   return axiosInstance.get(`/restaurant/category/${id}`);
 };
+
+export const searchRestaurantHttp = (query: string) => {
+  return axiosInstance.get(`/restaurant/search?query=${query}`);
+};
