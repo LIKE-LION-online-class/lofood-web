@@ -23,16 +23,20 @@ import AccountLayout from '../components/AccountLayout';
 
 const getStatus = (status: string): { color: 'warning' | 'success' | 'error' | 'info' | 'default'; text: string } => {
   switch (status) {
-    case 'PENDING':
-      return { color: 'warning', text: 'Pending' };
-    case 'CONFIRMED':
-      return { color: 'success', text: 'Confirmed' };
     case 'CANCEL':
-      return { color: 'default', text: 'Cancel' };
+      return { color: 'warning', text: 'CANCEL' };
+    case 'COMPLETED':
+      return { color: 'success', text: 'COMPLETED' };
+    case 'FAILED':
+      return { color: 'default', text: 'FAILED' };
     case 'PROCESSING':
-      return { color: 'info', text: 'Processing' };
+      return { color: 'info', text: 'PROCESSING' };
+    case 'SHIPPED':
+      return { color: 'info', text: 'SHIPPED' };
+    case 'WAITING':
+      return { color: 'info', text: 'WAITING' };
     default:
-      return { color: 'info', text: 'Unknow' };
+      return { color: 'info', text: 'Waiting' };
   }
 };
 
