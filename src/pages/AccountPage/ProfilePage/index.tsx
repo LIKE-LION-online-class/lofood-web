@@ -4,7 +4,7 @@ import ProfileForm from '../components/ProfileForm';
 function index() {
   return (
     <AccountLayout>
-      <ProfileForm />;
+      <ProfileForm />
     </AccountLayout>
   );
 }
