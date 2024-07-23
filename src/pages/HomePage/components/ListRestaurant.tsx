@@ -15,7 +15,7 @@ function ListRestaurant() {
     queryKey: ['getHomeRestaurants'],
     queryFn: ({ pageParam }) => getRestaurantsHttp({ params: { pageSize: 5, page: pageParam } }),
     initialPageParam: 1,
-    getNextPageParam: (lastPage: any, allPages, lastPageParam) => {
+    getNextPageParam: (lastPage: any, _, lastPageParam) => {
       if (lastPage?.length === 0) {
         return undefined;
       }
