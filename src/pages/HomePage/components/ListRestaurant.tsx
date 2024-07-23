@@ -1,23 +1,25 @@
 import { getRestaurantsHttp } from '@/api/restaurant';
 import SkeletonBox from '@/components/SkeletonBox';
-import { Box, Button, Card, CardActionArea, CardContent, CardHeader, Grid, Rating, Stack } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, Card, CardActionArea, CardContent, CardHeader, Grid, Rating, Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { IconStar, IconStarFilled } from '@tabler/icons-react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 function ListRestaurant() {
   const { t } = useTranslation();
-  const [page, setPage] = useState(1);
-  const { data, isLoading, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['getRestaurants'],
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ['getHomeRestaurants'],
     queryFn: ({ pageParam }) => getRestaurantsHttp({ params: { pageSize: 5, page: pageParam } }),
     initialPageParam: 1,
-    getNextPageParam: () => {
-      return page + 1;
+    getNextPageParam: (lastPage: any, allPages, lastPageParam) => {
+      if (lastPage?.length === 0) {
+        return undefined;
+      }
+      return lastPageParam + 1;
     },
   });
 
@@ -35,7 +37,6 @@ function ListRestaurant() {
 
   const handleLoadMore = () => {
     fetchNextPage();
-    setPage((prev) => prev + 1);
   };
 
   const renderList = () => {
@@ -78,9 +79,15 @@ function ListRestaurant() {
             <Grid item xs={12}>
               <Stack alignItems="center">
                 <Box>
-                  <Button variant="contained" color="info" disableElevation onClick={handleLoadMore}>
+                  <LoadingButton
+                    variant="contained"
+                    color="info"
+                    disableElevation
+                    onClick={handleLoadMore}
+                    loading={isFetchingNextPage}
+                  >
                     {t('loadMore')}
-                  </Button>
+                  </LoadingButton>
                 </Box>
               </Stack>
             </Grid>

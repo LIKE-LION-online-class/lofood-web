@@ -105,8 +105,6 @@ export default function AppMap() {
     queryFn: () => getRestaurantsHttp({}),
   });
 
-  console.log(data);
-
   return (
     <Map
       ref={mapRef}

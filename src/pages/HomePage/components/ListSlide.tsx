@@ -27,7 +27,6 @@ function ListSlide() {
     queryFn: getFoodHttp,
   });
 
-  console.log(data);
   let sliderRef = useRef<Slick>(null);
 
   const handleNext = () => {
